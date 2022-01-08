@@ -1,45 +1,43 @@
 import { useState } from 'react'
-import logo from './logo.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  function SubscribePane(elem, '/api/subscribe') {
+    function showMessage(message) {
+      let messageElem = document.createElement('div');
+      messageElem.append(message);
+      elem.append(messageElem);
+    }
+    async function subscribe() {
+      let response = await fetch('/api/subscribe');
+      if (response.status == 502) { // Connection timeout
+        await subscribe(); //reconnect
+      } else if (response.status != 200) {
+        showMessage(response.statusText); //Show Error
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        await subscribe();
+      } else {
+        let message = await response.text();
+        showMessage(message);
+        await subscribe();
+      }
+    }
+    subscribe();
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+      <h1>Animal Olympics</h1>
+      <form>
+        <input type="text" name="message" placeholder="Type message in here"/>
+        <input type="submit" value="Send" />
+      </form>
+      <img src="bird1.png" alt="first bird"></img>
+      {/* <div id="subscribe"/>
+      <script>
+        new PublishForm(document.forms.publish, 'publish');
+        new SubscribePane(document.getElementById('subscribe'), 'subscribe?random=' + Math.random());
+      </script> */}
     </div>
   )
 }
-
 export default App
