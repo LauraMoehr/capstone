@@ -1,45 +1,75 @@
-import express from 'express';
 //import static from...
-const server = express()
-const port = process.env.PORT || 4000
-server.use(express.urlencoded({extended: false}))
 //server.connect()...?
 //app.use(express.static('lib/media...')); //später für Bilder o.ä.
 //app.get('/', (req, res) => res.send('Hello World!'));
 
-server.get('/api/subscribe', (req, res) => onSubscribe(req, res))
+import express from 'express';
+import { dirname } from './lib/pathHelpers.js';
+import path from 'path';
+
+let subscribers = [];
+const __dirname = dirname(import.meta.url);
+
+const server = express();
+
+server.use(express.json());
+
+// new client wants messages
+server.get('/api/subscribe', (req, res) => onSubscribe(req, res));
+
+// sending a message
 server.post('/api/publish', (req, res) => {
-    console.log(req.body)
-    publish(req.body.message)
-    res.send('ok')
-})
-let subscribers = Object.create(null); //new object without any properties?
+  console.log(req.body);
+  publish(req.body.message); // publish it to everyone
+  res.send('ok');
+});
+
+server.use(express.static(path.join(__dirname, '../client/dist')));
+
+server.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+});
+
+const port = process.env.PORT || 4000;
+
+const serverInstance = server.listen(port, () =>
+  console.log(`Chat relay server started on port ${port}`)
+);
+
 function onSubscribe(req, res) {
   let id = Math.random();
-  res.setHeader('Content-Type', 'text/plain;charset=utf-8'); //kann komplett weg?
-  res.setHeader("Cache-Control", "no-cache, must-revalidate");
-  subscribers[id] = res; //wird hier dem property id der value res zugewiesen?
-  req.on('close', () => delete subscribers[id]);
-} //woher kommen nochmal on und delete?
+
+  res.setHeader('Content-Type', 'text/plain;charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, must-revalidate');
+
+  subscribers[id] = res;
+
+  req.on('close', function () {
+    console.log('Close subscribers');
+    delete subscribers[id];
+  });
+}
+
 function publish(message) {
-  for (let id in subscribers) { //?
-    let res = subscribers[id];
-    res.end(message); //wodurch hatten wir end nochmal ersetzt?
-  }
-  subscribers = Object.create(null); //wird hier das object wieder "geleert"?
-}
-function accept(req, res) { //kann komplett weg?
-  let urlParsed = url.parse(req.url, true); //kann weg?
-  if (urlParsed.pathname == '/subscribe') {
-    onSubscribe(req, res);
-    return;
-  } //woher kommt fileServer?
-  fileServer.serve(req, res); //Was waren die static assets, um die es hier ging?
-}
-function close() { //Gibt es eine connection zu Zeile 19?
   for (let id in subscribers) {
     let res = subscribers[id];
-    res.end(); //Woher kommt die end-function? Pure Node?
+    res.end(message);
   }
-} //Was machen nochmal SIGINT und Co.?
-server.listen(port, () => console.log(`Server running on port ${port}`))
+
+  subscribers = [];
+}
+
+// delete subscriber when server shuts down
+function closeSubscribers() {
+  for (let id in subscribers) {
+    let res = subscribers[id];
+    res.status(503).end('Server went down for yearly checkup');
+  }
+}
+
+process.on('SIGINT', () => {
+  console.log('SIGINT signal received: closing HTTP server');
+  closeSubscribers();
+  serverInstance.close(() => console.log('Closed express server'));
+  process.exit();
+});
