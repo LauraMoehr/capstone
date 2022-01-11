@@ -1,18 +1,19 @@
-//import static from...
 //server.connect()...?
 //app.use(express.static('lib/media...')); //später für Bilder o.ä.
 // mit in package.json of server? "test": "echo \"Error: no test specified\" && exit 1"
 
 import express from 'express';
-import { dirname } from './lib/pathHelpers.js';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname as dirnameFromPath } from 'path';
 
-let subscribers = [];
-
-const __dirname = dirname(import.meta.url); //bezieht sich auf server.js
+const directory = importMetaUrl => fileURLToPath(dirnameFromPath(importMetaUrl))
+const __dirname = directory(import.meta.url); //bezieht sich auf server.js
 
 const server = express();
-server.use(express.json());
+server.use(express.json()); //built-in middleware
+
+let subscribers = [];
 
 server.get('/api/subscribe', (req, res) => onSubscribe(req, res)); // new client wants messages
 server.post('/api/publish', (req, res) => { // sending a message
@@ -42,7 +43,6 @@ function onSubscribe(req, res) {
   subscribers[id] = res; //response object is waiting, connected to the subscriber's ID
 
   req.on('close', function () {
-    console.log('Close subscribers');
     delete subscribers[id];
   });
 }
