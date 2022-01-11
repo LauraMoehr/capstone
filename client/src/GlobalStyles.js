@@ -49,25 +49,4 @@ button {
     border: 3px solid var(--mediumbrown-day);
     margin: 5px;
 }
-/* nav {
-    position: fixed;
-    bottom: 0;
-    margin-left: 5vw;
-    margin-right: 5vw;
-    width: 90vw;
-    text-align: center;
-}
-a {
-    color: var(--color-four);
-}
-a:active {
-    color: var(--color-four);
-    background-color: var(--color-three);
-}
-.hidden {
-    display: none;
-}
-.visible {
-    display: block;
-}*/
 `
