@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react';
 function App() {
   const [messages, setMessages] = useState([]);
   useEffect(() => subscribe(), [messages]);
-  //weiterer useEffect für? user-IDs?
 
   function submitMessage(event) {
     event.preventDefault();
@@ -29,15 +28,14 @@ function App() {
 
   async function subscribe() {
     let response = await fetch('/api/subscribe');
-    if (response.status == 502) { // Connection timeout, @Heroku 30sek.
+    if (response.status == 502) {
       //Heroku reagiert auf 502, als wäre es 503
       setMessages([...messages, 'Error happened – Timeout']);
     } else if (response.status == 503) {
-      //evtl.mehrere Versuche runterzählen+ dann erst error message alert an user?
       setMessages([...messages, 'Error 503']);
     } else if (response.status != 200) {
       setMessages([...messages, 'Error happened']);
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Reconnect in one second
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     } else {
       let message = await response.text();
       setMessages([...messages, message]);
