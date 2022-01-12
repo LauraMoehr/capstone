@@ -36,8 +36,8 @@ function App() {
   
   return (
     <div className="App">
-      <p>Welcome to the next round of...</p>
-      <h1>Animal Olympics</h1> {/* I know, wrong order of <p> and <h1>... */}
+      <p>Welcome to the next round of...</p> {/* I know, wrong order of <p> and <h1>... */}
+      <h1>Animal Olympics</h1>
       <form onSubmit={submitMessage}>
         <input type="text" name="roomId" placeholder="Enter room id here"/><br/>
         <input type="text" name="message" placeholder="Enter name please"/><br/>
