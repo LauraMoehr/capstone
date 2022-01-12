@@ -54,7 +54,4 @@ button {
     border: 3px solid var(--mediumbrown-day);
     margin: 5px;
 }
-/* .Navlink {
-    color: var(--oliv-day)
-} */
 `

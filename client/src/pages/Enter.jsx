@@ -1,27 +1,50 @@
-import { NavLink, Routes, Route } from 'react-router-dom';
-import App from "../App"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function Info() {
-    let [count, setCount] = useState(0)
+export default function Enter() {
+  let [count, setCount] = useState(0)
+  const [messages, setMessages] = useState([]);
+  useEffect(() => subscribe(), [messages]);
+
+  function submitMessage(event) {
+    event.preventDefault();
+    const value = event.target.message.value;
+    if (value) {
+      fetch('/api/publish', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: value }),
+      });
+    }
+  }
+  async function subscribe() {
+    let response = await fetch('/api/subscribe');
+    if (response.status == 502) {
+      //Heroku reagiert auf 502, als wäre es 503
+      setMessages([...messages, 'Error happened – Timeout']);
+    } else if (response.status == 503) {
+      setMessages([...messages, 'Error 503']);
+    } else if (response.status != 200) {
+      setMessages([...messages, 'Error happened']);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    } else {
+      let message = await response.text();
+      setMessages([...messages, message]);
+    }
+  }
     return (
       <>
-        <NavLink to="/">Home</NavLink>
-        <Routes>
-          <Route path="/" element={<App/>}/>
-        </Routes>
         <form onSubmit={submitMessage}>
             <input type="text" name="roomId" placeholder="Enter room id here"/><br/>
             <input type="text" name="message" placeholder="Enter name please"/><br/>
-            <button>Cancel</button>
+            <button type="reset">Cancel</button>
             <button onClick={() => setCount((count) => count + 1)}>Join Game</button>
         </form>
         <section>
-            {messages.map((message, index) => (
-            <p key={index}>Hi, {message}</p>
-            ))}
+          {messages.length > 0 ? (<p>Hi, {messages[messages.length -1]}</p>) : "" }
         </section>
-        <p>{count}players have joined the game already.</p>
+        <p>Number of players to date: {count}</p>
       </>
     );
   }
