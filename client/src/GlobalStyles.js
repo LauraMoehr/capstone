@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components"
 
 export default createGlobalStyle`
 *, *::before, *::after {
@@ -10,7 +10,8 @@ export default createGlobalStyle`
     --lightbrown-day: #EC9836;
     --beige-day: #FEDBB2;
     --grass-day: #92B202;
-    /* --oliv-night: #5B5028;
+    /* reserved for possible dark moder later on:
+    --oliv-night: #5B5028;
     --mediumbrown-night: #9A6D46;
     --lightbrown-night: #BE9463;
     --beige-night: #EBD9C5;
