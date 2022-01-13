@@ -10,7 +10,7 @@ export default createGlobalStyle`
     --lightbrown-day: #EC9836;
     --beige-day: #FEDBB2;
     --grass-day: #92B202;
-    /* reserved for possible dark moder later on:
+    /* reserved for possible dark mode later on:
     --oliv-night: #5B5028;
     --mediumbrown-night: #9A6D46;
     --lightbrown-night: #BE9463;
