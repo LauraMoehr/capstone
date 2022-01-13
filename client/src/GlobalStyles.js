@@ -29,11 +29,16 @@ body {
     padding: 5vw 5vh;
     background-image: linear-gradient(0deg, rgba(236,152,54,1) 25%, rgba(254,219,178,1) 100%);
 }
-h1 {
-    min-height: 5vh;
-    font-family: 'Fauna One', serif;
+h1, h3 {
+    font-family: 'Monoton', cursive;
+    font-size: 1rem;
+}
+h2 {
+    font-family: 'Graduate', cursive;
     font-size: 3rem;
     font-weight: 700;
+    color: var(--mediumbrown-day);
+    margin: 1rem 0;
 }
 img {
     width: 80vw;
