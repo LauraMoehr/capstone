@@ -44,7 +44,7 @@ h2 {
 img {
     width: 80vw;
     height: auto;
-    margin: 5vh 0;
+    margin: 0.5rem 0;
     object-fit: contain;
 }
 input, button {
@@ -59,11 +59,13 @@ button {
     color: var(--oliv-day);
     display: block;
     text-align: center;
+    margin: 0.5rem 0;
 }
 .active {
     color: var(--mediumbrown-day);
     text-decoration: none;
     display: block;
     text-align: center;
+    margin: 0.5rem 0;
 }
 `

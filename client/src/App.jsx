@@ -4,7 +4,7 @@ import Disciplines from "./Components/Disciplines"
 import Enter from "./Components/Enter"
 import Header from "./Components/Header"
 import Info from "./Components/Info"
-import rhinos from "./rhinos.jpg"
+import HomeImage from "./Components/HomeImage" //rhinos
 //import styled from "styled-components"
 
 function App() {
@@ -30,9 +30,9 @@ function App() {
         <Route path="animals" element={<Animals />} />
         <Route path="disciplines" element={<Disciplines />} />
         <Route path="enter" element={<Enter />} />
+        <Route path="" element={<HomeImage />} />
         <Route path="info" element={<Info />} />
       </Routes>
-      <img src={rhinos}></img>
     </div>
   )
 }
