@@ -1,0 +1,29 @@
+{ "1": {
+        "name": "North American Beaver",
+        "type": "Land Mammel"
+    },
+    "2": {
+        "name": "Black Garden Ant",
+        "type": "Mini Beast"
+    },
+    "3": {
+        "name": "Grey Wolf",
+        "type": "Land Mammel"
+    },
+    "4": {
+        "name": "Ostrich",
+        "type": "Bird"
+    },
+    "5": {
+        "name": "Alpine Ibex",
+        "type": "Land Mammel"
+    },
+    "6": {
+        "name": "Narwhal",
+        "type": "Sea Creature"
+    },
+    "7": {
+        "name": "Poison Dart Frog",
+        "type": "Amphibian"
+    }
+}
