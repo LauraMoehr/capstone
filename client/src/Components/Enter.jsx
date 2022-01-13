@@ -1,3 +1,4 @@
+import CardAnimal from "./CardAnimal"
 import { useEffect, useState } from "react"
 
 export default function Enter() {
@@ -43,6 +44,8 @@ export default function Enter() {
       </form>
       <section>{messages.length > 0 ? <p>Hi, {messages[messages.length - 1]}!</p> : ""}</section>
       <p>Number of players: {count}</p>
+      <p>Your Animal will be the following today:</p>
+      <CardAnimal />
     </>
   )
 }
