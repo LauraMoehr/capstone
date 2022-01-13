@@ -55,4 +55,15 @@ button {
     border: 3px solid var(--mediumbrown-day);
     margin: 5px;
 }
+.inactive {
+    color: var(--oliv-day);
+    display: block;
+    text-align: center;
+}
+.active {
+    color: var(--mediumbrown-day);
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
 `
