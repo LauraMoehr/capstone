@@ -1,10 +1,12 @@
-import CardAnimal from "./CardAnimal"
+//import CardAnimal from "./CardAnimal"
 import { useEffect, useState } from "react"
 
 export default function Enter() {
   let [count, setCount] = useState(0)
   const [messages, setMessages] = useState([])
   useEffect(() => subscribe(), [messages])
+
+  //const hasNameMinLength = name => name.length > 0
 
   function submitMessage(event) {
     event.preventDefault()
@@ -40,12 +42,13 @@ export default function Enter() {
         <input type="text" name="message" placeholder="Enter name please" />
         <br />
         <button type="reset">Cancel</button>
+        {/* if hasNameMinLength(input.message.value) {setCount...} and reset input form: value= {tagInput}; reset(input.value)? */}
         <button onClick={() => setCount(count => count + 1)}>Join Game</button>
       </form>
       <section>{messages.length > 0 ? <p>Hi, {messages[messages.length - 1]}!</p> : ""}</section>
       <p>Number of players: {count}</p>
       <p>Your Animal will be the following today:</p>
-      <CardAnimal />
+      {/* single animal from <CardAnimal /> */}
     </>
   )
 }

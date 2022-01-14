@@ -68,9 +68,8 @@ button {
     text-align: center;
     margin: 0.5rem 0;
 }
-.Card{
-    max-width: 70vw;
-    margin: 1rem 0;
+.CardStyle{
+    margin: 1rem;
     background-color: yellow;
     //position: relative;
     border: 2px solid blue;

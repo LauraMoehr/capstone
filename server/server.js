@@ -15,13 +15,14 @@ const dbName = process.env.DB_NAME
 mongoose.connect(
   `mongodb+srv://${dbUser}:${dbPassword}@${dbHost}/${dbName}?retryWrites=true&w=majority`
 )
-server.use(AnimalsRoutes)
 
 const directory = importMetaUrl => fileURLToPath(dirnameFromPath(importMetaUrl))
 const __dirname = directory(import.meta.url) //refers to server.js
 
 const server = express()
 server.use(express.json())
+
+server.use(AnimalsRoutes)
 
 let subscribers = []
 
