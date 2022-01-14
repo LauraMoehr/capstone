@@ -1,7 +1,22 @@
 import express from "express"
+import mongoose from "mongoose"
 import path from "path"
 import { fileURLToPath } from "url"
 import { dirname as dirnameFromPath } from "path"
+import dotenv from "dotenv"
+//import AnimalsRoutes from './src/animals.routes.js';
+
+dotenv.config()
+const dbUser = process.env.DB_USER
+const dbPassword = process.env.DB_PASSWORD
+const dbHost = process.env.DB_HOST
+const dbName = process.env.DB_NAME
+//const serverPort= ...
+
+mongoose.connect(
+  `mongodb+srv://${dbUser}:${dbPassword}@${dbHost}/${dbName}?retryWrites=true&w=majority`
+)
+//server.use(AnimalsRoutes)
 
 const directory = importMetaUrl => fileURLToPath(dirnameFromPath(importMetaUrl))
 const __dirname = directory(import.meta.url) //refers to server.js
@@ -21,7 +36,7 @@ server.get("/*", (req, res) => res.sendFile(path.join(__dirname, "../client/dist
 
 const port = process.env.PORT || 4000
 const serverInstance = server.listen(port, () =>
-  console.log(`Chat relay server started on port ${port}`)
+  console.log(`Game relay server started on port ${port}`)
 )
 
 function onSubscribe(req, res) {
