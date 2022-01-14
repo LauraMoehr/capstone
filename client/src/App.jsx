@@ -6,8 +6,24 @@ import Header from "./Components/Header"
 import Info from "./Components/Info"
 import HomeImage from "./Components/HomeImage" //rhinos
 //import styled from "styled-components"
+import { useState, useEffect } from "react"
 
 function App() {
+  const [animals, setAnimals] = useState([])
+
+  useEffect(() => {
+    async function getAllAnimals() {
+      try {
+        const response = await fetch("/api/animals")
+        const animalsFromApi = await response.json()
+        setAnimals(animalsFromApi)
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
+    getAllAnimals()
+  }, [])
+
   return (
     <div className="App">
       <Header />
@@ -27,7 +43,7 @@ function App() {
         Join Game
       </NavLink>
       <Routes>
-        <Route path="animals" element={<Animals />} />
+        <Route path="animals" element={<Animals animals={animals} />} />
         <Route path="disciplines" element={<Disciplines />} />
         <Route path="enter" element={<Enter />} />
         <Route path="" element={<HomeImage />} />

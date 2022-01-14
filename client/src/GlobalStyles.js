@@ -41,6 +41,10 @@ h2 {
     color: var(--mediumbrown-day);
     margin: 1rem 0;
 }
+h4 {
+    font-family: 'Graduate', cursive;
+    font-weight: 500;
+}
 img {
     width: 80vw;
     height: auto;
@@ -67,12 +71,5 @@ button {
     display: block;
     text-align: center;
     margin: 0.5rem 0;
-}
-.CardStyle{
-    margin: 1rem;
-    background-color: yellow;
-    //position: relative;
-    border: 2px solid blue;
-    padding: 1rem;
 }
 `

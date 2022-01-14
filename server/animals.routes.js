@@ -23,7 +23,7 @@ const getOneAnimal = async (req, res) => {
 
 const router = express.Router()
 
-router.get("/animals", getAllAnimals)
-router.get("/animals/:animalId", getOneAnimal)
+router.get("/api/animals", getAllAnimals)
+router.get("/api/animals/:animalId", getOneAnimal)
 
-export default router //drüben AnimalsRoutes
+export default router // as AnimalsRoutes in server.js
