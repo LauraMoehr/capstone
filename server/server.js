@@ -4,7 +4,7 @@ import path from "path"
 import { fileURLToPath } from "url"
 import { dirname as dirnameFromPath } from "path"
 import dotenv from "dotenv"
-import AnimalsRoutes from "./animals.routes.js"
+import AnimalsRoutes from "./animals.routes.js" //from Frontend
 
 dotenv.config()
 const dbUser = process.env.DB_USER
