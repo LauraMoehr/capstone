@@ -36,28 +36,48 @@ export default function Enter({ animals }) {
       setMessages([...messages, message])
     }
   }
-
-  // const [chosenAnimals, setChosenAnimals] = useState([]) //TO DO: ohne leeren array probieren!
-  // useEffect(() => {
-  //   async function getrandomAnimal() {
-  //     const randomNum = max => Math.floor(Math.random() * max)
-  //     const chosenAnimals = await animals.find(
-  //       (animal, index, animals) => index == randomNum(animals.length)
-  //     )
-  //     setChosenAnimals(chosenAnimals)
-  //   }
-  //   getrandomAnimal()
-  // }, [])
-
-  // const randomNum = max => Math.floor(Math.random() * max)
-  // const randomIndex = animals.find((animal, index, animals) => index == randomNum(animals.length))
-
   //if randomFromApi in chosenAnimals: zurück auf Los :)
   //const isInList = animal => listOfAnimals.some(animal => listOfAnimals.id === animal.id)
   //const removeFromList = animal => listOfAnimals.filter((animal) => listOfAnimals.id !== animal.id)
   //const remainingAnimals = removeFromList(animal), setAnimals(remainingAnimals)
 
-  //TODO: Ersatzbieber nochmal rein!
+  // const randomNum = max => Math.floor(Math.random() * max)
+  // const randomIndex = animals.find((animal, index, animals) => index == randomNum(animals.length))
+
+  const animals2 = [
+    {
+      name: "Beaver",
+      type: "Beaverish",
+    },
+    {
+      name: "WOLF",
+      type: "capslock animal",
+    },
+  ]
+
+  const chosenAnimals = []
+  function getrandomAnimal(array) {
+    const randomNum = max => Math.floor(Math.random() * max)
+    let index_ = randomNum(array.length)
+    // index_ = 0
+    console.log(index_)
+    // const randomItem = array.find((item, index, array) => index == index_)
+    const randomItem = array[index_]
+    if (typeof randomItem == "undefined") {
+      return animals2[0]
+    } else {
+      chosenAnimals.push(randomItem)
+      // console.log(randomItem) //mal object, mal undefined
+      // console.log(typeof randomItem) //mal object, mal undefined
+      return randomItem
+    }
+  }
+  //console.log(getrandomAnimal(animals))
+  console.log(animals)
+  const animal = getrandomAnimal(animals2) //undefined
+  console.log(animal)
+  //console.log(typeof randomAnimal) //type object
+
   return (
     <>
       <form onSubmit={submitMessage}>
@@ -85,11 +105,10 @@ export default function Enter({ animals }) {
             </CardStyle>
           )
       })} */}
-
-      {/* <CardStyle animal={animals[randomIndex]} key={animals[randomIndex]._id}>
-        <h4>{animals[randomIndex].name}</h4>
-        <p>{animals[randomIndex].type}</p>
-      </CardStyle> */}
+      <CardStyle animal={animal} key={animal._id}>
+        <h4>{animal.name}</h4>
+        <p>{animal.type}</p>
+      </CardStyle>
     </>
   )
 }

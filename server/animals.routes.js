@@ -12,7 +12,7 @@ const getAllAnimals = async (req, res) => {
   res.json(animals)
 }
 
-// const getOneAnimal = async (req, res) => {
+// const getRandomAnimal = async (req, res) => {
 //   const animalId = req.params.animalId
 //   const foundAnimal = await Animal.find(animalId)
 //   res.json(foundAnimal)
@@ -21,6 +21,6 @@ const getAllAnimals = async (req, res) => {
 const router = express.Router()
 
 router.get("/api/animals", getAllAnimals)
-//router.get("/api/animals/:animalId", getOneAnimal)
+//router.get('/api/animals/:animalId', getRandomAnimal)
 
 export default router // as AnimalsRoutes to server.js
