@@ -37,7 +37,7 @@ export default function Enter({ animals }) {
     }
   }
 
-  // const [chosenAnimals, setChosenAnimals] = useState([])
+  // const [chosenAnimals, setChosenAnimals] = useState([]) //TO DO: ohne leeren array probieren!
   // useEffect(() => {
   //   async function getrandomAnimal() {
   //     const randomNum = max => Math.floor(Math.random() * max)
@@ -57,6 +57,7 @@ export default function Enter({ animals }) {
   //const removeFromList = animal => listOfAnimals.filter((animal) => listOfAnimals.id !== animal.id)
   //const remainingAnimals = removeFromList(animal), setAnimals(remainingAnimals)
 
+  //TODO: Ersatzbieber nochmal rein!
   return (
     <>
       <form onSubmit={submitMessage}>
