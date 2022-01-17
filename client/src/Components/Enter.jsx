@@ -4,6 +4,15 @@ import styled from "styled-components"
 export default function Enter({ animals }) {
   let [count, setCount] = useState(0)
   const [messages, setMessages] = useState([])
+
+  const [chosenAnimal, setChosenAnimal] = useState({})
+  useEffect(() => {
+    if (animals.length > 0) {
+      const randomAnimal = getRandomAnimal(animals)
+      setChosenAnimal(randomAnimal)
+    }
+  }, [animals])
+
   useEffect(() => subscribe(), [messages])
 
   //const hasNameMinLength = name => name.length > 0
@@ -36,47 +45,12 @@ export default function Enter({ animals }) {
       setMessages([...messages, message])
     }
   }
-  //if randomFromApi in chosenAnimals: zurück auf Los :)
-  //const isInList = animal => listOfAnimals.some(animal => listOfAnimals.id === animal.id)
-  //const removeFromList = animal => listOfAnimals.filter((animal) => listOfAnimals.id !== animal.id)
-  //const remainingAnimals = removeFromList(animal), setAnimals(remainingAnimals)
 
-  // const randomNum = max => Math.floor(Math.random() * max)
-  // const randomIndex = animals.find((animal, index, animals) => index == randomNum(animals.length))
-
-  const animals2 = [
-    {
-      name: "Beaver",
-      type: "Beaverish",
-    },
-    {
-      name: "WOLF",
-      type: "capslock animal",
-    },
-  ]
-
-  const chosenAnimals = []
-  function getrandomAnimal(array) {
-    const randomNum = max => Math.floor(Math.random() * max)
-    let index_ = randomNum(array.length)
-    // index_ = 0
-    console.log(index_)
-    // const randomItem = array.find((item, index, array) => index == index_)
-    const randomItem = array[index_]
-    if (typeof randomItem == "undefined") {
-      return animals2[0]
-    } else {
-      chosenAnimals.push(randomItem)
-      // console.log(randomItem) //mal object, mal undefined
-      // console.log(typeof randomItem) //mal object, mal undefined
-      return randomItem
-    }
+  function getRandomAnimal(array) {
+    const randomIndex = Math.floor(Math.random() * array.length)
+    const randomAnimal = array[randomIndex]
+    return randomAnimal
   }
-  //console.log(getrandomAnimal(animals))
-  console.log(animals)
-  const animal = getrandomAnimal(animals2) //undefined
-  console.log(animal)
-  //console.log(typeof randomAnimal) //type object
 
   return (
     <>
@@ -96,19 +70,12 @@ export default function Enter({ animals }) {
       <section>{messages.length > 0 ? <p>Hi, {messages[messages.length - 1]}!</p> : ""}</section>
       <p>Number of players: {count}</p>
       <p>Your Animal is the following:</p>
-      {/* {animals.find((animal, index, animals) => {
-        index ==
-          Math.floor(Math.random() * animals.length)(
-            <CardStyle key={animal._id}>
-              <h4>{animal.name}</h4>
-              <p>{animal.type}</p>
-            </CardStyle>
-          )
-      })} */}
-      <CardStyle animal={animal} key={animal._id}>
-        <h4>{animal.name}</h4>
-        <p>{animal.type}</p>
-      </CardStyle>
+      {chosenAnimal && (
+        <CardStyle animal={chosenAnimal} key={chosenAnimal._id}>
+          <h4>{chosenAnimal.name}</h4>
+          <p>{chosenAnimal.type}</p>
+        </CardStyle>
+      )}
     </>
   )
 }
