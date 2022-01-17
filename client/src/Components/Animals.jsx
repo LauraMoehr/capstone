@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export default function Animals({ animals }) {
-  console.log("Animals1 here")
+  console.log("Animals1 here") //debug-code
   return (
     <>
       <h3>Gallery of Animals</h3>
