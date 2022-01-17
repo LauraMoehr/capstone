@@ -12,18 +12,15 @@ const getAllAnimals = async (req, res) => {
   res.json(animals)
 }
 
-//loop: für jeden Spieler wird ein animal geholt, falls neue ID bereits in list dann repeat Suche
-const getOneAnimal = async (req, res) => {
-  //pick random ID
-  const animalId = req.params.animalId
-  const foundAnimal = await Animal.findById(animalId)
-  res.json(foundAnimal)
-  //new list: startet leer, jedes randomly einzeln geholte animal kommt rein
-}
+// const getRandomAnimal = async (req, res) => {
+//   const animalId = req.params.animalId
+//   const foundAnimal = await Animal.find(animalId)
+//   res.json(foundAnimal)
+// }
 
 const router = express.Router()
 
 router.get("/api/animals", getAllAnimals)
-router.get("/api/animals/:animalId", getOneAnimal)
+//router.get('/api/animals/:animalId', getRandomAnimal)
 
-export default router // as AnimalsRoutes in server.js
+export default router // as AnimalsRoutes to server.js

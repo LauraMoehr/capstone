@@ -5,14 +5,12 @@ import Enter from "./Components/Enter"
 import Header from "./Components/Header"
 import Info from "./Components/Info"
 import HomeImage from "./Components/HomeImage" //rhinos
-//import styled from "styled-components"
 import { useState, useEffect } from "react"
 
 function App() {
   const [animals, setAnimals] = useState([])
-
   useEffect(() => {
-    async function getAllAnimals() {
+    async function getAllFromApi() {
       try {
         const response = await fetch("/api/animals")
         const animalsFromApi = await response.json()
@@ -21,7 +19,7 @@ function App() {
         console.log(error.message)
       }
     }
-    getAllAnimals()
+    getAllFromApi()
   }, [])
 
   return (
@@ -45,7 +43,7 @@ function App() {
       <Routes>
         <Route path="animals" element={<Animals animals={animals} />} />
         <Route path="disciplines" element={<Disciplines />} />
-        <Route path="enter" element={<Enter />} />
+        <Route path="enter" element={<Enter animals={animals} />} />
         <Route path="" element={<HomeImage />} />
         <Route path="info" element={<Info />} />
       </Routes>
