@@ -1,9 +1,8 @@
-import { NavLink, Routes, Route } from "react-router-dom"
+import { Link, Routes, Route, Outlet } from "react-router-dom"
 import Game from "./Game"
 import { useEffect, useState } from "react"
 
 export default function Enter() {
-  let [count, setCount] = useState(0)
   const [messages, setMessages] = useState([])
 
   useEffect(() => subscribe(), [messages])
@@ -48,17 +47,15 @@ export default function Enter() {
         {/* if hasNameMinLength(input.message.value) {setCount...} and
         reset input form: value= {tagInput}; reset(input.value)? or
         if name does not have mon leghth, dann join button ausgrauen?*/}
-        <NavLink to="/game" className={({ isActive }) => (isActive ? "active" : "inactive")}>
-          <button
-            onClick={() => {
-              setCount(count => count + 1)
-            }}
-          >
-            Join
-          </button>
-        </NavLink>
+        <nav>
+          <Link to="/enter/game">
+            <button>Join</button>
+          </Link>
+        </nav>
+
+        <Outlet />
         <Routes>
-          <Route path="game" element={<Game count={count} />} />
+          <Route path="game" element={<Game messages={messages} />} />
         </Routes>
       </form>
     </>
