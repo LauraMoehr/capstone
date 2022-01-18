@@ -16,31 +16,31 @@ mongoose.connect(
   `mongodb+srv://${dbUser}:${dbPassword}@${dbHost}/${dbName}?retryWrites=true&w=majority`
 )
 
-const gameInitial = {
-  _id: 1,
-  roomName: "excellent-eagle",
-  disciples: [], // Im 2. Schritt befüllen
-  players: [],
-  votes: [],
-  favs: [],
-}
+// const gameInitial = {
+//   _id: 1,
+//   roomName: "excellent-eagle",
+//   disciples: [], // Im 2. Schritt befüllen
+//   players: [],
+//   votes: [],
+//   favs: [],
+// }
 
-const gameInPlay = {
-  _id: 1,
-  roomName: "excellent-eagle",
-  players: [
-    { name: "Anita", animal: "Gazelle" },
-    { name: "Thomas", animal: "Penguin" },
-  ],
-  disciplines: [
-    { _id: 123, name: "Ski Jump" },
-    { _id: 456, name: "Bäuchlings hangabwärts rutschen" },
-  ],
-  votes: [
-    { name: "Anita", discipline: 123, rating: 5 },
-    { name: "Anita", discipline: 456, rating: 3 },
-  ],
-}
+// const gameInPlay = {
+//   _id: 1,
+//   roomName: "excellent-eagle",
+//   players: [
+//     { name: "Anita", animal: "Gazelle" },
+//     { name: "Thomas", animal: "Penguin" },
+//   ],
+//   disciplines: [
+//     { _id: 123, name: "Ski Jump" },
+//     { _id: 456, name: "Bäuchlings hangabwärts rutschen" },
+//   ],
+//   votes: [
+//     { name: "Anita", discipline: 123, rating: 5 },
+//     { name: "Anita", discipline: 456, rating: 3 },
+//   ],
+// }
 
 // animal-olympics.heroku.io/:room-name/join
 
@@ -70,13 +70,13 @@ Thomas (Penguin)
 // Submit votes
 // HTTP Post vom Client an den Server: api/game/:room-name/discipline/123/vote
 
-const vote = [
-  {
-    name: "Anita",
-    rating: 5,
-  },
-  { name: "Thomas", rating: 7 },
-]
+// const vote = [
+//   {
+//     name: "Anita",
+//     rating: 5,
+//   },
+//   { name: "Thomas", rating: 7 },
+// ]
 
 const directory = importMetaUrl => fileURLToPath(dirnameFromPath(importMetaUrl))
 const __dirname = directory(import.meta.url) //refers to server.js
