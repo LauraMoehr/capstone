@@ -1,8 +1,8 @@
-import { Link, Routes, Route, Outlet } from "react-router-dom"
+import { NavLink, Routes, Route } from "react-router-dom"
 import Game from "./Game"
 import { useEffect, useState } from "react"
 
-export default function Enter() {
+export default function Enter({ animals }) {
   const [messages, setMessages] = useState([])
 
   useEffect(() => subscribe(), [messages])
@@ -48,14 +48,12 @@ export default function Enter() {
         reset input form: value= {tagInput}; reset(input.value)? or
         if name does not have mon leghth, dann join button ausgrauen?*/}
         <nav>
-          <Link to="/enter/game">
+          <NavLink to="/enter/game">
             <button>Join</button>
-          </Link>
+          </NavLink>
         </nav>
-
-        <Outlet />
         <Routes>
-          <Route path="game" element={<Game messages={messages} />} />
+          <Route path="game" element={<Game animals={animals} messages={messages} />} />
         </Routes>
       </form>
     </>
