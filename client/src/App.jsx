@@ -2,6 +2,7 @@ import { NavLink, Routes, Route } from "react-router-dom"
 import Animals from "./Components/Animals"
 import Disciplines from "./Components/Disciplines"
 import Enter from "./Components/Enter"
+import Game from "./Components/Game"
 import Header from "./Components/Header"
 import Info from "./Components/Info"
 import HomeImage from "./Components/HomeImage" //rhinos
@@ -43,7 +44,9 @@ function App() {
       <Routes>
         <Route path="animals" element={<Animals animals={animals} />} />
         <Route path="disciplines" element={<Disciplines />} />
-        <Route path="enter" element={<Enter animals={animals} />} />
+        <Route path="enter" element={<Enter />}>
+          <Route path="game" element={<Game animals={animals} />} />
+        </Route>
         <Route path="" element={<HomeImage />} />
         <Route path="info" element={<Info />} />
       </Routes>
