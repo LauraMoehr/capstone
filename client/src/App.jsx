@@ -23,6 +23,37 @@ function App() {
     getAllFromApi()
   }, [])
 
+  const [messages, setMessages] = useState([])
+  useEffect(() => subscribe(), [messages])
+  function submitMessage(event) {
+    event.preventDefault()
+    const value = event.target.message.value
+    if (value) {
+      fetch("/api/publish", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: value }),
+      })
+    }
+  }
+  async function subscribe() {
+    let response = await fetch("/api/subscribe")
+    if (response.status == 502) {
+      //Heroku reagiert auf 502, als wäre es 503
+      setMessages([...messages, "Error happened – Timeout"])
+    } else if (response.status == 503) {
+      setMessages([...messages, "Error 503"])
+    } else if (response.status != 200) {
+      setMessages([...messages, "Error happened"])
+      await new Promise(resolve => setTimeout(resolve, 1000))
+    } else {
+      let message = await response.text()
+      setMessages([...messages, message])
+    }
+  }
+
   return (
     <div className="App">
       <Header />
@@ -44,7 +75,10 @@ function App() {
       <Routes>
         <Route path="animals" element={<Animals animals={animals} />} />
         <Route path="disciplines" element={<Disciplines />} />
-        <Route path="enter" element={<Enter animals={animals} />}>
+        <Route
+          path="enter"
+          element={<Enter animals={animals} messages={messages} onSubmitMessage={submitMessage} />}
+        >
           <Route path="game" element={<Game />} />
         </Route>
         <Route path="" element={<HomeImage />} />
