@@ -54,6 +54,8 @@ function App() {
     getAllWeatherConditionsFromApi()
   }, [])
 
+  //TODO1: bei Submit das Tier mitschicken? und zusammen mit Name/message speichern? und zusammen publishen?
+  //In etwa: "Player <name> with <animal.name> joined the Game."
   useEffect(() => subscribe(), [messages])
 
   function submitMessage(event) {
@@ -68,6 +70,8 @@ function App() {
         body: JSON.stringify({ message: value }),
       })
     }
+
+    //TODO9: kann hier bei stringify {name: value, animal: chosenAnimal.name} geschickt werden?
 
     navigate("/game")
   }

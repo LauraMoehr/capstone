@@ -9,6 +9,8 @@ import express from "express"
 
 let subscribers = []
 
+//TODO8: kann id=math.random raus, wenn subscribers in datenbank?
+
 function onSubscribe(req, res) {
   let id = Math.random()
   res.setHeader("Content-Type", "text/plain;charset=utf-8")
