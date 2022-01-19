@@ -25,6 +25,12 @@ function publish(message) {
   }
   subscribers = []
 }
+export function closeSubscribers() {
+  for (let id in subscribers) {
+    let res = subscribers[id]
+    res.status(503).end("Server went down for yearly checkup")
+  }
+}
 
 const router = express.Router()
 

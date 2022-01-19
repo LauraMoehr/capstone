@@ -1,4 +1,4 @@
-import { NavLink, Routes, Route } from "react-router-dom"
+import { NavLink, Routes, Route, useNavigate } from "react-router-dom"
 import Animals from "./Components/Animals"
 import Disciplines from "./Components/Disciplines"
 import Enter from "./Components/Enter"
@@ -10,6 +10,8 @@ import { useState, useEffect } from "react"
 
 function App() {
   const [animals, setAnimals] = useState([])
+  const navigate = useNavigate()
+
   useEffect(() => {
     async function getAllFromApi() {
       try {
@@ -37,6 +39,8 @@ function App() {
         body: JSON.stringify({ message: value }),
       })
     }
+
+    navigate("/game")
   }
   async function subscribe() {
     let response = await fetch("/api/subscribe")
@@ -75,12 +79,8 @@ function App() {
       <Routes>
         <Route path="animals" element={<Animals animals={animals} />} />
         <Route path="disciplines" element={<Disciplines />} />
-        <Route
-          path="enter"
-          element={<Enter animals={animals} messages={messages} onSubmitMessage={submitMessage} />}
-        >
-          <Route path="game" element={<Game />} />
-        </Route>
+        <Route path="enter" element={<Enter onSubmitMessage={submitMessage} />} />
+        <Route path="game" element={<Game animals={animals} messages={messages} />} />
         <Route path="" element={<HomeImage />} />
         <Route path="info" element={<Info />} />
       </Routes>

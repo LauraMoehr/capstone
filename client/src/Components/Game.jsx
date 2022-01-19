@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
-export default function Game({ animals, messages }) {
+export default function Game({ animals, messages, onSubscribe }) {
   const [chosenAnimal, setChosenAnimal] = useState({})
   useEffect(() => {
     if (animals.length > 0) {
@@ -15,8 +15,7 @@ export default function Game({ animals, messages }) {
     const randomAnimal = array[randomIndex]
     return randomAnimal
   }
-  console.log(animals)
-  console.log(messages)
+
   return (
     <>
       {messages.length > 0 ? <p>Hi, {messages[messages.length - 1]}!</p> : ""}

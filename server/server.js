@@ -5,7 +5,7 @@ import { fileURLToPath } from "url"
 import { dirname as dirnameFromPath } from "path"
 import dotenv from "dotenv"
 import AnimalsRoutes from "./animals.routes.js" //from Frontend
-import SubscribersRoutes from "./subscribers.routes.js"
+import SubscribersRoutes, { closeSubscribers } from "./subscribers.routes.js"
 
 dotenv.config()
 const dbUser = process.env.DB_USER
@@ -26,7 +26,6 @@ server.use(express.json())
 server.use(AnimalsRoutes)
 
 server.use(SubscribersRoutes)
-//let subscribers = []
 
 server.use(express.static(path.join(__dirname, "../client/dist")))
 server.get("/*", (req, res) => res.sendFile(path.join(__dirname, "../client/dist", "index.html")))
@@ -35,13 +34,6 @@ const port = process.env.PORT || 4000
 const serverInstance = server.listen(port, () =>
   console.log(`Game relay server started on port ${port}`)
 )
-
-function closeSubscribers() {
-  for (let id in subscribers) {
-    let res = subscribers[id]
-    res.status(503).end("Server went down for yearly checkup")
-  }
-}
 
 process.on("SIGINT", () => {
   console.log("SIGINT signal received: closing HTTP server")
