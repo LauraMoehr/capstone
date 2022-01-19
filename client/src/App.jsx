@@ -11,6 +11,7 @@ import { useState, useEffect } from "react"
 function App() {
   const [animals, setAnimals] = useState([])
   const [disciplines, setDisciplines] = useState([])
+  const [weather, setWeather] = useState([])
   const [messages, setMessages] = useState([])
   const navigate = useNavigate()
 
@@ -38,6 +39,19 @@ function App() {
       }
     }
     getAllDisciplinesFromApi()
+  }, [])
+
+  useEffect(() => {
+    async function getAllWeatherConditionsFromApi() {
+      try {
+        const response = await fetch("/api/weather")
+        const weatherConditionsFromApi = await response.json()
+        setWeather(weatherConditionsFromApi)
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
+    getAllWeatherConditionsFromApi()
   }, [])
 
   useEffect(() => subscribe(), [messages])
@@ -95,7 +109,17 @@ function App() {
         <Route path="animals" element={<Animals animals={animals} />} />
         <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
         <Route path="enter" element={<Enter onSubmitMessage={submitMessage} />} />
-        <Route path="game" element={<Game animals={animals} messages={messages} />} />
+        <Route
+          path="game"
+          element={
+            <Game
+              animals={animals}
+              disciplines={disciplines}
+              messages={messages}
+              weather={weather}
+            />
+          }
+        />
         <Route path="" element={<HomeImage />} />
         <Route path="info" element={<Info />} />
       </Routes>
