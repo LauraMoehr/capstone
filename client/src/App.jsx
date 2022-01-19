@@ -10,10 +10,12 @@ import { useState, useEffect } from "react"
 
 function App() {
   const [animals, setAnimals] = useState([])
+  const [disciplines, setDisciplines] = useState([])
+  const [messages, setMessages] = useState([])
   const navigate = useNavigate()
 
   useEffect(() => {
-    async function getAllFromApi() {
+    async function getAllAnimalsFromApi() {
       try {
         const response = await fetch("/api/animals")
         const animalsFromApi = await response.json()
@@ -22,11 +24,24 @@ function App() {
         console.log(error.message)
       }
     }
-    getAllFromApi()
+    getAllAnimalsFromApi()
   }, [])
 
-  const [messages, setMessages] = useState([])
+  useEffect(() => {
+    async function getAllDisciplinesFromApi() {
+      try {
+        const response = await fetch("/api/disciplines")
+        const disciplinesFromApi = await response.json()
+        setDisciplines(disciplinesFromApi)
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
+    getAllDisciplinesFromApi()
+  }, [])
+
   useEffect(() => subscribe(), [messages])
+
   function submitMessage(event) {
     event.preventDefault()
     const value = event.target.message.value
@@ -78,7 +93,7 @@ function App() {
       </NavLink>
       <Routes>
         <Route path="animals" element={<Animals animals={animals} />} />
-        <Route path="disciplines" element={<Disciplines />} />
+        <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
         <Route path="enter" element={<Enter onSubmitMessage={submitMessage} />} />
         <Route path="game" element={<Game animals={animals} messages={messages} />} />
         <Route path="" element={<HomeImage />} />
