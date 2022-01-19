@@ -5,6 +5,8 @@ import { fileURLToPath } from "url"
 import { dirname as dirnameFromPath } from "path"
 import dotenv from "dotenv"
 import AnimalsRoutes from "./animals.routes.js" //from Frontend
+import DisciplinesRoutes from "./disciplines.routes.js"
+import WeatherRoutes from "./weather.routes.js"
 import SubscribersRoutes, { closeSubscribers } from "./subscribers.routes.js"
 
 dotenv.config()
@@ -24,6 +26,8 @@ const server = express()
 server.use(express.json())
 
 server.use(AnimalsRoutes)
+server.use(DisciplinesRoutes)
+server.use(WeatherRoutes)
 
 server.use(SubscribersRoutes)
 

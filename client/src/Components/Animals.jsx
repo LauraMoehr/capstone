@@ -11,7 +11,7 @@ export default function Animals({ animals }) {
         </CardStyle>
       ))}
       <p>
-        <em>Animals to follow soon...</em>
+        <em>More animals to follow soon...</em>
       </p>
     </>
   )
