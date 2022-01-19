@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 export default function Game({ animals, disciplines, messages, weather }) {
   const [chosenAnimal, setChosenAnimal] = useState({})
-  //const [chosenDisciplines, setChosenDisciplines] = useState([])
+  const [chosenDisciplines, setChosenDisciplines] = useState([])
   const [randomWeather, setRandomWeather] = useState({})
 
   useEffect(() => {
@@ -13,12 +13,21 @@ export default function Game({ animals, disciplines, messages, weather }) {
     }
   }, [animals])
 
-  // useEffect(() => {
-  //   if (disciplines.length > 0) {
-  //     const randomDisciplines = getRandomItem(disciplines)
-  //     setChosenDisciplines(randomDisciplines)
-  //   }
-  // }, [disciplines])
+  useEffect(() => {
+    if (disciplines.length > 0) {
+      const copyOfDisciplines = disciplines.slice()
+      const randomDisciplines = []
+      const removedDisciplines = []
+      for (let i = 0; i < 3; i++) {
+        const randomDiscipline = getRandomItem(copyOfDisciplines)
+        randomDisciplines.push(randomDiscipline)
+        removedDisciplines.push(copyOfDisciplines.find(element => element == randomDiscipline))
+        copyOfDisciplines.splice(copyOfDisciplines.indexOf(randomDiscipline), 1)
+        //!randomDisciplines.includes(randomDiscipline) ?? randomDisciplines.push(randomDiscipline)
+      }
+      setChosenDisciplines(randomDisciplines)
+    }
+  }, [disciplines])
 
   useEffect(() => {
     if (weather.length > 0) {
@@ -43,6 +52,13 @@ export default function Game({ animals, disciplines, messages, weather }) {
           It's going to be {randomWeather.condition}.
         </p>
       )}
+      <p>Today's three disciplines:</p>
+      {chosenDisciplines.map(discipline => (
+        <CardStyle key={discipline._id}>
+          <h4>{discipline.name}</h4>
+          <p>{discipline.type}</p>
+        </CardStyle>
+      ))}
 
       <p>Your Animal is the following:</p>
       {chosenAnimal && (
