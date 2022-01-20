@@ -10,11 +10,21 @@ import { useState, useEffect } from "react"
 
 function App() {
   const [animals, setAnimals] = useState([])
+  const [chosenAnimal, setChosenAnimal] = useState({})
   const [disciplines, setDisciplines] = useState([])
   const [weather, setWeather] = useState([])
+  const [randomWeather, setRandomWeather] = useState({})
   const [messages, setMessages] = useState([])
-  //console.log(messages) //ist up da date
+  //console.log(messages) //is up to date
+
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (animals.length > 0) {
+      const randomAnimal = animals[Math.floor(Math.random() * animals.length)]
+      setChosenAnimal(randomAnimal)
+    }
+  }, [animals]) //oder [messages]?
 
   useEffect(() => {
     async function getAllAnimalsFromApi() {
@@ -55,24 +65,67 @@ function App() {
     getAllWeatherConditionsFromApi()
   }, [])
 
-  //TODO1: bei Submit das Tier mitschicken? und zusammen mit Name/message speichern? und zusammen publishen?
-  //In etwa: "Player <name> with <animal.name> joined the Game."
+  useEffect(() => {
+    if (weather.length > 0) {
+      const randomWeather = weather[Math.floor(Math.random() * weather.length)]
+      setRandomWeather(randomWeather)
+    }
+  }, [weather])
+
+  const [chosenDisciplines, setChosenDisciplines] = useState([])
+
+  //...funktioniert nicht:
+  // useEffect(() => {
+  //   if (disciplines.length > 0) {
+  //     const randomDisciplines = []
+  //     while (randomDisciplines.length < 3) {
+  //       const randomDiscipline = disciplines[Math.floor(Math.random() * disciplines.length)]
+  //       randomDisciplines.push(randomDiscipline)
+  //       !randomDisciplines.includes(randomDiscipline) && randomDisciplines.push(randomDiscipline)
+  //     }
+  //     setChosenDisciplines(randomDisciplines)
+  //   }
+  // }, [disciplines])
+
+  useEffect(() => {
+    if (disciplines.length > 0) {
+      const copyOfDisciplines = disciplines.slice()
+      const randomDisciplines = []
+      for (let i = 0; i < 3; i++) {
+        const randomDiscipline =
+          copyOfDisciplines[Math.floor(Math.random() * copyOfDisciplines.length)]
+        randomDisciplines.push(randomDiscipline)
+        copyOfDisciplines.splice(copyOfDisciplines.indexOf(randomDiscipline), 1)
+      }
+      setChosenDisciplines(randomDisciplines)
+    }
+  }, [disciplines])
+
   useEffect(() => subscribe(), [messages])
 
   function submitMessage(event) {
     event.preventDefault()
-    const value = event.target.message.value
+    let value = { name: event.target.message.value, chosenAnimal: chosenAnimal }
+    // if (messages == []) {
+    //   value = {
+    //     name: event.target.message.value,
+    //     chosenAnimal: chosenAnimal,
+    //     randomWeather: randomWeather,
+    //   }
+    // } else {
+    //   value = { name: event.target.message.value, chosenAnimal: chosenAnimal }
+    // }
+    console.log(value)
     if (value) {
       fetch("/api/publish", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        //kann hier bei stringify {name: value, animal: chosenAnimal.name} geschickt werden?
         body: JSON.stringify({ message: value }),
       })
     }
-
-    //TODO9: kann hier bei stringify {name: value, animal: chosenAnimal.name} geschickt werden?
 
     navigate("/game")
   }
@@ -119,10 +172,10 @@ function App() {
           path="game"
           element={
             <Game
-              animals={animals}
-              disciplines={disciplines}
+              chosenAnimal={chosenAnimal}
+              chosenDisciplines={chosenDisciplines}
               messages={messages}
-              weather={weather}
+              randomWeather={randomWeather}
             />
           }
         />

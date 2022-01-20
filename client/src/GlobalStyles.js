@@ -32,11 +32,11 @@ body {
 }
 h1, h3 {
     font-family: 'Monoton', cursive;
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 h2 {
     font-family: 'Graduate', cursive;
-    font-size: 3rem;
+    font-size: 1.8rem;
     font-weight: 700;
     color: var(--mediumbrown-day);
     margin: 1rem 0;

@@ -1,67 +1,11 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
-export default function Game({ animals, disciplines, messages, weather }) {
-  const [chosenAnimal, setChosenAnimal] = useState({})
-  const [chosenDisciplines, setChosenDisciplines] = useState([])
-  const [randomWeather, setRandomWeather] = useState({})
-
-  console.log(messages, chosenAnimal)
-
-  //TODO2: die random Animal function hoch in enter.jsx+ mit in submitMessage rein und zu game-component weiterreichen?
-  useEffect(() => {
-    if (animals.length > 0) {
-      const randomAnimal = getRandomItem(animals)
-      setChosenAnimal(randomAnimal)
-    }
-  }, [animals])
-
-  //TODO3: 3 random disciplines bisschen umschreiben
-
-  useEffect(() => {
-    if (disciplines.length > 0) {
-      const copyOfDisciplines = disciplines.slice()
-      const randomDisciplines = []
-      const removedDisciplines = []
-      for (let i = 0; i < 3; i++) {
-        const randomDiscipline = getRandomItem(copyOfDisciplines)
-        randomDisciplines.push(randomDiscipline)
-        removedDisciplines.push(copyOfDisciplines.find(element => element == randomDiscipline))
-        copyOfDisciplines.splice(copyOfDisciplines.indexOf(randomDiscipline), 1)
-        //!randomDisciplines.includes(randomDiscipline) ?? randomDisciplines.push(randomDiscipline)
-      }
-      setChosenDisciplines(randomDisciplines)
-    }
-  }, [disciplines])
-
-  //TODO4: random disciplines hoch in app.jsx,damit sie nicht bei jedem neuen user neu erstellt werden?
-
-  //TODO5: ist das gleiche für wetter nötig?
-
-  useEffect(() => {
-    if (weather.length > 0) {
-      const randomWeather = getRandomItem(weather)
-      setRandomWeather(randomWeather)
-    }
-  }, [weather])
-
-  function getRandomItem(array) {
-    const randomItem = array[Math.floor(Math.random() * array.length)]
-    return randomItem
-  }
-
-  //TODO6: ausgeben, wer mit welchem Tier das Spiel gejoined hat
-  //TODO7: wie kann ich feststellen, welche message vom Spieler selbst kommt und welche von anderen?
-
-  //TODO RATING: Weiterleitung zu eigener Komponente oder hier in Game?
-  //"Please do not give two animals the same score."
-  //rating an long polling anbinden
-  //rating auch schon in app.jsx vorbereiten mit leerem voting
-  //array in subscriber object?
-
+export default function Game({ chosenAnimal, chosenDisciplines, messages, randomWeather }) {
   return (
     <>
       {messages.length > 0 ? <p>Hi, {messages[messages.length - 1]}!</p> : ""}
+      {/* <p>xyz joind the game with animal xyz</p> */}
 
       {randomWeather && (
         <p>
