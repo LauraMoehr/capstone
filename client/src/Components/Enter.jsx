@@ -1,5 +1,6 @@
 export default function Enter({ onSubmitMessage }) {
   //const hasNameMinLength = name => name.length > 0
+
   return (
     <>
       <form onSubmit={onSubmitMessage}>

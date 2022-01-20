@@ -6,6 +6,8 @@ export default function Game({ animals, disciplines, messages, weather }) {
   const [chosenDisciplines, setChosenDisciplines] = useState([])
   const [randomWeather, setRandomWeather] = useState({})
 
+  console.log(messages, chosenAnimal)
+
   //TODO2: die random Animal function hoch in enter.jsx+ mit in submitMessage rein und zu game-component weiterreichen?
   useEffect(() => {
     if (animals.length > 0) {

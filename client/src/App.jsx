@@ -13,6 +13,7 @@ function App() {
   const [disciplines, setDisciplines] = useState([])
   const [weather, setWeather] = useState([])
   const [messages, setMessages] = useState([])
+  //console.log(messages) //ist up da date
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -88,6 +89,7 @@ function App() {
     } else {
       let message = await response.text()
       setMessages([...messages, message])
+      //console.log(messages) //hängt immer eine Nachricht hinterher
     }
   }
 
