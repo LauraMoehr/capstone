@@ -19,4 +19,8 @@ const router = express.Router()
 
 router.get("/api/game", getGame)
 
+//mit 1.player initial state in db, dann put-request mit jedem weiteren
+//player: document wird bei "players" verändert
+//TODO: post oder put-route
+
 export default router // as GameRoutes to server.js

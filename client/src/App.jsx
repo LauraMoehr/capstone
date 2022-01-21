@@ -15,7 +15,9 @@ function App() {
   const [weather, setWeather] = useState([])
   const [randomWeather, setRandomWeather] = useState({})
   const [messages, setMessages] = useState([])
-  //console.log(messages) //is up to date
+  console.log(messages)
+  //WORKAROUND mit Umwandlung in App.jsx und Game.jsx gibt in console immerhin
+  //ein array mit objekten, die Name und Tier-Objekt enthalten, aus
 
   const navigate = useNavigate()
 
@@ -74,7 +76,7 @@ function App() {
 
   const [chosenDisciplines, setChosenDisciplines] = useState([])
 
-  //...funktioniert nicht:
+  //...Variante on MV funktioniert doch nicht:
   // useEffect(() => {
   //   if (disciplines.length > 0) {
   //     const randomDisciplines = []
@@ -87,6 +89,7 @@ function App() {
   //   }
   // }, [disciplines])
 
+  //...funktioniert:
   useEffect(() => {
     if (disciplines.length > 0) {
       const copyOfDisciplines = disciplines.slice()
@@ -105,7 +108,8 @@ function App() {
 
   function submitMessage(event) {
     event.preventDefault()
-    let value = { name: event.target.message.value, chosenAnimal: chosenAnimal }
+    // const value = event.target.message.value //ursprüngliche Variante
+    const value = { name: event.target.message.value, chosenAnimal: chosenAnimal }
     // if (messages == []) {
     //   value = {
     //     name: event.target.message.value,
@@ -115,7 +119,10 @@ function App() {
     // } else {
     //   value = { name: event.target.message.value, chosenAnimal: chosenAnimal }
     // }
-    console.log(value)
+
+    //WORKAROUND mit Umwandlung in App.jsx und Game.jsx
+    const mail = { message: JSON.stringify(value) }
+
     if (value) {
       fetch("/api/publish", {
         method: "POST",
@@ -123,7 +130,7 @@ function App() {
           "Content-Type": "application/json",
         },
         //kann hier bei stringify {name: value, animal: chosenAnimal.name} geschickt werden?
-        body: JSON.stringify({ message: value }),
+        body: JSON.stringify(mail),
       })
     }
 

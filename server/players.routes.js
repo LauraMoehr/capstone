@@ -1,7 +1,7 @@
 import express from "express"
 //import mongoose from "mongoose"
 
-let players = []
+let players = [] //hieß bisher immer subscribers - habe es überall geändert
 
 // let game = [
 //   {
@@ -32,7 +32,7 @@ let players = []
 //kann id=math.random raus, wenn players in datenbank?
 function onSubscribe(req, res) {
   let id = Math.random()
-  //res.setHeader("Content-Type", "application/json") ?
+  //res.setHeader("Content-Type", "application/json") //hat noch nicht geholfen:)
   res.setHeader("Content-Type", "text/plain;charset=utf-8")
   res.setHeader("Cache-Control", "no-cache, must-revalidate")
   players[id] = res
@@ -58,6 +58,7 @@ const router = express.Router()
 router.get("/api/subscribe", (req, res) => onSubscribe(req, res))
 router.post("/api/publish", (req, res) => {
   publish(req.body.message)
+  //ab in database: message.save()
   res.send("ok")
 })
 
