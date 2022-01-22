@@ -1,10 +1,11 @@
 import { NavLink, Routes, Route, useNavigate } from "react-router-dom"
+import Header from "./Components/Header"
 import Animals from "./Components/Animals"
 import Disciplines from "./Components/Disciplines"
 import Enter from "./Components/Enter"
 import Game from "./Components/Game"
-import Header from "./Components/Header"
 import Info from "./Components/Info"
+import Invite from "./Components/Invite"
 import HomeImage from "./Components/HomeImage" //rhinos
 import { useState, useEffect } from "react"
 
@@ -12,86 +13,42 @@ function App() {
   const [animals, setAnimals] = useState([])
   const [chosenAnimal, setChosenAnimal] = useState({})
   const [disciplines, setDisciplines] = useState([])
+  const [chosenDisciplines, setChosenDisciplines] = useState([])
+  const [game, setGame] = useState({})
   const [weather, setWeather] = useState([])
   const [randomWeather, setRandomWeather] = useState({})
   const [messages, setMessages] = useState([])
-  console.log(messages)
+  //console.log(messages)
   //WORKAROUND mit Umwandlung in App.jsx und Game.jsx gibt in console immerhin
   //ein array mit objekten, die Name und Tier-Objekt enthalten, aus
+  console.log(game)
+  console.log(
+    `Invite your friends with the following link: http://localhost:3000/${game._id}/invite`
+  )
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (animals.length > 0) {
-      const randomAnimal = animals[Math.floor(Math.random() * animals.length)]
-      setChosenAnimal(randomAnimal)
-    }
-  }, [animals]) //oder [messages]?
-
-  useEffect(() => {
-    async function getAllAnimalsFromApi() {
+    async function getAllFromApi() {
       try {
-        const response = await fetch("/api/animals")
-        const animalsFromApi = await response.json()
+        const animals = await fetch("/api/animals")
+        const animalsFromApi = await animals.json()
         setAnimals(animalsFromApi)
-      } catch (error) {
-        console.log(error.message)
-      }
-    }
-    getAllAnimalsFromApi()
-  }, [])
-
-  useEffect(() => {
-    async function getAllDisciplinesFromApi() {
-      try {
-        const response = await fetch("/api/disciplines")
-        const disciplinesFromApi = await response.json()
+        const disciplines = await fetch("/api/disciplines")
+        const disciplinesFromApi = await disciplines.json()
         setDisciplines(disciplinesFromApi)
-      } catch (error) {
-        console.log(error.message)
-      }
-    }
-    getAllDisciplinesFromApi()
-  }, [])
-
-  useEffect(() => {
-    async function getAllWeatherConditionsFromApi() {
-      try {
-        const response = await fetch("/api/weather")
-        const weatherConditionsFromApi = await response.json()
+        const weather = await fetch("/api/weather")
+        const weatherConditionsFromApi = await weather.json()
         setWeather(weatherConditionsFromApi)
       } catch (error) {
         console.log(error.message)
       }
     }
-    getAllWeatherConditionsFromApi()
+    getAllFromApi()
   }, [])
 
   useEffect(() => {
-    if (weather.length > 0) {
-      const randomWeather = weather[Math.floor(Math.random() * weather.length)]
-      setRandomWeather(randomWeather)
-    }
-  }, [weather])
-
-  const [chosenDisciplines, setChosenDisciplines] = useState([])
-
-  //...Variante on MV funktioniert doch nicht:
-  // useEffect(() => {
-  //   if (disciplines.length > 0) {
-  //     const randomDisciplines = []
-  //     while (randomDisciplines.length < 3) {
-  //       const randomDiscipline = disciplines[Math.floor(Math.random() * disciplines.length)]
-  //       randomDisciplines.push(randomDiscipline)
-  //       !randomDisciplines.includes(randomDiscipline) && randomDisciplines.push(randomDiscipline)
-  //     }
-  //     setChosenDisciplines(randomDisciplines)
-  //   }
-  // }, [disciplines])
-
-  //...funktioniert:
-  useEffect(() => {
-    if (disciplines.length > 0) {
+    if (disciplines.length > 0 && weather.length > 0) {
       const copyOfDisciplines = disciplines.slice()
       const randomDisciplines = []
       for (let i = 0; i < 3; i++) {
@@ -100,9 +57,40 @@ function App() {
         randomDisciplines.push(randomDiscipline)
         copyOfDisciplines.splice(copyOfDisciplines.indexOf(randomDiscipline), 1)
       }
+      const randomWeather = weather[Math.floor(Math.random() * weather.length)]
+      setRandomWeather(randomWeather)
       setChosenDisciplines(randomDisciplines)
     }
-  }, [disciplines])
+  }, [disciplines, weather])
+
+  useEffect(() => {
+    if (animals.length > 0) {
+      const randomAnimal = animals[Math.floor(Math.random() * animals.length)]
+      setChosenAnimal(randomAnimal)
+    }
+  }, [animals])
+
+  async function postGame(game) {
+    const result = await fetch("/api/games", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(game),
+    })
+    setGame(await result.json())
+  }
+
+  useEffect(() => {
+    const game = {
+      roomName: "excellent-owl",
+      disciplines: chosenDisciplines,
+      weather: randomWeather.condition,
+      players: [],
+      votes: [],
+    }
+    postGame(game)
+  }, [chosenDisciplines, randomWeather])
 
   useEffect(() => subscribe(), [messages])
 
@@ -119,21 +107,17 @@ function App() {
     // } else {
     //   value = { name: event.target.message.value, chosenAnimal: chosenAnimal }
     // }
-
     //WORKAROUND mit Umwandlung in App.jsx und Game.jsx
     const mail = { message: JSON.stringify(value) }
-
     if (value) {
       fetch("/api/publish", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        //kann hier bei stringify {name: value, animal: chosenAnimal.name} geschickt werden?
         body: JSON.stringify(mail),
       })
     }
-
     navigate("/game")
   }
   async function subscribe() {
@@ -149,10 +133,8 @@ function App() {
     } else {
       let message = await response.text()
       setMessages([...messages, message])
-      //console.log(messages) //hängt immer eine Nachricht hinterher
     }
   }
-
   return (
     <div className="App">
       <Header />
@@ -160,6 +142,7 @@ function App() {
         Home
       </NavLink>
       <NavLink to="/info" className={({ isActive }) => (isActive ? "active" : "inactive")}>
+        {/* anstelle von home überall gameId?? */}
         Learn more about the Game
       </NavLink>
       <NavLink to="/animals" className={({ isActive }) => (isActive ? "active" : "inactive")}>
@@ -172,6 +155,17 @@ function App() {
         Join Game
       </NavLink>
       <Routes>
+        {/* <Route
+          path="home/*" //anstelle von home überall gameId??
+          element={
+            <Home
+              animals={animals}
+              disciplines={disciplines}
+              chosenDisciplines={chosenDisciplines}
+              randomWeather={randomWeather}
+            />
+          }
+        /> */}
         <Route path="animals" element={<Animals animals={animals} />} />
         <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
         <Route path="enter" element={<Enter onSubmitMessage={submitMessage} />} />
@@ -180,14 +174,15 @@ function App() {
           element={
             <Game
               chosenAnimal={chosenAnimal}
-              chosenDisciplines={chosenDisciplines}
+              weather={game.weather}
+              disciplines={game.disciplines}
               messages={messages}
-              randomWeather={randomWeather}
             />
           }
         />
         <Route path="" element={<HomeImage />} />
         <Route path="info" element={<Info />} />
+        <Route path="/:roomId/invite" element={<Enter />} />
       </Routes>
     </div>
   )

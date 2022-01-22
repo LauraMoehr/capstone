@@ -7,8 +7,8 @@ import dotenv from "dotenv"
 import AnimalsRoutes from "./animals.routes.js" //from Frontend
 import DisciplinesRoutes from "./disciplines.routes.js"
 import WeatherRoutes from "./weather.routes.js"
-//import GameRoutes from "./game.routes.js" //erstmal mit in players.routes.js
-import PlayersRoutes, { closePlayers } from "./players.routes.js"
+import GamesRoutes from "./games.routes.js"
+import PlayersRoutes, { closePlayers } from "./players.routes.js" //kann teilweise weg?
 
 dotenv.config()
 const dbUser = process.env.DB_USER
@@ -29,9 +29,8 @@ server.use(express.json())
 server.use(AnimalsRoutes)
 server.use(DisciplinesRoutes)
 server.use(WeatherRoutes)
-//server.use(GameRoutes) //erstmal mit in players.routes.js
-
-server.use(PlayersRoutes)
+server.use(GamesRoutes)
+server.use(PlayersRoutes) //kann teilweise weg?
 
 server.use(express.static(path.join(__dirname, "../client/dist")))
 server.get("/*", (req, res) => res.sendFile(path.join(__dirname, "../client/dist", "index.html")))
@@ -49,11 +48,6 @@ process.on("SIGINT", () => {
 })
 
 // animal-olympics.heroku.io/:room-name/join
-
-// –––
-// Your name: "Anita"
-// –––
-// Join
 
 // animal-olympics.heroku.io/:room-name/:discipline-1 // subscriber ist gestart und "hört" auf neue Player
 

@@ -1,33 +1,7 @@
 import express from "express"
 //import mongoose from "mongoose"
 
-let players = [] //hieß bisher immer subscribers - habe es überall geändert
-
-// let game = [
-//   {
-//     name: "excellant-eagle",
-//     //disciplines: [chosenDisciplines[0], chosenDisciplines[1], chosenDisciplines[2]],
-//     //{"id": discipline._id, "name": dicipline.name}
-//     //weather: "",
-//     players: [
-//       { player: message, id: player.id, chosenAnimal },
-//       { player: message, id: player.id, chosenAnimal },
-//       { player: message, id: player.id, chosenAnimal },
-//       //votes mit bei player mit maximaler Anzahl von votes?
-//     ],
-//     votes: [],
-//     //   votes: [
-//     //     { player1, discipline1: ..., ratings: [array of (players.length-1) votes],
-//     //      discipline2: ..., ratings: [array of (players.length-1) votes],
-//     //      discipline3: ..., ratings: [array of (players.length-1) votes]},
-//     //     { player2, ...},
-//     //     { player3, ...}
-//     //   ],
-//     // }
-//   },
-// ]
-
-//console.log(game)
+let players = []
 
 //kann id=math.random raus, wenn players in datenbank?
 function onSubscribe(req, res) {

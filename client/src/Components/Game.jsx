@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
-export default function Game({ chosenAnimal, chosenDisciplines, messages, randomWeather }) {
+export default function Game({ chosenAnimal, disciplines, messages, weather }) {
   //WORKAROUND mit Umwandlung in App.jsx und Game.jsx
   let messageObjects = messages.map(jsonData => JSON.parse(jsonData))
   let latestMessageObject = messageObjects[messages.length - 1]
@@ -15,15 +15,15 @@ export default function Game({ chosenAnimal, chosenDisciplines, messages, random
       {messages.length > 0 ? <p>Hi, {latestMessageObject.name}!</p> : ""}
       {/* <p>Anita joind the game with the Gazelle.</p> */}
 
-      {randomWeather && (
+      {weather && (
         <p>
           Today's weather: 🎲 ...
           <br />
-          It's going to be {randomWeather.condition}.
+          It's going to be {weather}.
         </p>
       )}
       <p>Today's three disciplines:</p>
-      {chosenDisciplines.map(discipline => (
+      {disciplines.map(discipline => (
         <CardStyle key={discipline._id}>
           <h4>{discipline.name}</h4>
           <p>{discipline.type}</p>
