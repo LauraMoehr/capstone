@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
-export default function Game({ chosenAnimal, disciplines, id, players, weather }) {
-  if (disciplines == undefined) {
-    disciplines = []
-  }
+export default function Game({ game, id }) {
+  const { roomName, disciplines, weather, players, votes } = game
+
   return (
     <>
-      <p>current id: {id}</p>
-      {/* <p>Hi, {name...}!</p> */}
+      {id && <p>This game's id: {id}</p>}
+      {players &&
+        players.map(player => (
+          <p>
+            Player {player.name} has joined the game with the {player.animal.name}.
+          </p>
+        ))}
       {weather && (
         <p>
           Today's weather: 🎲 ...
@@ -17,21 +21,14 @@ export default function Game({ chosenAnimal, disciplines, id, players, weather }
         </p>
       )}
       <p>Today's three disciplines:</p>
-      {disciplines.map(discipline => (
-        <CardStyle key={discipline._id}>
-          <h4>{discipline.name}</h4>
-          <p>{discipline.type}</p>
-        </CardStyle>
-      ))}
-
-      <p>Your Animal is the following:</p>
-      {/* {chosenAnimal && (
-        <CardStyle animal={chosenAnimal} key={chosenAnimal._id}>
-          <h4>{animal.name}</h4>
-          <p>{animal.type}</p>
-        </CardStyle>
-      )} */}
-      {/* <p>Number of players: {messages.length}</p> */}
+      {disciplines &&
+        disciplines.map(discipline => (
+          <CardStyle key={discipline._id}>
+            <h4>{discipline.name}</h4>
+            <p>{discipline.type}</p>
+          </CardStyle>
+        ))}
+      {players && <p>Number of players: {players.length}</p>}
     </>
   )
 }

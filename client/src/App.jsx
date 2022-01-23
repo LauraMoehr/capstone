@@ -13,7 +13,7 @@ function App() {
   const [chosenAnimal, setChosenAnimal] = useState({})
   const [disciplines, setDisciplines] = useState([])
   const [chosenDisciplines, setChosenDisciplines] = useState([])
-  //const [players, setPlayers] = useState([])
+  const [players, setPlayers] = useState([])
   const [weather, setWeather] = useState([])
   const [randomWeather, setRandomWeather] = useState({})
   const [game, setGame] = useState({})
@@ -79,9 +79,7 @@ function App() {
       },
       body: JSON.stringify(game),
     })
-    const hase = await result.json()
-    setGame(hase)
-    console.log(hase)
+    setGame(await result.json())
   }
 
   async function updateGame(updatePlayer) {
@@ -92,7 +90,10 @@ function App() {
       },
       body: JSON.stringify(updatePlayer),
     })
-    setGame(await result.json())
+    //setGame(await result.json())
+    const hase = await result.json()
+    setGame(hase)
+    console.log(hase)
   }
 
   function submitMessage(event) {
@@ -102,16 +103,12 @@ function App() {
         roomName: "noukat",
         disciplines: chosenDisciplines,
         weather: randomWeather.condition,
-        players: ["Laura"], //players
+        players: [{ name: event.target.message.value, animal: chosenAnimal }],
         votes: [],
       }
       postGame(initialGame)
-    } else if (
-      chosenDisciplines.length > 0 &&
-      !randomWeather == "" &&
-      !event.target.id.value == ""
-    ) {
-      updateGame({ name: event.target.message.value, chosenAnimal: chosenAnimal })
+    } else if (!event.target.id.value == "") {
+      updateGame({ name: event.target.message.value, animal: chosenAnimal }) //players.push...
     }
     navigate("game")
   }
@@ -138,18 +135,7 @@ function App() {
         <Route path="animals" element={<Animals animals={animals} />} />
         <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
         <Route path="enter" element={<Enter onSubmitMessage={submitMessage} />} />
-        <Route
-          path="game"
-          element={
-            <Game
-              players={game.players}
-              id={game._id}
-              weather={game.weather}
-              disciplines={game.disciplines}
-              chosenAnimal={chosenAnimal}
-            />
-          }
-        />
+        <Route path="game" element={<Game game={game} id={game._id} />} />
         <Route path="" element={<HomeImage />} />
         <Route path="info" element={<Info />} />
       </Routes>
