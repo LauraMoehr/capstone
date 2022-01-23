@@ -1,12 +1,6 @@
 import express from "express"
 import mongoose from "mongoose"
 
-// let game = [
-//   {
-//     name: "excellant-eagle",
-//     //disciplines: [chosenDisciplines[0], chosenDisciplines[1], chosenDisciplines[2]],
-//     //{"id": discipline._id, "name": dicipline.name}
-//     //weather: "",
 //     players: [
 //       { player: message,
 //         id: _id,
@@ -30,10 +24,6 @@ import mongoose from "mongoose"
 //     //      discipline3: ..., ratings: [array of (players.length-1) votes]},
 //     //     { player2, ...},
 //     //     { player3, ...}
-//     //   ],
-//     // }
-//   },
-// ]
 
 const gameSchema = new mongoose.Schema({
   roomName: String,
@@ -44,11 +34,14 @@ const gameSchema = new mongoose.Schema({
 })
 const Game = mongoose.model("Game", gameSchema)
 
-const getOneGame = async (req, res) => {
-  //const gameId = req.params.gameId
-  //const foundGame = await Game.findById(gameId)
-  const foundGame = await Game.find() //!
-  res.json(foundGame)
+// const getOneGame = async (req, res) => {
+//   const foundGame = await Game.find()
+//   res.json(foundGame)
+// }
+
+const getAllGames = async (req, res) => {
+  const games = await Game.find()
+  res.json(games)
 }
 
 const postGame = async (req, res) => {
@@ -67,23 +60,20 @@ const postGame = async (req, res) => {
   }
 }
 
-// const updateGame = async (req, res) => {
-//   const gameId = req.params.gamesId
-//   const game = req.body
-//   const result = await Game.findByIdAndUpdate(gameId, game, { returnDocument: "after" })
-//   res.json(result)
-// }
+const updateGame = async (req, res) => {
+  //Entsprechung zum PATCH im Frontend?
+  const gameId = req.params.gamesId
+  const game = req.body
+  const result = await Game.findByIdAndUpdate(gameId, game, { returnDocument: "after" })
+  res.json(result)
+}
 
 const router = express.Router()
 
-// router.get("/api/games/:gameId", getOneGame)
-router.get("/api/games", getOneGame)
+//router.get("/api/games", getOneGame)
+router.get("/api/games", getAllGames)
 router.post("/api/games", postGame)
-//router.put("/api/games/:gameId", updateGame)
-
-//mit 1.player initial state in db, dann put-request mit jedem weiteren
-//player: document wird bei "players" verändert
-//TODO: post oder put-route
+router.put("/api/games/:gameId", updateGame)
 
 export default router // as GamesRoutes to server.js
 
@@ -92,20 +82,16 @@ export default router // as GamesRoutes to server.js
 //player state in join componente
 //wenn form abgeschickt put request auf game mit gewisser id und dort players key verändern
 //hier state rein: Anita, gazelle...
+
 //user in app.jsx in state speichern, dann in andere comps weiterreichen dort auf players .name zugreifen
 //wenn auf submit geclickt, dann publish passiert, dann aber nicht nura namen verschicken sondern
 //xx has joieneed und das dann in game ausgeben
 //in enter comp in payers state name und tier reinsopeichern
-//player das was aktuell value/mail
+
 //player state in app an enter witerreicehn
 //dann in game player .name zugreifen
 //string thomas has joined the game
 //plus put auf game mit id, dort name mit tier in players array
 //value: stePLayer value
 //mein submit steht  schon in player state
-//zusätzlich put route sowohl in server als auch in app jsx
-//player muss in db game rein über put routen
 //game id in state speichern
-//Thomas hat put route in seinem game
-//...
-//put find by id

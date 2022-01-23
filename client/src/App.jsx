@@ -5,7 +5,7 @@ import Disciplines from "./Components/Disciplines"
 import Enter from "./Components/Enter"
 import Game from "./Components/Game"
 import Info from "./Components/Info"
-import Invite from "./Components/Invite"
+//import Invite from "./Components/Invite"
 import HomeImage from "./Components/HomeImage" //rhinos
 import { useState, useEffect } from "react"
 
@@ -15,16 +15,12 @@ function App() {
   const [disciplines, setDisciplines] = useState([])
   const [chosenDisciplines, setChosenDisciplines] = useState([])
   const [game, setGame] = useState({})
+  const [players, setPlayers] = useState([])
   const [weather, setWeather] = useState([])
   const [randomWeather, setRandomWeather] = useState({})
-  const [messages, setMessages] = useState([])
-  //console.log(messages)
-  //WORKAROUND mit Umwandlung in App.jsx und Game.jsx gibt in console immerhin
-  //ein array mit objekten, die Name und Tier-Objekt enthalten, aus
+  //const [messages, setMessages] = useState([])
   console.log(game)
-  console.log(
-    `Invite your friends with the following link: http://localhost:3000/${game._id}/invite`
-  )
+  //console.log(`Invitation link: http://localhost:3000/${game._id}/invite`)
 
   const navigate = useNavigate()
 
@@ -65,10 +61,30 @@ function App() {
 
   useEffect(() => {
     if (animals.length > 0) {
+      //TODO: ANIMALS TO CHOOSE FROM
+      // const copyOfAnimals = animals.slice()
+      // const animalsToChooseFrom = []
+      // for (let i = 0; i < 3; i++) {
+      //   const randomAnimal =
+      //     copyOfAnimals[Math.floor(Math.random() * copyOfAnimals.length)]
+      //   animalsToChooseFrom.push(randomAnimal)
+      //   copyOfAnimals.splice(copyOfAnimals.indexOf(randomAnimal), 1)
+      // }
       const randomAnimal = animals[Math.floor(Math.random() * animals.length)]
       setChosenAnimal(randomAnimal)
     }
   }, [animals])
+
+  async function postOrUpdateGame(game) {
+    const result = await fetch("/api/games/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(game),
+    })
+    //${game._id} in result? updateGame : postGame
+  }
 
   async function postGame(game) {
     const result = await fetch("/api/games", {
@@ -81,60 +97,53 @@ function App() {
     setGame(await result.json())
   }
 
+  // async function updateGame(update) { //update: player-object
+  //   const result = await fetch(`/api/games/${game._id}`, {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(update),
+  //   })
+  //   setGame(await result.json())
+  // }
+
   useEffect(() => {
     const game = {
-      roomName: "excellent-owl",
+      roomName: "noukat",
       disciplines: chosenDisciplines,
       weather: randomWeather.condition,
-      players: [],
+      players: players, //[]?
       votes: [],
     }
-    postGame(game)
-  }, [chosenDisciplines, randomWeather])
 
-  useEffect(() => subscribe(), [messages])
+    postGame(game) //WOHIN ABFRAGE, OB ÜBERHAUPT? game.players == [] ??
+  }, [chosenDisciplines, randomWeather])
 
   function submitMessage(event) {
     event.preventDefault()
-    // const value = event.target.message.value //ursprüngliche Variante
-    const value = { name: event.target.message.value, chosenAnimal: chosenAnimal }
-    // if (messages == []) {
-    //   value = {
-    //     name: event.target.message.value,
-    //     chosenAnimal: chosenAnimal,
-    //     randomWeather: randomWeather,
-    //   }
-    // } else {
-    //   value = { name: event.target.message.value, chosenAnimal: chosenAnimal }
-    // }
-    //WORKAROUND mit Umwandlung in App.jsx und Game.jsx
-    const mail = { message: JSON.stringify(value) }
-    if (value) {
-      fetch("/api/publish", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(mail),
-      })
-    }
-    navigate("/game")
+    // postOrUpdateGame(game)
+    // updateGame({ name: event.target.message.value, chosenAnimal: chosenAnimal })
+    navigate(`${game._id}/game`)
   }
-  async function subscribe() {
-    let response = await fetch("/api/subscribe")
-    if (response.status == 502) {
-      //Heroku reagiert auf 502, als wäre es 503
-      setMessages([...messages, "Error happened – Timeout"])
-    } else if (response.status == 503) {
-      setMessages([...messages, "Error 503"])
-    } else if (response.status != 200) {
-      setMessages([...messages, "Error happened"])
-      await new Promise(resolve => setTimeout(resolve, 1000))
-    } else {
-      let message = await response.text()
-      setMessages([...messages, message])
-    }
-  }
+
+  //useEffect(() => subscribe(), [messages])
+
+  // async function subscribe() {
+  //   let response = await fetch("/api/subscribe")
+  //   if (response.status == 502) {
+  //     //Heroku reagiert auf 502, als wäre es 503
+  //     setMessages([...messages, "Error happened – Timeout"])
+  //   } else if (response.status == 503) {
+  //     setMessages([...messages, "Error 503"])
+  //   } else if (response.status != 200) {
+  //     setMessages([...messages, "Error happened"])
+  //     await new Promise(resolve => setTimeout(resolve, 1000))
+  //   } else {
+  //     let message = await response.text()
+  //     setMessages([...messages, message])
+  //   }
+  // }
   return (
     <div className="App">
       <Header />
@@ -151,41 +160,27 @@ function App() {
       <NavLink to="/disciplines" className={({ isActive }) => (isActive ? "active" : "inactive")}>
         Browse Disciplines
       </NavLink>
-      <NavLink to="/enter" className={({ isActive }) => (isActive ? "active" : "inactive")}>
+      <NavLink
+        to={`${game._id}/enter`}
+        className={({ isActive }) => (isActive ? "active" : "inactive")}
+      >
         Join Game
       </NavLink>
       <Routes>
-        {/* <Route
-          path="home/*" //anstelle von home überall gameId??
-          element={
-            <Home
-              animals={animals}
-              disciplines={disciplines}
-              chosenDisciplines={chosenDisciplines}
-              randomWeather={randomWeather}
-            />
-          }
-        /> */}
         <Route path="animals" element={<Animals animals={animals} />} />
         <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
-        <Route path="enter" element={<Enter onSubmitMessage={submitMessage} />} />
+        <Route path={`${game._id}/enter`} element={<Enter onSubmitMessage={submitMessage} />} />
         <Route
-          path="game"
+          path={`${game._id}/game`}
           element={
-            <Game
-              chosenAnimal={chosenAnimal}
-              weather={game.weather}
-              disciplines={game.disciplines}
-              messages={messages}
-            />
+            <Game players={game.players} weather={game.weather} disciplines={game.disciplines} />
           }
         />
         <Route path="" element={<HomeImage />} />
         <Route path="info" element={<Info />} />
-        <Route path="/:roomId/invite" element={<Enter />} />
+        {/* <Route path={`${game._id}/invite`} element={<Enter onSubmitMessage={submitMessage} />} /> */}
       </Routes>
     </div>
   )
 }
-
 export default App
