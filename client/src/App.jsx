@@ -13,9 +13,9 @@ function App() {
   const [chosenAnimal, setChosenAnimal] = useState({})
   const [disciplines, setDisciplines] = useState([])
   const [chosenDisciplines, setChosenDisciplines] = useState([])
-  const [players, setPlayers] = useState([])
   const [weather, setWeather] = useState([])
   const [randomWeather, setRandomWeather] = useState({})
+  const [players, setPlayers] = useState([])
   const [game, setGame] = useState({})
 
   const navigate = useNavigate()
@@ -84,20 +84,20 @@ function App() {
 
   async function updateGame(updatePlayer) {
     const result = await fetch(`/api/games/${game._id}`, {
-      method: "PATCH",
+      method: "PUT",
+      //method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(updatePlayer),
     })
-    //setGame(await result.json())
-    const hase = await result.json()
-    setGame(hase)
-    console.log(hase)
+    setGame(await result.json())
   }
 
   function submitMessage(event) {
     event.preventDefault()
+    const newPlayer = { name: event.target.message.value, animal: chosenAnimal }
+    setPlayers(newPlayer)
     if (event.target.id.value == "") {
       const initialGame = {
         roomName: "noukat",
@@ -108,7 +108,13 @@ function App() {
       }
       postGame(initialGame)
     } else if (!event.target.id.value == "") {
-      updateGame({ name: event.target.message.value, animal: chosenAnimal }) //players.push...
+      //updateGame({ name: event.target.message.value, animal: chosenAnimal })
+      // const newPlayer =
+      //   game.players &&
+      //   game.players.push({ name: event.target.message.value, animal: chosenAnimal })
+      setGame(newPlayer)
+      console.log(game)
+      updateGame(newPlayer)
     }
     navigate("game")
   }
