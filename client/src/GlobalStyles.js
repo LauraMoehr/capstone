@@ -6,7 +6,7 @@ export default createGlobalStyle`
 }
 :root {
     --oliv-day: #745E0F;
-    --mediumbrown-day: #C36B1C ;
+    --mediumbrown-day: #C36B1C;
     --lightbrown-day: #EC9836;
     --beige-day: #FEDBB2;
     --grass-day: #92B202;
@@ -27,8 +27,9 @@ body {
     text-align: center;
     overflow: scroll;
     color: var(--oliv-day);
-    padding: 5vw 5vh;
-    background-image: linear-gradient(0deg, rgba(236,152,54,1) 25%, rgba(254,219,178,1) 100%);
+    /* padding: 5vw 5vh; */
+    background: linear-gradient(0deg, rgba(236,152,54,1) 25%, rgba(254,219,178,1) 100%);
+    background-attachment: fixed
 }
 h1, h3 {
     font-family: 'Monoton', cursive;

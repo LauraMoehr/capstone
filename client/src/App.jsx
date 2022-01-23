@@ -7,6 +7,12 @@ import Game from "./Components/Game"
 import Info from "./Components/Info"
 import HomeImage from "./Components/HomeImage" //rhinos
 import { useState, useEffect } from "react"
+import iconCards from "./Components/iconCards.svg"
+import iconHome from "./Components/iconHome.svg"
+import iconAbout from "./Components/iconAbout.svg"
+import iconDisciplines from "./Components/iconDisciplines.svg"
+import iconJoin from "./Components/iconJoin.svg"
+import styled from "styled-components"
 
 function App() {
   const [animals, setAnimals] = useState([])
@@ -122,21 +128,6 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "inactive")}>
-        Home
-      </NavLink>
-      <NavLink to="/info" className={({ isActive }) => (isActive ? "active" : "inactive")}>
-        Learn more about the Game
-      </NavLink>
-      <NavLink to="/animals" className={({ isActive }) => (isActive ? "active" : "inactive")}>
-        Browse Animals
-      </NavLink>
-      <NavLink to="/disciplines" className={({ isActive }) => (isActive ? "active" : "inactive")}>
-        Browse Disciplines
-      </NavLink>
-      <NavLink to={"/enter"} className={({ isActive }) => (isActive ? "active" : "inactive")}>
-        Join Game
-      </NavLink>
       <Routes>
         <Route path="animals" element={<Animals animals={animals} />} />
         <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
@@ -145,7 +136,42 @@ function App() {
         <Route path="" element={<HomeImage />} />
         <Route path="info" element={<Info />} />
       </Routes>
+      <NavFooter>
+        <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "inactive")}>
+          <Icon src={iconHome} alt="Home" />
+        </NavLink>
+        <NavLink to="/info" className={({ isActive }) => (isActive ? "active" : "inactive")}>
+          <Icon src={iconAbout} alt="About" />
+        </NavLink>
+        <NavLink to="/animals" className={({ isActive }) => (isActive ? "active" : "inactive")}>
+          <Icon src={iconCards} alt="Animals" />
+        </NavLink>
+        <NavLink to="/disciplines" className={({ isActive }) => (isActive ? "active" : "inactive")}>
+          <Icon src={iconDisciplines} alt="Disciplines" />
+        </NavLink>
+        <NavLink to={"/enter"} className={({ isActive }) => (isActive ? "active" : "inactive")}>
+          <Icon src={iconJoin} alt="Join" />
+        </NavLink>
+      </NavFooter>
     </div>
   )
 }
 export default App
+
+const NavFooter = styled.footer`
+  background: var(--beige-day);
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  position: fixed;
+  bottom: 0;
+  border-top: 5px solid var(--mediumbrown-day);
+`
+const Icon = styled.img`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
+  width: 100%;
+  margin: 0;
+`
