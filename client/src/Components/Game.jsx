@@ -1,19 +1,14 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
-export default function Game({ disciplines, players, weather }) {
-  //WORKAROUND mit Umwandlung in App.jsx und Game.jsx
-  // let messageObjects = messages.map(jsonData => JSON.parse(jsonData))
-  // let latestMessageObject = messageObjects[messages.length - 1]
-  //let latestAnimal = undefined
-  // if (messages.length > 0) {
-  //   latestAnimal = latestMessageObject.chosenAnimal
-  // }
-
+export default function Game({ chosenAnimal, disciplines, id, players, weather }) {
+  if (disciplines == undefined) {
+    disciplines = []
+  }
   return (
     <>
-      {/* {messages.length > 0 ? <p>Hi, {latestMessageObject.name}!</p> : ""} */}
-
+      <p>current id: {id}</p>
+      {/* <p>Hi, {name...}!</p> */}
       {weather && (
         <p>
           Today's weather: 🎲 ...
@@ -30,10 +25,10 @@ export default function Game({ disciplines, players, weather }) {
       ))}
 
       <p>Your Animal is the following:</p>
-      {/* {latestAnimal && (
-        <CardStyle animal={latestAnimal} key={latestAnimal._id}>
-          <h4>{latestAnimal.name}</h4>
-          <p>{latestAnimal.type}</p>
+      {/* {chosenAnimal && (
+        <CardStyle animal={chosenAnimal} key={chosenAnimal._id}>
+          <h4>{animal.name}</h4>
+          <p>{animal.type}</p>
         </CardStyle>
       )} */}
       {/* <p>Number of players: {messages.length}</p> */}

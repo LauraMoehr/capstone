@@ -34,16 +34,6 @@ const gameSchema = new mongoose.Schema({
 })
 const Game = mongoose.model("Game", gameSchema)
 
-// const getOneGame = async (req, res) => {
-//   const foundGame = await Game.find()
-//   res.json(foundGame)
-// }
-
-const getAllGames = async (req, res) => {
-  const games = await Game.find()
-  res.json(games)
-}
-
 const postGame = async (req, res) => {
   const game = new Game({
     roomName: req.body.roomName,
@@ -61,7 +51,6 @@ const postGame = async (req, res) => {
 }
 
 const updateGame = async (req, res) => {
-  //Entsprechung zum PATCH im Frontend?
   const gameId = req.params.gamesId
   const game = req.body
   const result = await Game.findByIdAndUpdate(gameId, game, { returnDocument: "after" })
@@ -70,8 +59,6 @@ const updateGame = async (req, res) => {
 
 const router = express.Router()
 
-//router.get("/api/games", getOneGame)
-router.get("/api/games", getAllGames)
 router.post("/api/games", postGame)
 router.put("/api/games/:gameId", updateGame)
 
