@@ -7,7 +7,7 @@ import Game from "./Components/Game"
 import Info from "./Components/Info"
 import HomeImage from "./Components/HomeImage" //rhinos
 import { useState, useEffect } from "react"
-import iconCards from "./Components/iconCards.svg"
+import iconAnimals from "./Components/iconAnimals.svg"
 import iconHome from "./Components/iconHome.svg"
 import iconAbout from "./Components/iconAbout.svg"
 import iconDisciplines from "./Components/iconDisciplines.svg"
@@ -88,44 +88,53 @@ function App() {
     setGame(await result.json())
   }
 
-  async function updateGame(updatePlayer) {
-    const result = await fetch(`/api/games/${game._id}`, {
-      method: "PUT",
-      //method: "PATCH",
+  async function updateGame(gameId, updatePlayers) {
+    const urlId = gameId
+    const result = await fetch(`/api/games/${urlId}`, {
+      //const result = await fetch("/api/games/" + urlId, {
+      //method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updatePlayer),
+      body: JSON.stringify(updatePlayers),
     })
     setGame(await result.json())
   }
 
+  // Gratian
+  // async function updateGame(game) {
+  //   const result = await fetch(`/api/games/${game._id}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(updatePlayer),
+  //   })
+  //   setGame(await result.json())
+  // }
+
   function submitMessage(event) {
     event.preventDefault()
-    // const newPlayer = { name: event.target.message.value, animal: chosenAnimal }
-    // const allPlayers = []
-    // allPlayers.push(newPlayer)
-    // console.log(players)
-    // setPlayers(allPlayers)
-    //console.log(players)
+    const newPlayer = { name: event.target.message.value, animal: chosenAnimal }
+    //const allPlayers = [...players, newPlayer]
+    //console.log(allPlayers)
+    //setPlayers(allPlayers)
+    //console.log(players) //leerer array
     if (event.target.id.value == "") {
       const initialGame = {
         roomName: "noukat",
         disciplines: chosenDisciplines,
         weather: randomWeather.condition,
-        players: [{ name: event.target.message.value, animal: chosenAnimal }],
-        //players: players,
+        //players: [{ name: event.target.message.value, animal: chosenAnimal }],
+        players: newPlayer,
         votes: [],
       }
       postGame(initialGame)
     } else if (!event.target.id.value == "") {
-      //updateGame({ name: event.target.message.value, animal: chosenAnimal })
-      // const newPlayer =
-      //   game.players &&
-      //   game.players.push({ name: event.target.message.value, animal: chosenAnimal })
-      // setGame(newPlayer)
-      // console.log(game)
-      // updateGame(newPlayer)
+      //setGame.players = allPlayers
+      //console.log(game.players)
+      updateGame(game._id, { players: players })
     }
     navigate("game")
   }
@@ -142,19 +151,19 @@ function App() {
         <Route path="info" element={<Info />} />
       </Routes>
       <NavFooter>
-        <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "inactive")}>
+        <NavLink to="/">
           <Icon src={iconHome} alt="Home" />
         </NavLink>
-        <NavLink to="/info" className={({ isActive }) => (isActive ? "active" : "inactive")}>
+        <NavLink to="/info">
           <Icon src={iconAbout} alt="About" />
         </NavLink>
-        <NavLink to="/animals" className={({ isActive }) => (isActive ? "active" : "inactive")}>
-          <Icon src={iconCards} alt="Animals" />
+        <NavLink to="/animals">
+          <Icon src={iconAnimals} alt="Animals" />
         </NavLink>
-        <NavLink to="/disciplines" className={({ isActive }) => (isActive ? "active" : "inactive")}>
+        <NavLink to="/disciplines">
           <Icon src={iconDisciplines} alt="Disciplines" />
         </NavLink>
-        <NavLink to={"/enter"} className={({ isActive }) => (isActive ? "active" : "inactive")}>
+        <NavLink to={"/enter"}>
           <Icon src={iconJoin} alt="Join" />
         </NavLink>
       </NavFooter>

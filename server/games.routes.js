@@ -51,19 +51,40 @@ const postGame = async (req, res) => {
 }
 
 const updateGame = async (req, res) => {
-  const gameId = req.params.gamesId
+  //const gameId = req.params.gamesId //gameId?
+  const gameId = req.body._id
   //console.log(gameId)
-  const newPlayer = req.body
+  const newPlayer = {
+    id: req.body._id,
+    players: req.body.players,
+  }
   //console.log(newPlayer)
-  const result = await Game.findByIdAndUpdate(gameId, newPlayer, { returnDocument: "after" })
-  //const game = await Game.findById(gameId)
-  res.json(result)
-  // if (game) {
-  //   result = game.players.push(newPlayer)
-  //   await result.save()
-  //   res.json(result)
-  // }
+  try {
+    const updatedGame = await Game.findByIdAndUpdate(gameId, newPlayer, {
+      returnDocument: "after",
+    })
+    res.json(updatedGame)
+  } catch (error) {
+    res.json(error)
+  }
 }
+
+//Gratian
+// const updateGame = async (req, res) => {
+//   const gameId = req.params.gamesId
+//   //console.log(gameId)
+//   const game = {
+//     roomName: req.body.roomName,
+//     disciplines: req.body.disciplines,
+//     weather: req.body.weather,
+//     players: req.body.players,
+//     votes: req.body.votes,
+//   }
+//   //console.log(game)
+//   const options = { upsert: true, returnOriginal: false } //{ returnDocument: "after" }
+//   const updatedGame = await game.findByIdAndUpdate(gameId, game, options) //Game?
+//   res.json(updatedGame)
+// }
 
 const router = express.Router()
 
