@@ -102,14 +102,19 @@ function App() {
 
   function submitMessage(event) {
     event.preventDefault()
-    const newPlayer = { name: event.target.message.value, animal: chosenAnimal }
-    setPlayers(newPlayer)
+    // const newPlayer = { name: event.target.message.value, animal: chosenAnimal }
+    // const allPlayers = []
+    // allPlayers.push(newPlayer)
+    // console.log(players)
+    // setPlayers(allPlayers)
+    //console.log(players)
     if (event.target.id.value == "") {
       const initialGame = {
         roomName: "noukat",
         disciplines: chosenDisciplines,
         weather: randomWeather.condition,
         players: [{ name: event.target.message.value, animal: chosenAnimal }],
+        //players: players,
         votes: [],
       }
       postGame(initialGame)
@@ -118,9 +123,9 @@ function App() {
       // const newPlayer =
       //   game.players &&
       //   game.players.push({ name: event.target.message.value, animal: chosenAnimal })
-      setGame(newPlayer)
-      console.log(game)
-      updateGame(newPlayer)
+      // setGame(newPlayer)
+      // console.log(game)
+      // updateGame(newPlayer)
     }
     navigate("game")
   }
@@ -165,7 +170,7 @@ const NavFooter = styled.footer`
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   position: fixed;
   bottom: 0;
-  border-top: 5px solid var(--mediumbrown-day);
+  border-top: 5px solid var(--oliv-day);
 `
 const Icon = styled.img`
   display: flex;

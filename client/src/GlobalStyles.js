@@ -23,21 +23,21 @@ body {
 .App {
     min-height: 100vh;
     font-family: 'Righteous', cursive;
-    font-weight: 400;
+    font-weight: 100;
     text-align: center;
     overflow: scroll;
     color: var(--oliv-day);
-    /* padding: 5vw 5vh; */
+    padding: 7vh 0;
     background: linear-gradient(0deg, rgba(236,152,54,1) 25%, rgba(254,219,178,1) 100%);
     background-attachment: fixed
 }
 h1, h3 {
     font-family: 'Monoton', cursive;
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 h2 {
     font-family: 'Graduate', cursive;
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
     color: var(--mediumbrown-day);
     margin: 1rem 0;
@@ -45,6 +45,9 @@ h2 {
 h4 {
     font-family: 'Graduate', cursive;
     font-weight: 500;
+}
+p {
+    padding: 0 10vw;
 }
 img {
     width: 80vw;
@@ -60,13 +63,13 @@ button {
     border: 3px solid var(--mediumbrown-day);
     margin: 5px;
 }
-.inactive {
+.inactive { //kann weg! TODO in App.jsx
     color: var(--oliv-day);
     display: block;
     text-align: center;
     margin: 0.5rem 0;
 }
-.active {
+.active { //kann weg! TODO in App.jsx
     color: var(--mediumbrown-day);
     text-decoration: none;
     display: block;
