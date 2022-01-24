@@ -8,7 +8,7 @@ import AnimalsRoutes from "./animals.routes.js" //from Frontend
 import DisciplinesRoutes from "./disciplines.routes.js"
 import WeatherRoutes from "./weather.routes.js"
 import GamesRoutes from "./games.routes.js"
-import PlayersRoutes, { closePlayers } from "./players.routes.js" //kann teilweise weg?
+import PlayersRoutes, { closePlayers } from "./players.routes.js"
 
 dotenv.config()
 const dbUser = process.env.DB_USER
@@ -30,7 +30,7 @@ server.use(AnimalsRoutes)
 server.use(DisciplinesRoutes)
 server.use(WeatherRoutes)
 server.use(GamesRoutes)
-server.use(PlayersRoutes) //kann teilweise weg?
+server.use(PlayersRoutes)
 
 server.use(express.static(path.join(__dirname, "../client/dist")))
 server.get("/*", (req, res) => res.sendFile(path.join(__dirname, "../client/dist", "index.html")))
@@ -46,14 +46,3 @@ process.on("SIGINT", () => {
   serverInstance.close(() => console.log("Closed express server"))
   process.exit()
 })
-
-// animal-olympics.heroku.io/:room-name/join
-
-// animal-olympics.heroku.io/:room-name/:discipline-1 // subscriber ist gestart und "hört" auf neue Player
-
-// api/game/:room-name/join { "name": "Anita", "animal": "Gazette" } => You joined => subscribe now
-// api/game/:room-name/join { ... } => …
-
-// Each join => publish('New player Anita joined') => render player with stars in react app
-
-// setPlayer([...players, newPlayer])

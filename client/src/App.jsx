@@ -21,10 +21,11 @@ function App() {
   const [chosenDisciplines, setChosenDisciplines] = useState([])
   const [weather, setWeather] = useState([])
   const [randomWeather, setRandomWeather] = useState({})
-  const [players, setPlayers] = useState([])
   const [game, setGame] = useState({})
 
   const navigate = useNavigate()
+
+  useEffect(() => subscribe(), [game])
 
   useEffect(() => {
     async function getAllFromApi() {
@@ -88,55 +89,56 @@ function App() {
     setGame(await result.json())
   }
 
-  async function updateGame(gameId, updatePlayers) {
+  async function updateGame(gameId, newPlayer) {
     const urlId = gameId
-    const result = await fetch(`/api/games/${urlId}`, {
-      //const result = await fetch("/api/games/" + urlId, {
-      //method: "PUT",
-      method: "PATCH",
+    const result = await fetch(`/api/games/${urlId}/players`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updatePlayers),
+      body: JSON.stringify(newPlayer),
     })
-    setGame(await result.json())
+    return await result.json()
   }
-
-  // Gratian
-  // async function updateGame(game) {
-  //   const result = await fetch(`/api/games/${game._id}`, {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(updatePlayer),
-  //   })
-  //   setGame(await result.json())
-  // }
 
   function submitMessage(event) {
     event.preventDefault()
     const newPlayer = { name: event.target.message.value, animal: chosenAnimal }
-    //const allPlayers = [...players, newPlayer]
-    //console.log(allPlayers)
-    //setPlayers(allPlayers)
-    //console.log(players) //leerer array
-    if (event.target.id.value == "") {
+    if (event.target.gameId.value == "") {
       const initialGame = {
         roomName: "noukat",
         disciplines: chosenDisciplines,
         weather: randomWeather.condition,
-        //players: [{ name: event.target.message.value, animal: chosenAnimal }],
-        players: newPlayer,
+        players: [newPlayer],
         votes: [],
       }
       postGame(initialGame)
-    } else if (!event.target.id.value == "") {
-      //setGame.players = allPlayers
-      //console.log(game.players)
-      updateGame(game._id, { players: players })
+    } else if (!event.target.gameId.value == "") {
+      const gameId = event.target.gameId.value
+      updateGame(gameId, newPlayer)
     }
     navigate("game")
+  }
+
+  const subscribeError = error => {
+    console.error(error)
+    // Promise delay 1s
+    // subscribe()
+  }
+
+  async function subscribe() {
+    let response = await fetch("/api/subscribe")
+    if (response.status == 502) {
+      //Heroku reagiert auf 502, als wäre es 503
+      subscribeError("Error happened – Timeout")
+    } else if (response.status == 503) {
+      subscribeError("Error 503")
+    } else if (response.status != 200) {
+      subscribeError("Error 503")
+    } else {
+      let game = await response.json()
+      setGame(game)
+    }
   }
 
   return (
@@ -187,5 +189,5 @@ const Icon = styled.img`
   align-items: center;
   height: 5vh;
   width: 100%;
-  margin: 0;
+  margin: 0.5rem 0;
 `

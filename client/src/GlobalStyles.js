@@ -63,17 +63,4 @@ button {
     border: 3px solid var(--mediumbrown-day);
     margin: 5px;
 }
-.inactive { //kann weg! TODO in App.jsx
-    color: var(--oliv-day);
-    display: block;
-    text-align: center;
-    margin: 0.5rem 0;
-}
-.active { //kann weg! TODO in App.jsx
-    color: var(--mediumbrown-day);
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    margin: 0.5rem 0;
-}
 `

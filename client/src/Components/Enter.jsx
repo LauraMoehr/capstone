@@ -7,11 +7,10 @@ export default function Enter({ onSubmitMessage }) {
         <input type="text" name="message" placeholder="Enter name please" />
         <br />
         {/* <label>placeholder="Enter id please"</label> */}
-        <input type="text" name="id" />
+        <input type="text" name="gameId" />
         <br />
         <button type="reset">Cancel</button>
-        {/* if hasNameMinLength(input.message.value) {setCount...} and
-        reset input form: value= {tagInput}; reset(input.value)? or
+        {/* if hasNameMinLength(input.message.value)+ reset(input.value)? or
         if name does not have min leghth, dann join button ausgrauen?*/}
 
         <button>Join</button>
