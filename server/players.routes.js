@@ -1,5 +1,4 @@
 import express from "express"
-//import mongoose from "mongoose"
 
 let players = []
 
@@ -23,6 +22,7 @@ export function closePlayers() {
   for (let id in players) {
     let res = players[id]
     res.status(503).end("Server went down for yearly checkup")
+    //muss hier wie in Zeile 17 "end" zu "json" geändert werden?
   }
 }
 

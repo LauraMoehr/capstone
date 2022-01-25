@@ -134,7 +134,9 @@ function App() {
     } else if (response.status == 503) {
       subscribeError("Error 503")
     } else if (response.status != 200) {
-      subscribeError("Error 503")
+      subscribeError("Error 503") //"Other Error"?
+      //Steinbruch:
+      //await new Promise(resolve => setTimeout(resolve, 1000))
     } else {
       let game = await response.json()
       setGame(game)
