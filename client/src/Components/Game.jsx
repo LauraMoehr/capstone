@@ -1,73 +1,33 @@
-import { useEffect, useState } from "react"
 import styled from "styled-components"
 
-export default function Game({ animals, disciplines, messages, weather }) {
-  const [chosenAnimal, setChosenAnimal] = useState({})
-  const [chosenDisciplines, setChosenDisciplines] = useState([])
-  const [randomWeather, setRandomWeather] = useState({})
-
-  useEffect(() => {
-    if (animals.length > 0) {
-      const randomAnimal = getRandomItem(animals)
-      setChosenAnimal(randomAnimal)
-    }
-  }, [animals])
-
-  useEffect(() => {
-    if (disciplines.length > 0) {
-      const copyOfDisciplines = disciplines.slice()
-      const randomDisciplines = []
-      const removedDisciplines = []
-      for (let i = 0; i < 3; i++) {
-        const randomDiscipline = getRandomItem(copyOfDisciplines)
-        randomDisciplines.push(randomDiscipline)
-        removedDisciplines.push(copyOfDisciplines.find(element => element == randomDiscipline))
-        copyOfDisciplines.splice(copyOfDisciplines.indexOf(randomDiscipline), 1)
-        //!randomDisciplines.includes(randomDiscipline) ?? randomDisciplines.push(randomDiscipline)
-      }
-      setChosenDisciplines(randomDisciplines)
-    }
-  }, [disciplines])
-
-  useEffect(() => {
-    if (weather.length > 0) {
-      const randomWeather = getRandomItem(weather)
-      setRandomWeather(randomWeather)
-    }
-  }, [weather])
-
-  function getRandomItem(array) {
-    const randomIndex = Math.floor(Math.random() * array.length)
-    const randomItem = array[randomIndex]
-    return randomItem
-  }
+export default function Game({ game, id }) {
+  const { roomName, disciplines, weather, players, votes } = game
 
   return (
     <>
-      {messages.length > 0 ? <p>Hi, {messages[messages.length - 1]}!</p> : ""}
-      {randomWeather && (
+      {id && <p>This game's id: {id}</p>}
+      {players &&
+        players.map(player => (
+          <p>
+            Player {player.name} has joined the game with the {player.animal.name}.
+          </p>
+        ))}
+      {weather && (
         <p>
           Today's weather: 🎲 ...
           <br />
-          It's going to be {randomWeather.condition}.
+          It's going to be {weather}.
         </p>
       )}
       <p>Today's three disciplines:</p>
-      {chosenDisciplines.map(discipline => (
-        <CardStyle key={discipline._id}>
-          <h4>{discipline.name}</h4>
-          <p>{discipline.type}</p>
-        </CardStyle>
-      ))}
-
-      <p>Your Animal is the following:</p>
-      {chosenAnimal && (
-        <CardStyle animal={chosenAnimal} key={chosenAnimal._id}>
-          <h4>{chosenAnimal.name}</h4>
-          <p>{chosenAnimal.type}</p>
-        </CardStyle>
-      )}
-      <p>Number of players: {messages.length}</p>
+      {disciplines &&
+        disciplines.map(discipline => (
+          <CardStyle key={discipline._id}>
+            <h4>{discipline.name}</h4>
+            <p>{discipline.type}</p>
+          </CardStyle>
+        ))}
+      {players && <p>Number of players: {players.length}</p>}
     </>
   )
 }

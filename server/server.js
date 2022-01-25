@@ -7,7 +7,8 @@ import dotenv from "dotenv"
 import AnimalsRoutes from "./animals.routes.js" //from Frontend
 import DisciplinesRoutes from "./disciplines.routes.js"
 import WeatherRoutes from "./weather.routes.js"
-import SubscribersRoutes, { closeSubscribers } from "./subscribers.routes.js"
+import GamesRoutes from "./games.routes.js"
+import PlayersRoutes, { closePlayers } from "./players.routes.js"
 
 dotenv.config()
 const dbUser = process.env.DB_USER
@@ -28,8 +29,8 @@ server.use(express.json())
 server.use(AnimalsRoutes)
 server.use(DisciplinesRoutes)
 server.use(WeatherRoutes)
-
-server.use(SubscribersRoutes)
+server.use(GamesRoutes)
+server.use(PlayersRoutes)
 
 server.use(express.static(path.join(__dirname, "../client/dist")))
 server.get("/*", (req, res) => res.sendFile(path.join(__dirname, "../client/dist", "index.html")))
@@ -41,7 +42,7 @@ const serverInstance = server.listen(port, () =>
 
 process.on("SIGINT", () => {
   console.log("SIGINT signal received: closing HTTP server")
-  closeSubscribers()
+  closePlayers()
   serverInstance.close(() => console.log("Closed express server"))
   process.exit()
 })
