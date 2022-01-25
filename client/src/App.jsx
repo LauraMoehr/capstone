@@ -146,14 +146,16 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Routes>
-        <Route path="animals" element={<Animals animals={animals} />} />
-        <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
-        <Route path="enter" element={<Enter onSubmitMessage={submitMessage} />} />
-        <Route path="game" element={<Game game={game} id={game._id} />} />
-        <Route path="" element={<HomeImage />} />
-        <Route path="info" element={<Info />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="animals" element={<Animals animals={animals} />} />
+          <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
+          <Route path="enter" element={<Enter onSubmitMessage={submitMessage} />} />
+          <Route path="game" element={<Game game={game} id={game._id} />} />
+          <Route path="" element={<HomeImage />} />
+          <Route path="info" element={<Info />} />
+        </Routes>
+      </main>
       <NavFooter>
         <NavLink to="/">
           <Icon src={iconHome} alt="Home" />

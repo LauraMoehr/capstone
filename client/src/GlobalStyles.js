@@ -27,20 +27,17 @@ body {
     text-align: center;
     overflow: scroll;
     color: var(--oliv-day);
-    padding: 7vh 0;
+    padding: 0 0 7vh 0;
     background: linear-gradient(0deg, rgba(236,152,54,1) 25%, rgba(254,219,178,1) 100%);
     background-attachment: fixed
 }
-h1, h3 {
+main {
+    margin-top: 15vh;
+    margin-bottom: 5vh
+}
+h3 {
     font-family: 'Monoton', cursive;
     font-size: 1rem;
-}
-h2 {
-    font-family: 'Graduate', cursive;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--mediumbrown-day);
-    margin: 1rem 0;
 }
 h4 {
     font-family: 'Graduate', cursive;
@@ -52,7 +49,7 @@ p {
 img {
     width: 80vw;
     height: auto;
-    margin: 0.5rem 0;
+    margin: 6rem 0 0 0;
     object-fit: contain;
 }
 input, button {

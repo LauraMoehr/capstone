@@ -3,6 +3,7 @@ export default function Enter({ onSubmitMessage }) {
 
   return (
     <>
+      {/* <p>Welcome to the next round!</p> */}
       <form onSubmit={onSubmitMessage}>
         <input type="text" name="message" placeholder="Enter name please" />
         <br />
@@ -18,3 +19,6 @@ export default function Enter({ onSubmitMessage }) {
     </>
   )
 }
+
+// font-family: "Monoton", cursive;
+//   font-size: 1rem;

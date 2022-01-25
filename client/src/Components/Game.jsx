@@ -13,7 +13,7 @@ export default function Game({ game, id }) {
           </p>
         ))}
       {weather && (
-        <p>
+        <p key={weather._id}>
           Today's weather: 🎲 ...
           <br />
           It's going to be {weather}.
