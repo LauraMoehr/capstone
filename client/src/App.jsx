@@ -64,7 +64,6 @@ function App() {
 
   useEffect(() => {
     if (animals.length > 0) {
-      //TODO: ANIMALS TO CHOOSE FROM
       // const copyOfAnimals = animals.slice()
       // const animalsToChooseFrom = []
       // for (let i = 0; i < 3; i++) {
@@ -103,7 +102,7 @@ function App() {
 
   function submitMessage(event) {
     event.preventDefault()
-    const newPlayer = { name: event.target.message.value, animal: chosenAnimal }
+    const newPlayer = { name: event.target.name.value, animal: chosenAnimal }
     if (event.target.gameId.value == "") {
       const initialGame = {
         roomName: "noukat",

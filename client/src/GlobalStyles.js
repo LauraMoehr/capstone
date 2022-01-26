@@ -28,7 +28,7 @@ body {
     overflow: scroll;
     color: var(--oliv-day);
     padding: 0 0 7vh 0;
-    background: linear-gradient(0deg, rgba(236,152,54,1) 25%, rgba(254,219,178,1) 100%);
+    background: linear-gradient(0deg, rgba(236,152,54,1) 25%, rgba(251,209,160,1) 90%, rgba(254,219,178,1) 100%);
     background-attachment: fixed
 }
 main {
@@ -51,13 +51,5 @@ img {
     height: auto;
     margin: 6rem 0 0 0;
     object-fit: contain;
-}
-input, button {
-    font-family: 'Righteous', cursive;
-}
-button {
-    background-color: var(--lightbrown-day);
-    border: 3px solid var(--mediumbrown-day);
-    margin: 5px;
 }
 `
