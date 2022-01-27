@@ -16,12 +16,15 @@ import styled from "styled-components"
 
 function App() {
   const [animals, setAnimals] = useState([])
+  //const [animalsToChooseFrom, setAnimalsToChooseFrom] = useState([])
   const [chosenAnimal, setChosenAnimal] = useState({})
   const [disciplines, setDisciplines] = useState([])
   const [chosenDisciplines, setChosenDisciplines] = useState([])
   const [weather, setWeather] = useState([])
   const [randomWeather, setRandomWeather] = useState({})
   const [game, setGame] = useState({})
+  const [sortedResults, setSortedResults] = useState([])
+  console.log("STATE", sortedResults)
 
   const navigate = useNavigate()
 
@@ -64,15 +67,15 @@ function App() {
 
   useEffect(() => {
     if (animals.length > 0) {
-      // const copyOfAnimals = animals.slice()
-      // const animalsToChooseFrom = []
-      // for (let i = 0; i < 3; i++) {
-      //   const randomAnimal =
-      //     copyOfAnimals[Math.floor(Math.random() * copyOfAnimals.length)]
-      //   animalsToChooseFrom.push(randomAnimal)
-      //   copyOfAnimals.splice(copyOfAnimals.indexOf(randomAnimal), 1)
-      // }
+      //const copyOfAnimals = animals.slice()
+      //const animalsToChooseFrom = []
+      //for (let i = 0; i < 3; i++) {
+      // const randomAnimal = copyOfAnimals[Math.floor(Math.random() * copyOfAnimals.length)]
       const randomAnimal = animals[Math.floor(Math.random() * animals.length)]
+      //animalsToChooseFrom.push(randomAnimal)
+      //copyOfAnimals.splice(copyOfAnimals.indexOf(randomAnimal), 1)
+      //}
+      //setAnimalsToChooseFrom(animalsToChooseFrom)
       setChosenAnimal(randomAnimal)
     }
   }, [animals])
@@ -109,7 +112,6 @@ function App() {
         disciplines: chosenDisciplines,
         weather: randomWeather.condition,
         players: [newPlayer],
-        votes: [],
       }
       postGame(initialGame)
     } else if (!event.target.gameId.value == "") {
@@ -117,6 +119,52 @@ function App() {
       updateGame(gameId, newPlayer)
     }
     navigate("game")
+  }
+
+  async function updateVotes(playerId, votes) {
+    const result = await fetch(`/api/games/${game._id}/players/${playerId}/votes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(votes),
+    })
+    return await result.json()
+  }
+
+  async function calculateResults() {
+    try {
+      const response = await fetch(`/api/games/${game._id}/players`)
+      const players = await response.json()
+      const allResults = []
+      players.map(player => {
+        let name = player.name
+        let votesAsNumbers = player.votes.map(elem => parseInt(elem))
+        //console.log("VOTESASNUMBERS", votesAsNumbers)
+        let num = votesAsNumbers.reduce((num1, num2) => num1 + num2, 0)
+        //console.log("NUM", num)
+        let playerResult = { name, num }
+        //console.log("PLAYERRESULT", playerResult)
+        allResults.push(playerResult)
+      })
+      //console.log("ALLRESULTS", allResults)
+      const copiedResults = allResults.slice()
+      const sortedResults = copiedResults.sort((a, b) => b.num - a.num)
+      console.log("SORTEDRESULTS", sortedResults)
+      setSortedResults(sortedResults)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  function submitVotes(event) {
+    event.preventDefault()
+    const playerId = event.target.playerId.value
+    const votes = [event.target.vote1.value, event.target.vote2.value, event.target.vote3.value]
+    const noEmptyVotes = votes.filter(elem => !elem == "")
+    //console.log("NOEMPTYVOTES", noEmptyVotes)
+    updateVotes(playerId, noEmptyVotes) //await?
+    calculateResults()
   }
 
   const subscribeError = error => {
@@ -150,7 +198,18 @@ function App() {
           <Route path="animals" element={<Animals animals={animals} />} />
           <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
           <Route path="enter" element={<Enter onSubmitMessage={submitMessage} />} />
-          <Route path="game" element={<Game game={game} id={game._id} />} />
+          <Route
+            path="game"
+            element={
+              <Game
+                game={game}
+                id={game._id}
+                // animalsToChooseFrom={animalsToChooseFrom}
+                onSubmitVotes={submitVotes}
+                sortedResults={sortedResults}
+              />
+            }
+          />
           <Route path="" element={<HomeImage />} />
           <Route path="info" element={<Info />} />
         </Routes>

@@ -16,9 +16,6 @@ export default function Enter({ onSubmitMessage }) {
         {/* placeholder="Enter ID please" */}
         <Input type="text" name="gameId" />
         <br />
-        <p>
-          Choose your animal here: <br /> (in progress...)
-        </p>
         <Button type="reset">Cancel</Button>
         {/* if hasNameMinLength(input.message.value)+ reset(input.value)? or
         if name does not have min leghth, dann join button ausgrauen?*/}
