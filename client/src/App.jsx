@@ -24,11 +24,17 @@ function App() {
   const [randomWeather, setRandomWeather] = useState({})
   const [game, setGame] = useState({})
   const [sortedResults, setSortedResults] = useState([])
-  console.log("STATE", sortedResults)
+  //console.log("STATE", sortedResults)
 
   const navigate = useNavigate()
 
-  useEffect(() => subscribe(), [game])
+  useEffect(() => subscribe(), [])
+
+  useEffect(() => {
+    if (game?.players?.some(player => player.votes.length > 0)) {
+      calculateResults(game.players)
+    }
+  }, [game])
 
   useEffect(() => {
     async function getAllFromApi() {
@@ -132,25 +138,19 @@ function App() {
     return await result.json()
   }
 
-  async function calculateResults() {
+  async function calculateResults(players) {
     try {
-      const response = await fetch(`/api/games/${game._id}/players`)
-      const players = await response.json()
       const allResults = []
       players.map(player => {
         let name = player.name
         let votesAsNumbers = player.votes.map(elem => parseInt(elem))
-        //console.log("VOTESASNUMBERS", votesAsNumbers)
         let num = votesAsNumbers.reduce((num1, num2) => num1 + num2, 0)
-        //console.log("NUM", num)
         let playerResult = { name, num }
-        //console.log("PLAYERRESULT", playerResult)
         allResults.push(playerResult)
       })
-      //console.log("ALLRESULTS", allResults)
       const copiedResults = allResults.slice()
       const sortedResults = copiedResults.sort((a, b) => b.num - a.num)
-      console.log("SORTEDRESULTS", sortedResults)
+      //console.log("SORTEDRESULTS", sortedResults)
       setSortedResults(sortedResults)
     } catch (error) {
       console.log(error.message)
@@ -162,15 +162,13 @@ function App() {
     const playerId = event.target.playerId.value
     const votes = [event.target.vote1.value, event.target.vote2.value, event.target.vote3.value]
     const noEmptyVotes = votes.filter(elem => !elem == "")
-    //console.log("NOEMPTYVOTES", noEmptyVotes)
-    updateVotes(playerId, noEmptyVotes) //await?
-    calculateResults()
+    updateVotes(playerId, noEmptyVotes) // fire and forget
   }
 
-  const subscribeError = error => {
+  const subscribeError = async error => {
     console.error(error)
-    // Promise delay 1s
-    // subscribe()
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    subscribe()
   }
 
   async function subscribe() {
@@ -182,11 +180,10 @@ function App() {
       subscribeError("Error 503")
     } else if (response.status != 200) {
       subscribeError("Error 503") //"Other Error"?
-      //Steinbruch:
-      //await new Promise(resolve => setTimeout(resolve, 1000))
     } else {
       let game = await response.json()
       setGame(game)
+      subscribe()
     }
   }
 

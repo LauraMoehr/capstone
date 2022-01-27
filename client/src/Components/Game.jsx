@@ -77,22 +77,27 @@ export default function Game({ game, id, onSubmitVotes, animalsToChooseFrom, sor
               <br />
               <Button>Submit Votes</Button>
             </form>
-            {sortedResults &&
+            {sortedResults && //TODO Bedingung votes.length bei players.every!
+              //votes == anzahl spieler - 1 mal disc., das in func
+              //players && playersResults muss beides true
+              sortedResults.length === players.length &&
               sortedResults.map((player, index) => {
                 if (index == 0) {
-                  ;<>
+                  return (
                     <CardStyle key={player._id}>
                       <p>
                         🏆{player.name} received {player.num} points ✨✨✨🏆
                       </p>
                     </CardStyle>
-                  </>
+                  )
                 } else {
-                  ;<CardStyle key={player._id}>
-                    <p>
-                      {player.name}, {player.num} points
-                    </p>
-                  </CardStyle>
+                  return (
+                    <CardStyle key={player._id}>
+                      <p>
+                        {player.name}, {player.num} points
+                      </p>
+                    </CardStyle>
+                  )
                 }
               })}
           </>

@@ -45,7 +45,7 @@ const updateGame = async (req, res) => {
     const game = await Game.findById(gameId)
     game.players.push(newPlayer)
     await game.save()
-    publish(game) // Benachrichtige alle über neuen Player
+    publish(game)
     res.json(game)
   } catch (error) {
     res.json(error)
@@ -61,7 +61,7 @@ const updateVotes = async (req, res) => {
     const index = game.players.findIndex(player => player.id === playerId)
     game.players[index].votes.push(...votes)
     await game.save()
-    //publish(game)
+    publish(game)
     res.json(game)
   } catch (error) {
     console.error(error)
@@ -73,7 +73,6 @@ const getPlayers = async (req, res) => {
   const gameId = req.params.gameId
   const game = await Game.findById(gameId)
   const players = game.players
-  //publish(game)
   res.json(players)
 }
 
