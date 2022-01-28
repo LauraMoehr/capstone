@@ -67,7 +67,7 @@ const updateVotes = async (req, res) => {
     console.error(error)
     res.json(error)
   }
-} //TODO doch zwei Ids?
+}
 
 const getPlayers = async (req, res) => {
   const gameId = req.params.gameId
