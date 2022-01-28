@@ -23,8 +23,8 @@ export default function Game({
 
   return (
     <>
-      {id && <p>This game's id: {id}</p>}
-      {you && <p>Hi, {you}!</p>}
+      {id && <SMALL>This game's id: {id}</SMALL>}
+      {you && <LARGE>Hi, {you}!</LARGE>}
       {weather && (
         <p key={weather._id}>
           Today's weather: 🎲 ...
@@ -56,10 +56,10 @@ export default function Game({
         </select> */}
       {players && <p>Number of players: {players.length}</p>}
       {players && players.length > 2 && (
-        <p>
+        <SMALL>
           Rate each animal from best (1. place) to worst ({players.length - 1}.place) in each of the
           disciplines.
-        </p>
+        </SMALL>
       )}
       {players &&
         you &&
@@ -69,7 +69,7 @@ export default function Game({
             player.name !== you && (
               <>
                 <p>
-                  Player {player.name} has joined the game with the {player.animal.name}.
+                  {player.name} has joined the game with the {player.animal.name}.
                 </p>
                 <form onSubmit={onSubmitVotes}>
                   <Input
@@ -78,6 +78,7 @@ export default function Game({
                     min="1"
                     max={players.length - 1}
                     placeholder="Discipline 1"
+                    required
                   />
                   <br />
                   <Input
@@ -86,6 +87,7 @@ export default function Game({
                     min="1"
                     max={players.length - 1}
                     placeholder="Discipline 2"
+                    required
                   />
                   <br />
                   <Input
@@ -94,6 +96,7 @@ export default function Game({
                     min="1"
                     max={players.length - 1}
                     placeholder="Discipline 3"
+                    required
                   />
                   <Input type="hidden" name="playerId" value={player.id} />
                   <br />
@@ -109,7 +112,7 @@ export default function Game({
           if (index == 0) {
             return (
               <CardStyle key={player._id}>
-                <p>🏆{player.name} won! ✨✨✨🏆</p>
+                <LARGE>🏆{player.name} won!✨✨🏆</LARGE>
               </CardStyle>
             )
           } else if (index == 1) {
@@ -142,12 +145,26 @@ const Input = styled.input`
   background-color: var(--beige-day);
   border: 2px solid var(--oliv-day);
   padding: 0.3rem;
-  margin: 0.5rem;
+  margin: 0.2rem;
 `
 const Button = styled.button`
   font-family: "Righteous", cursive;
   color: var(--olive-day);
   background-color: var(--beige-day);
   border: 2px solid var(--oliv-day);
-  margin: 5px;
+  margin: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 0.5rem;
+  transition: all 0.1s ease-in;
+  &:active {
+    background-color: var(--lightbrown-day);
+    transform: translateY(4px);
+  }
+`
+const SMALL = styled.p`
+  font-size: 0.9rem;
+`
+const LARGE = styled.p`
+  font-size: 1.2rem;
 `

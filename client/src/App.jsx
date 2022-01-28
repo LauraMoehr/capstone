@@ -251,6 +251,7 @@ const NavFooter = styled.footer`
   bottom: 0;
   border-top: 5px solid var(--oliv-day);
 `
+
 const Icon = styled.img`
   display: flex;
   justify-content: center;
@@ -258,4 +259,8 @@ const Icon = styled.img`
   height: 5vh;
   width: 100%;
   margin: 0.5rem 0;
+  cursor: pointer;
+  &:active {
+    transform: translateY(4px);
+  }
 `
