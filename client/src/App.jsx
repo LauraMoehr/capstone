@@ -24,15 +24,15 @@ function App() {
   const [randomWeather, setRandomWeather] = useState({})
   const [game, setGame] = useState({})
   const [sortedResults, setSortedResults] = useState([])
-  console.log("STATE", sortedResults)
+  const [self, setSelf] = useState()
 
   const navigate = useNavigate()
 
   useEffect(() => subscribe(), [])
 
   useEffect(() => {
-    //(game?.players?.some(player => player.votes.length > 0))
     if (
+      game?.players?.length > 2 &&
       game?.players?.every(
         (player, index, players) => player.votes.length == (players.length - 1) * 3
       )
@@ -116,6 +116,8 @@ function App() {
 
   function submitMessage(event) {
     event.preventDefault()
+    const self = event.target.name.value
+    setSelf(self)
     const newPlayer = { name: event.target.name.value, animal: chosenAnimal }
     if (event.target.gameId.value == "") {
       const initialGame = {
@@ -210,6 +212,7 @@ function App() {
                 // animalsToChooseFrom={animalsToChooseFrom}
                 onSubmitVotes={submitVotes}
                 sortedResults={sortedResults}
+                self={self}
               />
             }
           />

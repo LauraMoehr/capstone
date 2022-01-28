@@ -1,11 +1,30 @@
+import { useState, useEffect } from "react"
 import styled from "styled-components"
 
-export default function Game({ game, id, onSubmitVotes, animalsToChooseFrom, sortedResults }) {
+export default function Game({
+  game,
+  id,
+  onSubmitVotes,
+  animalsToChooseFrom,
+  sortedResults,
+  self,
+}) {
   const { roomName, disciplines, weather, players } = game
+  const [you, setYou] = useState()
+  useEffect(() => {
+    if (game?.players?.length > 0) {
+      const youObject = game.players.find(player => player.name == self)
+      youObject !== undefined && setYou(youObject.name)
+    }
+  }, [game, players])
+  // if (game?.players?.length > 0) {
+  //   const youObject = game.players.find(player => player.name == self)
+  // }
 
   return (
     <>
       {id && <p>This game's id: {id}</p>}
+      {you && <p>Hi, {you}!</p>}
       {weather && (
         <p key={weather._id}>
           Today's weather: 🎲 ...
@@ -35,50 +54,54 @@ export default function Game({ game, id, onSubmitVotes, animalsToChooseFrom, sor
               </option>
             ))}
         </select> */}
-      {players && (
+      {players && <p>Number of players: {players.length}</p>}
+      {players && players.length > 2 && (
         <p>
-          Number of players: {players.length}
-          <br />
-          Rate each of the animals from best (1. place) to worst ({players.length - 1}.place in each
-          of the disciplines.)
+          Rate each animal from best (1. place) to worst ({players.length - 1}.place) in each of the
+          disciplines.
         </p>
       )}
       {players &&
-        players.map(player => (
-          <>
-            <p>
-              Player {player.name} has joined the game with the {player.animal.name}.
-            </p>
-            <form onSubmit={onSubmitVotes}>
-              <Input
-                type="number"
-                name="vote1"
-                min="1"
-                max={players.length - 1}
-                placeholder="Discipline 1"
-              />
-              <br />
-              <Input
-                type="number"
-                name="vote2"
-                min="1"
-                max={players.length - 1}
-                placeholder="Discipline 2"
-              />
-              <br />
-              <Input
-                type="number"
-                name="vote3"
-                min="1"
-                max={players.length - 1}
-                placeholder="Discipline 3"
-              />
-              <Input type="hidden" name="playerId" value={player.id} />
-              <br />
-              <Button>Submit Votes</Button>
-            </form>
-          </>
-        ))}
+        you &&
+        players.length > 2 &&
+        players.map(
+          player =>
+            player.name !== you && (
+              <>
+                <p>
+                  Player {player.name} has joined the game with the {player.animal.name}.
+                </p>
+                <form onSubmit={onSubmitVotes}>
+                  <Input
+                    type="number"
+                    name="vote1"
+                    min="1"
+                    max={players.length - 1}
+                    placeholder="Discipline 1"
+                  />
+                  <br />
+                  <Input
+                    type="number"
+                    name="vote2"
+                    min="1"
+                    max={players.length - 1}
+                    placeholder="Discipline 2"
+                  />
+                  <br />
+                  <Input
+                    type="number"
+                    name="vote3"
+                    min="1"
+                    max={players.length - 1}
+                    placeholder="Discipline 3"
+                  />
+                  <Input type="hidden" name="playerId" value={player.id} />
+                  <br />
+                  <Button>Submit Votes</Button>
+                </form>
+              </>
+            )
+        )}
       {players &&
         sortedResults &&
         sortedResults.length === players.length &&
