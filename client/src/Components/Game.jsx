@@ -39,8 +39,8 @@ export default function Game({ game, id, onSubmitVotes, animalsToChooseFrom, sor
         <p>
           Number of players: {players.length}
           <br />
-          Enter votes for each discipline below. You can give points between 1 and{" "}
-          {players.length - 1}
+          Rate each of the animals from best (1. place) to worst ({players.length - 1}.place in each
+          of the disciplines.)
         </p>
       )}
       {players &&
@@ -77,31 +77,32 @@ export default function Game({ game, id, onSubmitVotes, animalsToChooseFrom, sor
               <br />
               <Button>Submit Votes</Button>
             </form>
-            {sortedResults && //TODO Bedingung votes.length bei players.every!
-              //votes == anzahl spieler - 1 mal disc., das in func
-              //players && playersResults muss beides true
-              sortedResults.length === players.length &&
-              sortedResults.map((player, index) => {
-                if (index == 0) {
-                  return (
-                    <CardStyle key={player._id}>
-                      <p>
-                        🏆{player.name} received {player.num} points ✨✨✨🏆
-                      </p>
-                    </CardStyle>
-                  )
-                } else {
-                  return (
-                    <CardStyle key={player._id}>
-                      <p>
-                        {player.name}, {player.num} points
-                      </p>
-                    </CardStyle>
-                  )
-                }
-              })}
           </>
         ))}
+      {players &&
+        sortedResults &&
+        sortedResults.length === players.length &&
+        sortedResults.map((player, index) => {
+          if (index == 0) {
+            return (
+              <CardStyle key={player._id}>
+                <p>🏆{player.name} won! ✨✨✨🏆</p>
+              </CardStyle>
+            )
+          } else if (index == 1) {
+            return (
+              <CardStyle key={player._id}>
+                <p>{player.name} was rated Second.</p>
+              </CardStyle>
+            )
+          } else {
+            return (
+              <CardStyle key={player._id}>
+                <p>{player.name} was not so lucky this time.</p>
+              </CardStyle>
+            )
+          }
+        })}
     </>
   )
 }

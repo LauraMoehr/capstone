@@ -24,14 +24,19 @@ function App() {
   const [randomWeather, setRandomWeather] = useState({})
   const [game, setGame] = useState({})
   const [sortedResults, setSortedResults] = useState([])
-  //console.log("STATE", sortedResults)
+  console.log("STATE", sortedResults)
 
   const navigate = useNavigate()
 
   useEffect(() => subscribe(), [])
 
   useEffect(() => {
-    if (game?.players?.some(player => player.votes.length > 0)) {
+    //(game?.players?.some(player => player.votes.length > 0))
+    if (
+      game?.players?.every(
+        (player, index, players) => player.votes.length == (players.length - 1) * 3
+      )
+    ) {
       calculateResults(game.players)
     }
   }, [game])
@@ -144,13 +149,14 @@ function App() {
       players.map(player => {
         let name = player.name
         let votesAsNumbers = player.votes.map(elem => parseInt(elem))
+        console.log(name, votesAsNumbers)
         let num = votesAsNumbers.reduce((num1, num2) => num1 + num2, 0)
         let playerResult = { name, num }
         allResults.push(playerResult)
       })
       const copiedResults = allResults.slice()
-      const sortedResults = copiedResults.sort((a, b) => b.num - a.num)
-      //console.log("SORTEDRESULTS", sortedResults)
+      const sortedResults = copiedResults.sort((a, b) => a.num - b.num)
+      console.log("SORTEDRESULTS", sortedResults)
       setSortedResults(sortedResults)
     } catch (error) {
       console.log(error.message)
