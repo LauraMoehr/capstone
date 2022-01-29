@@ -115,9 +115,11 @@ function App() {
   function submitMessage(event) {
     event.preventDefault()
     const self = event.target.name.value
-    //setChosenAnimal(randomAnimal)
     setSelf(self)
-    const newPlayer = { name: event.target.name.value, animal: chosenAnimal }
+    const chosenCandidateName = event.target.candidate.value
+    const chosenCandidate = animalsToChooseFrom.find(animal => animal.name == chosenCandidateName)
+    chosenCandidate !== undefined && setChosenAnimal(chosenCandidate)
+    const newPlayer = { name: self, animal: chosenCandidate }
     if (event.target.gameId.value == "") {
       const initialGame = {
         roomName: "noukat",
@@ -157,7 +159,6 @@ function App() {
       })
       const copiedResults = allResults.slice()
       const sortedResults = copiedResults.sort((a, b) => a.num - b.num)
-      console.log("SORTEDRESULTS", sortedResults)
       setSortedResults(sortedResults)
     } catch (error) {
       console.log(error.message)

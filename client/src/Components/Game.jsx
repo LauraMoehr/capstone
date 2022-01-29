@@ -3,15 +3,14 @@ import styled from "styled-components"
 
 export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
   const { roomName, disciplines, weather, players } = game
-
   //const [disable, setDisable] = useState(false)
   //disabled={disable} onClick={() => setDisable(true)}
-
   const [you, setYou] = useState()
+
   useEffect(() => {
     if (game?.players?.length > 0) {
       const youObject = game.players.find(player => player.name == self)
-      youObject !== undefined && setYou(youObject.name)
+      youObject !== undefined && setYou(youObject)
     }
   }, [game, players])
   // if (game?.players?.length > 0) {
@@ -21,9 +20,15 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
   return (
     <>
       {id && <SMALL>This game's id: {id}</SMALL>}
-      {you && <LARGE>Hi, {you}!</LARGE>}
-      {weather && <p key={weather._id}>Today's weather: {weather}.</p>}
-      <p>Today's disciplines:</p>
+      {you && (
+        <LARGE>
+          Hi, {you.name}, hi {you.animal.name}! <br /> Welcome!
+        </LARGE>
+      )}
+      {players && <p>Number of players: {players.length}</p>}
+      {weather && (
+        <SMALL key={weather._id}>It's gonna be {weather} today- let's get started!</SMALL>
+      )}
       {disciplines &&
         disciplines.map(discipline => (
           <>
@@ -33,7 +38,6 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
             </CardStyle>
           </>
         ))}
-      {players && <p>Number of players: {players.length}</p>}
       {players && players.length > 2 && (
         <SMALL>
           Rate each animal from best (1. place) to worst ({players.length - 1}.place) in each of the
@@ -91,19 +95,19 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
           if (index == 0) {
             return (
               <CardStyle key={player._id}>
-                <LARGE>🏆{player.name} won!✨✨🏆</LARGE>
+                <LARGE>🏆The {player.animal.name} won!✨✨🏆</LARGE>
               </CardStyle>
             )
           } else if (index == 1) {
             return (
               <CardStyle key={player._id}>
-                <p>{player.name} was rated Second.</p>
+                <p>The {player.animal.name} was rated Second.</p>
               </CardStyle>
             )
           } else {
             return (
               <CardStyle key={player._id}>
-                <p>{player.name} was not so lucky this time.</p>
+                <p>The {player.name} wasn't so lucky this time.</p>
               </CardStyle>
             )
           }

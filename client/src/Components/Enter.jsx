@@ -1,9 +1,6 @@
-import { useState, useEffect } from "react"
 import styled from "styled-components"
 
 export default function Enter({ onSubmitMessage, animalsToChooseFrom, disciplines, weather }) {
-  console.log("SELECTION", animalsToChooseFrom)
-
   return (
     <>
       <h3>Welcome to the next round!</h3>
@@ -34,23 +31,22 @@ export default function Enter({ onSubmitMessage, animalsToChooseFrom, discipline
             </CardStyle>
           </>
         ))}
-      {/* <label htmlFor="animals">Choose your Animal here:</label>
-        <select defaultValue="" name="animals" id="animals">
+      <form onSubmit={onSubmitMessage}>
+        <SMALL>Enter your name please:</SMALL>
+        <Input type="text" name="name" required />
+        <br />
+        <select name="candidate" required>
           {" "}
-          {/* onChange={handleChange} value={animals} */}
-      {/* <option value="">""</option>
+          <option hidden value="">
+            Pick your Candidate
+          </option>
           {animalsToChooseFrom &&
             animalsToChooseFrom.map(option => (
               <option key={option._id} value={option.name}>
                 {option.name}
               </option>
             ))}
-        </select> */}
-
-      <form onSubmit={onSubmitMessage}>
-        <SMALL>Enter your name please:</SMALL>
-        <Input type="text" name="name" required />
-        <br />
+        </select>
         <SMALL>
           To create a new game leave the field below empty. To join a game please enter that round's
           ID.
