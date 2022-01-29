@@ -16,7 +16,7 @@ import styled from "styled-components"
 
 function App() {
   const [animals, setAnimals] = useState([])
-  //const [animalsToChooseFrom, setAnimalsToChooseFrom] = useState([])
+  const [animalsToChooseFrom, setAnimalsToChooseFrom] = useState([])
   const [chosenAnimal, setChosenAnimal] = useState({})
   const [disciplines, setDisciplines] = useState([])
   const [chosenDisciplines, setChosenDisciplines] = useState([])
@@ -78,16 +78,14 @@ function App() {
 
   useEffect(() => {
     if (animals.length > 0) {
-      //const copyOfAnimals = animals.slice()
-      //const animalsToChooseFrom = []
-      //for (let i = 0; i < 3; i++) {
-      // const randomAnimal = copyOfAnimals[Math.floor(Math.random() * copyOfAnimals.length)]
-      const randomAnimal = animals[Math.floor(Math.random() * animals.length)]
-      //animalsToChooseFrom.push(randomAnimal)
-      //copyOfAnimals.splice(copyOfAnimals.indexOf(randomAnimal), 1)
-      //}
-      //setAnimalsToChooseFrom(animalsToChooseFrom)
-      setChosenAnimal(randomAnimal)
+      const copyOfAnimals = animals.slice()
+      const animalsToChooseFrom = []
+      for (let i = 0; i < 3; i++) {
+        const randomAnimal = copyOfAnimals[Math.floor(Math.random() * copyOfAnimals.length)]
+        animalsToChooseFrom.push(randomAnimal)
+        copyOfAnimals.splice(copyOfAnimals.indexOf(randomAnimal), 1)
+      }
+      setAnimalsToChooseFrom(animalsToChooseFrom)
     }
   }, [animals])
 
@@ -117,6 +115,7 @@ function App() {
   function submitMessage(event) {
     event.preventDefault()
     const self = event.target.name.value
+    //setChosenAnimal(randomAnimal)
     setSelf(self)
     const newPlayer = { name: event.target.name.value, animal: chosenAnimal }
     if (event.target.gameId.value == "") {
@@ -202,14 +201,23 @@ function App() {
         <Routes>
           <Route path="animals" element={<Animals animals={animals} />} />
           <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
-          <Route path="enter" element={<Enter onSubmitMessage={submitMessage} />} />
+          <Route
+            path="enter"
+            element={
+              <Enter
+                onSubmitMessage={submitMessage}
+                weather={randomWeather.condition}
+                disciplines={chosenDisciplines}
+                animalsToChooseFrom={animalsToChooseFrom}
+              />
+            }
+          />
           <Route
             path="game"
             element={
               <Game
                 game={game}
                 id={game._id}
-                // animalsToChooseFrom={animalsToChooseFrom}
                 onSubmitVotes={submitVotes}
                 sortedResults={sortedResults}
                 self={self}
@@ -230,7 +238,7 @@ function App() {
         <NavLink to="/animals">
           <Icon src={iconAnimals} alt="Animals" />
         </NavLink>
-        <NavLink to="/disciplines" className={({ isActive }) => (isActive ? "active" : "inactive")}>
+        <NavLink to="/disciplines">
           <Icon src={iconDisciplines} alt="Disciplines" />
         </NavLink>
         <NavLink to={"/enter"}>

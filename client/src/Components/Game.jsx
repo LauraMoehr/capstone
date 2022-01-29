@@ -1,18 +1,11 @@
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 
-export default function Game({
-  game,
-  id,
-  onSubmitVotes,
-  animalsToChooseFrom,
-  sortedResults,
-  self,
-}) {
+export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
   const { roomName, disciplines, weather, players } = game
 
   //const [disable, setDisable] = useState(false)
-  //disabled={!vote1 || !vote2 || !vote3} onClick={() => setDisable(true)}
+  //disabled={disable} onClick={() => setDisable(true)}
 
   const [you, setYou] = useState()
   useEffect(() => {
@@ -29,14 +22,8 @@ export default function Game({
     <>
       {id && <SMALL>This game's id: {id}</SMALL>}
       {you && <LARGE>Hi, {you}!</LARGE>}
-      {weather && (
-        <p key={weather._id}>
-          Today's weather: 🎲 ...
-          <br />
-          It's going to be {weather}.
-        </p>
-      )}
-      <p>Today's three disciplines:</p>
+      {weather && <p key={weather._id}>Today's weather: {weather}.</p>}
+      <p>Today's disciplines:</p>
       {disciplines &&
         disciplines.map(discipline => (
           <>
@@ -46,18 +33,6 @@ export default function Game({
             </CardStyle>
           </>
         ))}
-      {/* <label htmlFor="animals">Choose your Animal here:</label>
-        <select defaultValue="" name="animals" id="animals">
-          {" "}
-          {/* onChange={handleChange} value={animals} */}
-      {/* <option value="">""</option>
-          {animalsToChooseFrom &&
-            animalsToChooseFrom.map(option => (
-              <option key={option._id} value={option.name}>
-                {option.name}
-              </option>
-            ))}
-        </select> */}
       {players && <p>Number of players: {players.length}</p>}
       {players && players.length > 2 && (
         <SMALL>
