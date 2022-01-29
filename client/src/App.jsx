@@ -112,14 +112,11 @@ function App() {
     return await result.json()
   }
 
-  function submitMessage(event) {
+  function submit1(event) {
     event.preventDefault()
     const self = event.target.name.value
     setSelf(self)
-    const chosenCandidateName = event.target.candidate.value
-    const chosenCandidate = animalsToChooseFrom.find(animal => animal.name == chosenCandidateName)
-    chosenCandidate !== undefined && setChosenAnimal(chosenCandidate)
-    const newPlayer = { name: self, animal: chosenCandidate }
+    const newPlayer = { name: self }
     if (event.target.gameId.value == "") {
       const initialGame = {
         roomName: "noukat",
@@ -132,8 +129,30 @@ function App() {
       const gameId = event.target.gameId.value
       updateGame(gameId, newPlayer)
     }
-    navigate("game")
+    navigate("candidates")
   }
+
+  // async function addCandidate(playerId, candidate) {
+  //   const result = await fetch(`/api/games/${game._id}/players/${playerId}/animal`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(votes),
+  //   })
+  //   return await result.json()
+  // }
+
+  // function submit2(event) {
+  //   event.preventDefault()
+  //   const playerId = event.target.playerId.value //self-state?????
+  //   const chosenCandidateName = event.target.candidate.value
+  //   const chosenCandidate = animalsToChooseFrom.find(animal => animal.name == chosenCandidateName)
+  //   chosenCandidate !== undefined && setChosenAnimal(chosenCandidate)
+  //   const newPlayer = { animal: chosenCandidate }
+  //   addCandidate(playerId, candidate)
+  //   navigate("game")
+  // }
 
   async function updateVotes(playerId, votes) {
     const result = await fetch(`/api/games/${game._id}/players/${playerId}/votes`, {
@@ -206,10 +225,22 @@ function App() {
             path="enter"
             element={
               <Enter
-                onSubmitMessage={submitMessage}
+                onSubmit1={submit1}
                 weather={randomWeather.condition}
                 disciplines={chosenDisciplines}
                 animalsToChooseFrom={animalsToChooseFrom}
+              />
+            }
+          />
+          <Route
+            path="candidates"
+            element={
+              <PickCandidates
+                onSubmit2={submit2}
+                weather={randomWeather.condition}
+                disciplines={chosenDisciplines}
+                animalsToChooseFrom={animalsToChooseFrom}
+                //joined??
               />
             }
           />
