@@ -10,9 +10,7 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
   useEffect(() => {
     if (game?.players?.length > 0) {
       const youObject = game.players.find(player => player.name == self)
-      youObject !== undefined && setYou(youObject)
-      console.log("PLAYERS", players)
-      console.log("YOU", youObject)
+      youObject.animal !== undefined && setYou(youObject)
     }
   }, [game, players])
   // if (game?.players?.length > 0) {
@@ -51,6 +49,7 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
         players.length > 2 &&
         players.map(
           player =>
+            player.animal !== undefined &&
             player.name !== you.name && (
               <>
                 <p>
@@ -96,20 +95,20 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
         sortedResults.map((player, index) => {
           if (index == 0) {
             return (
-              <CardStyle key={player._id}>
-                <LARGE>🏆The {player.animal.name} won!✨✨🏆</LARGE>
+              <CardStyle key={index}>
+                <LARGE>🏆The {player.animal} won!✨✨🏆</LARGE>
               </CardStyle>
             )
           } else if (index == 1) {
             return (
-              <CardStyle key={player._id}>
-                <p>The {player.animal.name} was rated Second.</p>
+              <CardStyle key={index}>
+                <p>The {player.animal} was rated Second.</p>
               </CardStyle>
             )
           } else {
             return (
-              <CardStyle key={player._id}>
-                <p>The {player.name} wasn't so lucky this time.</p>
+              <CardStyle key={index}>
+                <p>The {player.animal} wasn't so lucky this time.</p>
               </CardStyle>
             )
           }

@@ -6,6 +6,7 @@ import Enter from "./Components/Enter"
 import Game from "./Components/Game"
 import Info from "./Components/Info"
 import HomeImage from "./Components/HomeImage" //rhinos
+import PickCandidate from "./Components/PickCandidate"
 import { useState, useEffect } from "react"
 import iconAnimals from "./Components/iconAnimals.svg"
 import iconHome from "./Components/iconHome.svg"
@@ -17,7 +18,6 @@ import styled from "styled-components"
 function App() {
   const [animals, setAnimals] = useState([])
   const [animalsToChooseFrom, setAnimalsToChooseFrom] = useState([])
-  const [chosenAnimal, setChosenAnimal] = useState({})
   const [disciplines, setDisciplines] = useState([])
   const [chosenDisciplines, setChosenDisciplines] = useState([])
   const [weather, setWeather] = useState([])
@@ -116,7 +116,7 @@ function App() {
     event.preventDefault()
     const self = event.target.name.value
     setSelf(self)
-    const newPlayer = { name: self }
+    const newPlayer = { name: self } //animal: {}
     if (event.target.gameId.value == "") {
       const initialGame = {
         roomName: "noukat",
@@ -132,27 +132,26 @@ function App() {
     navigate("candidates")
   }
 
-  // async function addCandidate(playerId, candidate) {
-  //   const result = await fetch(`/api/games/${game._id}/players/${playerId}/animal`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(votes),
-  //   })
-  //   return await result.json()
-  // }
+  async function addCandidate(playerId, candidate) {
+    const result = await fetch(`/api/games/${game._id}/players/${playerId}/animal`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(candidate),
+    })
+    return await result.json()
+  }
 
-  // function submit2(event) {
-  //   event.preventDefault()
-  //   const playerId = event.target.playerId.value //self-state?????
-  //   const chosenCandidateName = event.target.candidate.value
-  //   const chosenCandidate = animalsToChooseFrom.find(animal => animal.name == chosenCandidateName)
-  //   chosenCandidate !== undefined && setChosenAnimal(chosenCandidate)
-  //   const newPlayer = { animal: chosenCandidate }
-  //   addCandidate(playerId, candidate)
-  //   navigate("game")
-  // }
+  function submit2(event) {
+    event.preventDefault()
+    const player = game?.players?.find(player => player.name == self)
+    const playerId = player._id
+    const chosenCandidateName = event.target.candidate.value
+    const chosenCandidate = animalsToChooseFrom.find(animal => animal.name == chosenCandidateName)
+    chosenCandidate !== undefined && addCandidate(playerId, chosenCandidate)
+    navigate("game")
+  }
 
   async function updateVotes(playerId, votes) {
     const result = await fetch(`/api/games/${game._id}/players/${playerId}/votes`, {
@@ -170,10 +169,10 @@ function App() {
       const allResults = []
       players.map(player => {
         let name = player.name
+        let animal = player.animal.name
         let votesAsNumbers = player.votes.map(elem => parseInt(elem))
-        console.log(name, votesAsNumbers)
         let num = votesAsNumbers.reduce((num1, num2) => num1 + num2, 0)
-        let playerResult = { name, num }
+        let playerResult = { name, animal, num }
         allResults.push(playerResult)
       })
       const copiedResults = allResults.slice()
@@ -221,26 +220,15 @@ function App() {
         <Routes>
           <Route path="animals" element={<Animals animals={animals} />} />
           <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
-          <Route
-            path="enter"
-            element={
-              <Enter
-                onSubmit1={submit1}
-                weather={randomWeather.condition}
-                disciplines={chosenDisciplines}
-                animalsToChooseFrom={animalsToChooseFrom}
-              />
-            }
-          />
+          <Route path="enter" element={<Enter onSubmit1={submit1} />} />
           <Route
             path="candidates"
             element={
-              <PickCandidates
+              <PickCandidate
                 onSubmit2={submit2}
                 weather={randomWeather.condition}
                 disciplines={chosenDisciplines}
                 animalsToChooseFrom={animalsToChooseFrom}
-                //joined??
               />
             }
           />

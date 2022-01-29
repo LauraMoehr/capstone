@@ -1,8 +1,6 @@
-import { useState } from "react"
 import styled from "styled-components"
 
 export default function Enter({ onSubmit2, animalsToChooseFrom, disciplines, weather }) {
-  //const [joined, setJoined] = useState(false)
   return (
     <>
       <h3>Welcome to the next round!</h3>
@@ -58,13 +56,6 @@ const CardStyle = styled.div`
   border: 2px solid var(--oliv-day);
   padding: 0.5rem; //shadow aswell?
 `
-const Input = styled.input`
-  font-family: "Righteous", cursive;
-  color: var(--oliv-day);
-  background-color: var(--beige-day);
-  border: 2px solid var(--oliv-day);
-  padding: 0.3rem;
-`
 const Button = styled.button`
   font-family: "Righteous", cursive;
   color: var(--olive-day);
@@ -79,7 +70,4 @@ const Button = styled.button`
     background-color: var(--lightbrown-day);
     transform: translateY(4px);
   }
-`
-const SMALL = styled.p`
-  font-size: 0.9rem;
 `

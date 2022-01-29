@@ -1,13 +1,9 @@
-import { useState } from "react"
 import styled from "styled-components"
 
 export default function Enter({ onSubmit1 }) {
-  //const [joined, setJoined] = useState(false)
-  //joined={joined} onClick={() => setJoined(true)}
   return (
     <>
       <h3>Welcome to the next round!</h3>
-
       <form onSubmit={onSubmit1}>
         <SMALL>Enter your name please:</SMALL>
         <Input type="text" name="name" required />
@@ -18,6 +14,7 @@ export default function Enter({ onSubmit1 }) {
         </SMALL>
         <Input type="text" name="gameId" />
         <br />
+        <Button type="reset">Cancel</Button>
         <Button type="submit">Join</Button>
       </form>
     </>
