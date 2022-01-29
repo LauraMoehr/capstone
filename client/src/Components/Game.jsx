@@ -10,6 +10,10 @@ export default function Game({
   self,
 }) {
   const { roomName, disciplines, weather, players } = game
+
+  //const [disable, setDisable] = useState(false)
+  //disabled={!vote1 || !vote2 || !vote3} onClick={() => setDisable(true)}
+
   const [you, setYou] = useState()
   useEffect(() => {
     if (game?.players?.length > 0) {
@@ -160,6 +164,9 @@ const Button = styled.button`
   &:active {
     background-color: var(--lightbrown-day);
     transform: translateY(4px);
+  }
+  &:disabled {
+    background-color: var(--lightbrown-day);
   }
 `
 const SMALL = styled.p`
