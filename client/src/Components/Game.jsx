@@ -11,6 +11,8 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
     if (game?.players?.length > 0) {
       const youObject = game.players.find(player => player.name == self)
       youObject !== undefined && setYou(youObject)
+      console.log("PLAYERS", players)
+      console.log("YOU", youObject)
     }
   }, [game, players])
   // if (game?.players?.length > 0) {
@@ -22,7 +24,7 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
       {id && <SMALL>This game's id: {id}</SMALL>}
       {you && (
         <LARGE>
-          Hi, {you.name}, hi {you.animal.name}! <br /> Welcome!
+          Hi {you.name}! <br /> Welcome {you.animal.name}!
         </LARGE>
       )}
       {players && <p>Number of players: {players.length}</p>}
@@ -40,8 +42,8 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
         ))}
       {players && players.length > 2 && (
         <SMALL>
-          Rate each animal from best (1. place) to worst ({players.length - 1}.place) in each of the
-          disciplines.
+          Rate each animal from best (1. place) to worst ({players.length - 1}.place) in each
+          discipline.
         </SMALL>
       )}
       {players &&
@@ -49,7 +51,7 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
         players.length > 2 &&
         players.map(
           player =>
-            player.name !== you && (
+            player.name !== you.name && (
               <>
                 <p>
                   {player.name} has joined the game with the {player.animal.name}.
