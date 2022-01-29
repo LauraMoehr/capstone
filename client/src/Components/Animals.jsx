@@ -20,6 +20,11 @@ export default function Animals({ animals }) {
 const CardStyle = styled.div`
   margin: 0.5rem 3rem;
   background-color: var(--beige-day);
-  border: 2px solid var(--oliv-day);
+  border: 1px solid var(--oliv-day);
   padding: 0.5rem;
+  //opacity: 0.5;
+  box-shadow: 4px 4px 2px 1px var(--oliv-day, 0.1);
+  /* &:hover {
+    opacity: 1;
+  } */
 `

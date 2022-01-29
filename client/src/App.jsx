@@ -230,7 +230,7 @@ function App() {
         <NavLink to="/animals">
           <Icon src={iconAnimals} alt="Animals" />
         </NavLink>
-        <NavLink to="/disciplines">
+        <NavLink to="/disciplines" className={({ isActive }) => (isActive ? "active" : "inactive")}>
           <Icon src={iconDisciplines} alt="Disciplines" />
         </NavLink>
         <NavLink to={"/enter"}>
@@ -250,6 +250,11 @@ const NavFooter = styled.footer`
   position: fixed;
   bottom: 0;
   border-top: 5px solid var(--oliv-day);
+  /* .active {
+    background-color: var(--oliv-day);
+    border-left: 2px solid var(--oliv-day);
+    border-right: 2px solid var(--oliv-day);
+  } */
 `
 
 const Icon = styled.img`
@@ -260,7 +265,7 @@ const Icon = styled.img`
   width: 100%;
   margin: 0.5rem 0;
   cursor: pointer;
-  &:active {
+  /* &:active {
     transform: translateY(4px);
-  }
+  } */
 `

@@ -137,7 +137,7 @@ const CardStyle = styled.div`
   margin: 0.5rem 3rem;
   background-color: var(--beige-day);
   border: 2px solid var(--oliv-day);
-  padding: 0.5rem;
+  padding: 0.5rem; //shadow aswell?
 `
 const Input = styled.input`
   font-family: "Righteous", cursive;
