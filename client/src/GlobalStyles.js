@@ -9,7 +9,7 @@ export default createGlobalStyle`
     --mediumbrown-day: #C36B1C;
     --lightbrown-day: #EC9836;
     --beige-day: #FEDBB2;
-    --grass-day: #92B202; //raus?
+    --grass-day: #92B202; /*raus?*/
 }
 body {
     margin: 0;
@@ -46,8 +46,5 @@ img {
     margin: 6rem 0 0 0;
     object-fit: contain;
     transition: all 1s;
-    &:hover {
-    transform: rotateZ(360deg);
-}
 }
 `

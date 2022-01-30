@@ -25,6 +25,8 @@ function App() {
   const [game, setGame] = useState({})
   const [sortedResults, setSortedResults] = useState([])
   const [self, setSelf] = useState()
+  console.log(randomWeather)
+  console.log(chosenDisciplines)
 
   const navigate = useNavigate()
 
@@ -61,7 +63,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if (disciplines.length > 0 && weather.length > 0 && game?.players?.length == 1) {
+    if (disciplines.length > 0 && weather.length > 0) {
       const copyOfDisciplines = disciplines.slice()
       const randomDisciplines = []
       for (let i = 0; i < 3; i++) {
@@ -74,7 +76,7 @@ function App() {
       setRandomWeather(randomWeather)
       setChosenDisciplines(randomDisciplines)
     }
-  }, [disciplines, weather, game])
+  }, [disciplines, weather])
 
   useEffect(() => {
     if (animals.length > 0) {
@@ -295,30 +297,3 @@ const Icon = styled.img`
     transform: translateY(4px);
   } */
 `
-
-// const NavFooter = styled.footer`
-//   background: var(--beige-day);
-//   width: 100vw;
-//   display: grid;
-//   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-//   position: fixed;
-//   bottom: 0;
-//   border-top: 5px solid var(--oliv-day);
-//   /* .active {
-//     background-color: var(--oliv-day);
-//     border-left: 2px solid var(--oliv-day);
-//     border-right: 2px solid var(--oliv-day);
-//   } */
-// `
-// const Icon = styled.img`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   height: 5vh;
-//   width: 100%;
-//   margin: 0.5rem 0;
-//   cursor: pointer;
-//   /* &:active {
-//     transform: translateY(4px);
-//   } */
-// `

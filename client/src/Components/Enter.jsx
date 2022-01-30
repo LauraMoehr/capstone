@@ -36,7 +36,7 @@ const Button = styled.button`
   margin: 0.5rem;
   cursor: pointer;
   border-radius: 5px;
-  padding: 0.5rem;
+  padding: 0.2rem;
   transition: all 0.1s ease-in;
   &:active {
     background-color: var(--lightbrown-day);

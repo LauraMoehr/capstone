@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 export default function Enter({ onPickCandidate, animalsToChooseFrom, game, id }) {
   const { roomName, disciplines, weather, players } = game
+  console.log(game)
 
   return (
     <>
@@ -75,7 +76,7 @@ const Button = styled.button`
   margin: 0.3rem;
   cursor: pointer;
   border-radius: 5px;
-  padding: 0.5rem;
+  padding: 0.2rem;
   transition: all 0.1s ease-in;
   &:active {
     background-color: var(--lightbrown-day);
@@ -85,7 +86,7 @@ const Button = styled.button`
 const Select = styled.select`
   font-family: "Righteous", sans-serif; //font-style in dropdown?
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.2rem;
   border: 2px solid var(--oliv-day);
   border-radius: 5px;
   background-color: var(--beige-day);
