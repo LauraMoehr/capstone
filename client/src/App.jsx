@@ -6,6 +6,7 @@ import Enter from "./Components/Enter"
 import Game from "./Components/Game"
 import Info from "./Components/Info"
 import HomeImage from "./Components/HomeImage" //rhinos
+import PickCandidate from "./Components/PickCandidate"
 import { useState, useEffect } from "react"
 import iconAnimals from "./Components/iconAnimals.svg"
 import iconHome from "./Components/iconHome.svg"
@@ -16,16 +17,31 @@ import styled from "styled-components"
 
 function App() {
   const [animals, setAnimals] = useState([])
-  const [chosenAnimal, setChosenAnimal] = useState({})
+  const [animalsToChooseFrom, setAnimalsToChooseFrom] = useState([])
   const [disciplines, setDisciplines] = useState([])
   const [chosenDisciplines, setChosenDisciplines] = useState([])
   const [weather, setWeather] = useState([])
   const [randomWeather, setRandomWeather] = useState({})
   const [game, setGame] = useState({})
+  const [sortedResults, setSortedResults] = useState([])
+  const [self, setSelf] = useState()
+  console.log(randomWeather)
+  console.log(chosenDisciplines)
 
   const navigate = useNavigate()
 
-  useEffect(() => subscribe(), [game])
+  useEffect(() => subscribe(), [])
+
+  useEffect(() => {
+    if (
+      game?.players?.length > 2 &&
+      game?.players?.every(
+        (player, index, players) => player.votes.length == (players.length - 1) * 3
+      )
+    ) {
+      calculateResults(game.players)
+    }
+  }, [game])
 
   useEffect(() => {
     async function getAllFromApi() {
@@ -64,21 +80,18 @@ function App() {
 
   useEffect(() => {
     if (animals.length > 0) {
-      //TODO: ANIMALS TO CHOOSE FROM
-      // const copyOfAnimals = animals.slice()
-      // const animalsToChooseFrom = []
-      // for (let i = 0; i < 3; i++) {
-      //   const randomAnimal =
-      //     copyOfAnimals[Math.floor(Math.random() * copyOfAnimals.length)]
-      //   animalsToChooseFrom.push(randomAnimal)
-      //   copyOfAnimals.splice(copyOfAnimals.indexOf(randomAnimal), 1)
-      // }
-      const randomAnimal = animals[Math.floor(Math.random() * animals.length)]
-      setChosenAnimal(randomAnimal)
+      const copyOfAnimals = animals.slice()
+      const animalsToChooseFrom = []
+      for (let i = 0; i < 3; i++) {
+        const randomAnimal = copyOfAnimals[Math.floor(Math.random() * copyOfAnimals.length)]
+        animalsToChooseFrom.push(randomAnimal)
+        copyOfAnimals.splice(copyOfAnimals.indexOf(randomAnimal), 1)
+      }
+      setAnimalsToChooseFrom(animalsToChooseFrom)
     }
   }, [animals])
 
-  async function postGame(game) {
+  async function postInitialGame(game) {
     const result = await fetch("/api/games", {
       method: "POST",
       headers: {
@@ -89,7 +102,7 @@ function App() {
     setGame(await result.json())
   }
 
-  async function updateGame(gameId, newPlayer) {
+  async function addPlayer(gameId, newPlayer) {
     const urlId = gameId
     const result = await fetch(`/api/games/${urlId}/players`, {
       method: "POST",
@@ -101,29 +114,89 @@ function App() {
     return await result.json()
   }
 
-  function submitMessage(event) {
+  function startGame(event) {
     event.preventDefault()
-    const newPlayer = { name: event.target.message.value, animal: chosenAnimal }
+    const self = event.target.name.value
+    setSelf(self)
+    const newPlayer = { name: self }
     if (event.target.gameId.value == "") {
       const initialGame = {
         roomName: "noukat",
         disciplines: chosenDisciplines,
         weather: randomWeather.condition,
         players: [newPlayer],
-        votes: [],
       }
-      postGame(initialGame)
+      postInitialGame(initialGame)
     } else if (!event.target.gameId.value == "") {
       const gameId = event.target.gameId.value
-      updateGame(gameId, newPlayer)
+      addPlayer(gameId, newPlayer)
     }
+    navigate("candidates")
+  }
+
+  async function addAnimal(playerId, candidate) {
+    const result = await fetch(`/api/games/${game._id}/players/${playerId}/animal`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(candidate),
+    })
+    return await result.json()
+  }
+
+  function pickCandidate(event) {
+    event.preventDefault()
+    const player = game?.players?.find(player => player.name == self)
+    const playerId = player._id
+    const chosenCandidateName = event.target.candidate.value
+    const chosenCandidate = animalsToChooseFrom.find(animal => animal.name == chosenCandidateName)
+    chosenCandidate !== undefined && addAnimal(playerId, chosenCandidate)
     navigate("game")
   }
 
-  const subscribeError = error => {
+  async function addVotes(playerId, votes) {
+    const result = await fetch(`/api/games/${game._id}/players/${playerId}/votes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(votes),
+    })
+    return await result.json()
+  }
+
+  async function calculateResults(players) {
+    try {
+      const allResults = []
+      players.map(player => {
+        let name = player.name
+        let animal = player.animal.name
+        let votesAsNumbers = player.votes.map(elem => parseInt(elem))
+        let num = votesAsNumbers.reduce((num1, num2) => num1 + num2, 0)
+        let playerResult = { name, animal, num }
+        allResults.push(playerResult)
+      })
+      const copiedResults = allResults.slice()
+      const sortedResults = copiedResults.sort((a, b) => a.num - b.num)
+      setSortedResults(sortedResults)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  function submitVotes(event) {
+    event.preventDefault()
+    const playerId = event.target.playerId.value
+    const votes = [event.target.vote1.value, event.target.vote2.value, event.target.vote3.value]
+    const noEmptyVotes = votes.filter(elem => !elem == "")
+    addVotes(playerId, noEmptyVotes) // fire and forget
+  }
+
+  const subscribeError = async error => {
     console.error(error)
-    // Promise delay 1s
-    // subscribe()
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    subscribe()
   }
 
   async function subscribe() {
@@ -135,25 +208,47 @@ function App() {
       subscribeError("Error 503")
     } else if (response.status != 200) {
       subscribeError("Error 503") //"Other Error"?
-      //Steinbruch:
-      //await new Promise(resolve => setTimeout(resolve, 1000))
     } else {
       let game = await response.json()
       setGame(game)
+      subscribe()
     }
   }
 
   return (
     <div className="App">
       <Header />
-      <Routes>
-        <Route path="animals" element={<Animals animals={animals} />} />
-        <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
-        <Route path="enter" element={<Enter onSubmitMessage={submitMessage} />} />
-        <Route path="game" element={<Game game={game} id={game._id} />} />
-        <Route path="" element={<HomeImage />} />
-        <Route path="info" element={<Info />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="animals" element={<Animals animals={animals} />} />
+          <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
+          <Route path="enter" element={<Enter onStartGame={startGame} />} />
+          <Route
+            path="candidates"
+            element={
+              <PickCandidate
+                game={game}
+                id={game._id}
+                onPickCandidate={pickCandidate}
+                animalsToChooseFrom={animalsToChooseFrom}
+              />
+            }
+          />
+          <Route
+            path="game"
+            element={
+              <Game
+                game={game}
+                onSubmitVotes={submitVotes}
+                sortedResults={sortedResults}
+                self={self}
+              />
+            }
+          />
+          <Route path="" element={<HomeImage />} />
+          <Route path="info" element={<Info />} />
+        </Routes>
+      </main>
       <NavFooter>
         <NavLink to="/">
           <Icon src={iconHome} alt="Home" />
@@ -184,6 +279,11 @@ const NavFooter = styled.footer`
   position: fixed;
   bottom: 0;
   border-top: 5px solid var(--oliv-day);
+  /* .active {
+    background-color: var(--oliv-day);
+    border-left: 2px solid var(--oliv-day);
+    border-right: 2px solid var(--oliv-day);
+  } */
 `
 const Icon = styled.img`
   display: flex;
@@ -192,4 +292,8 @@ const Icon = styled.img`
   height: 5vh;
   width: 100%;
   margin: 0.5rem 0;
+  cursor: pointer;
+  /* &:active {
+    transform: translateY(4px);
+  } */
 `

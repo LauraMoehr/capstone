@@ -1,29 +1,32 @@
 import express from "express"
 import mongoose from "mongoose"
+import { v4 as uuidV4 } from "uuid"
 import { publish } from "./players.routes.js"
 
-// votes: [vote1, vote2, vote3, vote4, vote5, vote6,...],
-// result = sum of votes},
-// votes mit bei player mit maximaler Anzahl von votes?
+const playerSchema = new mongoose.Schema({
+  id: String,
+  name: String,
+  animal: Object,
+  votes: Array,
+})
 
 const gameSchema = new mongoose.Schema({
   roomName: String,
   disciplines: Array,
   weather: String,
-  players: Array,
-  votes: Array,
+  players: [playerSchema],
 })
 const Game = mongoose.model("Game", gameSchema)
 
 const postGame = async (req, res) => {
   const players = req.body.players
+  players[0].id = uuidV4()
   players[0].votes = []
   const game = new Game({
     roomName: req.body.roomName,
     disciplines: req.body.disciplines,
     weather: req.body.weather,
     players: players,
-    votes: req.body.votes,
   })
   try {
     const result = await game.save()
@@ -36,22 +39,70 @@ const postGame = async (req, res) => {
 const updateGame = async (req, res) => {
   const gameId = req.params.gameId
   const newPlayer = req.body
+  newPlayer.id = uuidV4()
   newPlayer.votes = []
   try {
     const game = await Game.findById(gameId)
     game.players.push(newPlayer)
     await game.save()
-    publish(game) // Benachrichtige alle über neuen Player
+    publish(game)
     res.json(game)
   } catch (error) {
     res.json(error)
   }
 }
 
+const addCandidate = async (req, res) => {
+  const gameId = req.params.gameId
+  const playerId = req.params.playerId
+  const animal = req.body
+  try {
+    // const game = await Game.findByIdAndUpdate(gameId)
+    const game = await Game.findById(gameId)
+    //console.log(game.players[0]._id)
+    //console.log(playerId)
+    const index = game.players.findIndex(player => player._id == playerId) //?
+    //console.log(index)
+    game.players[index].animal = animal
+    await game.save()
+    publish(game)
+    res.json(game)
+  } catch (error) {
+    console.error(error)
+    res.json(error)
+  }
+}
+
+const updateVotes = async (req, res) => {
+  const gameId = req.params.gameId
+  const playerId = req.params.playerId
+  const votes = req.body
+  try {
+    const game = await Game.findByIdAndUpdate(gameId)
+    const index = game.players.findIndex(player => player.id === playerId)
+    game.players[index].votes.push(...votes)
+    await game.save()
+    publish(game)
+    res.json(game)
+  } catch (error) {
+    console.error(error)
+    res.json(error)
+  }
+}
+
+const getPlayers = async (req, res) => {
+  const gameId = req.params.gameId
+  const game = await Game.findById(gameId)
+  const players = game.players
+  res.json(players)
+}
+
 const router = express.Router()
 
 router.post("/api/games", postGame)
 router.post("/api/games/:gameId/players", updateGame)
-//router.post("/api/games/:gameId/players/:playerId/votes", updateVotes)
+router.post("/api/games/:gameId/players/:playerId/animal", addCandidate)
+router.post("/api/games/:gameId/players/:playerId/votes", updateVotes)
+router.get("/api/games/:gameId/players", getPlayers)
 
 export default router // as GamesRoutes to server.js
