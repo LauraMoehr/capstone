@@ -90,17 +90,9 @@ export default function Game({ game, onSubmitVotes, sortedResults, self }) {
           if (index == 0) {
             return <LARGE key={index}>🏆The {player.animal} won!✨✨🏆</LARGE>
           } else if (index == 1) {
-            return (
-              // <CardStyle key={index}>
-              <p key={index}>The {player.animal} was rated Second.</p>
-              // </CardStyle>
-            )
+            return <p key={index}>The {player.animal} was rated Second.</p>
           } else {
-            return (
-              // <CardStyle key={index}>
-              <p key={index}>The {player.animal} wasn't so lucky this time.</p>
-              // </CardStyle>
-            )
+            return <p key={index}>The {player.animal} wasn't so lucky this time.</p>
           }
         })}
     </>
@@ -113,13 +105,6 @@ const CardStyle = styled.div`
   border: 1px solid var(--oliv-day);
   padding: 0.2rem;
   box-shadow: 4px 4px 2px 1px var(--oliv-day, 0.1); //andere Farbe
-  //h4, p:
-  //margin-top: 0.5rem
-  //margin-bottom: 0.5rem
-  /* opacity: 0.5;
-    &:hover {
-    opacity: 1;
-  } */
 `
 const Input = styled.input`
   font-family: "Righteous", cursive;
