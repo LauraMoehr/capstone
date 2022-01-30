@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export default function Enter({ onSubmit2, animalsToChooseFrom, disciplines, weather }) {
+export default function Enter({ onPickCandidate, animalsToChooseFrom, disciplines, weather }) {
   return (
     <>
       <h3>Welcome to the next round!</h3>
@@ -31,7 +31,7 @@ export default function Enter({ onSubmit2, animalsToChooseFrom, disciplines, wea
             </CardStyle>
           </>
         ))}
-      <form onSubmit={onSubmit2}>
+      <form onSubmit={onPickCandidate}>
         <select name="candidate" required>
           {" "}
           <option hidden value="">

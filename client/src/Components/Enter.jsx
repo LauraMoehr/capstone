@@ -1,10 +1,10 @@
 import styled from "styled-components"
 
-export default function Enter({ onSubmit1 }) {
+export default function Enter({ onStartGame }) {
   return (
     <>
       <h3>Welcome to the next round!</h3>
-      <form onSubmit={onSubmit1}>
+      <form onSubmit={onStartGame}>
         <SMALL>Enter your name please:</SMALL>
         <Input type="text" name="name" required />
         <br />

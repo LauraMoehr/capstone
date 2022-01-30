@@ -89,7 +89,7 @@ function App() {
     }
   }, [animals])
 
-  async function postGame(game) {
+  async function postInitialGame(game) {
     const result = await fetch("/api/games", {
       method: "POST",
       headers: {
@@ -100,7 +100,7 @@ function App() {
     setGame(await result.json())
   }
 
-  async function updateGame(gameId, newPlayer) {
+  async function addPlayer(gameId, newPlayer) {
     const urlId = gameId
     const result = await fetch(`/api/games/${urlId}/players`, {
       method: "POST",
@@ -112,11 +112,11 @@ function App() {
     return await result.json()
   }
 
-  function submit1(event) {
+  function startGame(event) {
     event.preventDefault()
     const self = event.target.name.value
     setSelf(self)
-    const newPlayer = { name: self } //animal: {}
+    const newPlayer = { name: self }
     if (event.target.gameId.value == "") {
       const initialGame = {
         roomName: "noukat",
@@ -124,15 +124,15 @@ function App() {
         weather: randomWeather.condition,
         players: [newPlayer],
       }
-      postGame(initialGame)
+      postInitialGame(initialGame)
     } else if (!event.target.gameId.value == "") {
       const gameId = event.target.gameId.value
-      updateGame(gameId, newPlayer)
+      addPlayer(gameId, newPlayer)
     }
     navigate("candidates")
   }
 
-  async function addCandidate(playerId, candidate) {
+  async function addAnimal(playerId, candidate) {
     const result = await fetch(`/api/games/${game._id}/players/${playerId}/animal`, {
       method: "POST",
       headers: {
@@ -143,17 +143,17 @@ function App() {
     return await result.json()
   }
 
-  function submit2(event) {
+  function pickCandidate(event) {
     event.preventDefault()
     const player = game?.players?.find(player => player.name == self)
     const playerId = player._id
     const chosenCandidateName = event.target.candidate.value
     const chosenCandidate = animalsToChooseFrom.find(animal => animal.name == chosenCandidateName)
-    chosenCandidate !== undefined && addCandidate(playerId, chosenCandidate)
+    chosenCandidate !== undefined && addAnimal(playerId, chosenCandidate)
     navigate("game")
   }
 
-  async function updateVotes(playerId, votes) {
+  async function addVotes(playerId, votes) {
     const result = await fetch(`/api/games/${game._id}/players/${playerId}/votes`, {
       method: "POST",
       headers: {
@@ -188,7 +188,7 @@ function App() {
     const playerId = event.target.playerId.value
     const votes = [event.target.vote1.value, event.target.vote2.value, event.target.vote3.value]
     const noEmptyVotes = votes.filter(elem => !elem == "")
-    updateVotes(playerId, noEmptyVotes) // fire and forget
+    addVotes(playerId, noEmptyVotes) // fire and forget
   }
 
   const subscribeError = async error => {
@@ -220,12 +220,12 @@ function App() {
         <Routes>
           <Route path="animals" element={<Animals animals={animals} />} />
           <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
-          <Route path="enter" element={<Enter onSubmit1={submit1} />} />
+          <Route path="enter" element={<Enter onStartGame={startGame} />} />
           <Route
             path="candidates"
             element={
               <PickCandidate
-                onSubmit2={submit2}
+                onPickCandidate={pickCandidate}
                 weather={randomWeather.condition}
                 disciplines={chosenDisciplines}
                 animalsToChooseFrom={animalsToChooseFrom}
