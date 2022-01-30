@@ -1,3 +1,8 @@
+// import greatGreyOwl from "..greatGreyOwl.jpg"
+// import polarBear from "../polarBear.jpg"
+// import redPanda from "../redPanda.jpg"
+// import walrus from "../walrus.jpg"
+//import rhinos from "../rhinos.jpg"
 import styled from "styled-components"
 
 export default function Animals({ animals }) {
