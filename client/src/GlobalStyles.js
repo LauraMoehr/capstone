@@ -29,22 +29,22 @@ main {
     margin-top: 15vh;
     margin-bottom: 5vh
 }
-h3 {
-    font-family: 'Monoton', cursive;
-    font-size: 1rem;
-}
-h4 {
+h3, h4 {
     font-family: 'Graduate', cursive;
     font-weight: 500;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem
 }
 p {
     padding: 0 10vw;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem
 }
 img {
     width: 80vw;
     height: auto;
     margin: 6rem 0 0 0;
     object-fit: contain;
-    transition: all 1s;
+    //transition: all 1s;
 }
 `

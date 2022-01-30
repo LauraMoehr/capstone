@@ -9,8 +9,8 @@ export default function Enter({ onStartGame }) {
         <Input type="text" name="name" required />
         <br />
         <SMALL>
-          To create a new game leave the field below empty. To join a game please enter that round's
-          ID.
+          To create a new game leave the field below empty - to join a game please enter that
+          round's ID.
         </SMALL>
         <Input type="text" name="gameId" />
         <br />

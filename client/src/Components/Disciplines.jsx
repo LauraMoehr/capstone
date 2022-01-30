@@ -23,7 +23,4 @@ const CardStyle = styled.div`
   border: 1px solid var(--oliv-day);
   padding: 0.2rem;
   box-shadow: 4px 4px 2px 1px var(--oliv-day, 0.1); //andere Farbe
-  //h4, p:
-  //margin-top: 0.5rem
-  //margin-bottom: 0.5rem
 `

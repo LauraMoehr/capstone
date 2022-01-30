@@ -25,8 +25,6 @@ function App() {
   const [game, setGame] = useState({})
   const [sortedResults, setSortedResults] = useState([])
   const [self, setSelf] = useState()
-  console.log(randomWeather)
-  console.log(chosenDisciplines)
 
   const navigate = useNavigate()
 
@@ -257,10 +255,10 @@ function App() {
           <Icon src={iconAbout} alt="About" />
         </NavLink>
         <NavLink to="/animals">
-          <Icon src={iconAnimals} alt="Animals" />
+          <IconRotate src={iconAnimals} alt="Animals" />
         </NavLink>
         <NavLink to="/disciplines">
-          <Icon src={iconDisciplines} alt="Disciplines" />
+          <IconHop src={iconDisciplines} alt="Disciplines" />
         </NavLink>
         <NavLink to={"/enter"}>
           <Icon src={iconJoin} alt="Join" />
@@ -279,11 +277,6 @@ const NavFooter = styled.footer`
   position: fixed;
   bottom: 0;
   border-top: 5px solid var(--oliv-day);
-  /* .active {
-    background-color: var(--oliv-day);
-    border-left: 2px solid var(--oliv-day);
-    border-right: 2px solid var(--oliv-day);
-  } */
 `
 const Icon = styled.img`
   display: flex;
@@ -293,7 +286,34 @@ const Icon = styled.img`
   width: 100%;
   margin: 0.5rem 0;
   cursor: pointer;
-  /* &:active {
+  &:active {
     transform: translateY(4px);
+    transition: all 0.2s;
+  }
+`
+const IconRotate = styled.img`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
+  width: 100%;
+  margin: 0.5rem 0;
+  cursor: pointer;
+  &:hover {
+    transform: rotateZ(360deg);
+    transition: all 1s;
+  }
+`
+const IconHop = styled.img`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
+  width: 100%;
+  margin: 0.5rem 0;
+  cursor: pointer;
+  /* &:hover {
+    transform: translateY(-30px);
+    transition: all 0.5s;
   } */
 `

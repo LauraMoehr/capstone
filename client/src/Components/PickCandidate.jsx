@@ -2,7 +2,6 @@ import styled from "styled-components"
 
 export default function Enter({ onPickCandidate, animalsToChooseFrom, game, id }) {
   const { roomName, disciplines, weather, players } = game
-  console.log(game)
 
   return (
     <>
@@ -15,7 +14,7 @@ export default function Enter({ onPickCandidate, animalsToChooseFrom, game, id }
           It's going to be {weather}.
         </p>
       )}
-      <p>Today's three disciplines:</p>
+      <p>The disciplines:</p>
       {disciplines &&
         disciplines.map(discipline => (
           <>
@@ -39,7 +38,7 @@ export default function Enter({ onPickCandidate, animalsToChooseFrom, game, id }
         <Select name="candidate" required>
           {" "}
           <option hidden value="">
-            Pick your Candidate
+            Pick Candidate
           </option>
           {animalsToChooseFrom &&
             animalsToChooseFrom.map(option => (
@@ -60,13 +59,6 @@ const CardStyle = styled.div`
   border: 1px solid var(--oliv-day);
   padding: 0.2rem;
   box-shadow: 4px 4px 2px 1px var(--oliv-day, 0.1); //andere Farbe
-  //h4, p:
-  //margin-top: 0.5rem
-  //margin-bottom: 0.5rem
-  /* opacity: 0.5;
-    &:hover {
-    opacity: 1;
-  } */
 `
 const Button = styled.button`
   font-family: "Righteous", cursive;
