@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 
-export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
+export default function Game({ game, onSubmitVotes, sortedResults, self }) {
   const { roomName, disciplines, weather, players } = game
   //const [disable, setDisable] = useState(false)
   //disabled={disable} onClick={() => setDisable(true)}
@@ -19,13 +19,12 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
 
   return (
     <>
-      {id && <SMALL>This game's id: {id}</SMALL>}
       {you && (
         <LARGE>
           Hi {you.name}! <br /> Welcome {you.animal.name}!
         </LARGE>
       )}
-      {players && <p>Number of players: {players.length}</p>}
+      {players && players.length < 3 && <SMALL>Number of players: {players.length}</SMALL>}
       {weather && (
         <SMALL key={weather._id}>It's gonna be {weather} today- let's get started!</SMALL>
       )}
@@ -38,12 +37,7 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
             </CardStyle>
           </>
         ))}
-      {players && players.length > 2 && (
-        <SMALL>
-          Rate each animal from best (1. place) to worst ({players.length - 1}.place) in each
-          discipline.
-        </SMALL>
-      )}
+      {players && players.length > 2 && <SMALL>Rank each animal for each discipline.</SMALL>}
       {players &&
         you &&
         players.length > 2 &&
@@ -53,7 +47,7 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
             player.name !== you.name && (
               <>
                 <p>
-                  {player.name} has joined the game with the {player.animal.name}.
+                  {player.name} with the {player.animal.name}:
                 </p>
                 <form onSubmit={onSubmitVotes}>
                   <Input
@@ -94,22 +88,18 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
         sortedResults.length === players.length &&
         sortedResults.map((player, index) => {
           if (index == 0) {
-            return (
-              <CardStyle key={index}>
-                <LARGE>🏆The {player.animal} won!✨✨🏆</LARGE>
-              </CardStyle>
-            )
+            return <LARGE key={index}>🏆The {player.animal} won!✨✨🏆</LARGE>
           } else if (index == 1) {
             return (
-              <CardStyle key={index}>
-                <p>The {player.animal} was rated Second.</p>
-              </CardStyle>
+              // <CardStyle key={index}>
+              <p key={index}>The {player.animal} was rated Second.</p>
+              // </CardStyle>
             )
           } else {
             return (
-              <CardStyle key={index}>
-                <p>The {player.animal} wasn't so lucky this time.</p>
-              </CardStyle>
+              // <CardStyle key={index}>
+              <p key={index}>The {player.animal} wasn't so lucky this time.</p>
+              // </CardStyle>
             )
           }
         })}
@@ -120,8 +110,16 @@ export default function Game({ game, id, onSubmitVotes, sortedResults, self }) {
 const CardStyle = styled.div`
   margin: 0.5rem 3rem;
   background-color: var(--beige-day);
-  border: 2px solid var(--oliv-day);
-  padding: 0.5rem; //shadow aswell?
+  border: 1px solid var(--oliv-day);
+  padding: 0.2rem;
+  box-shadow: 4px 4px 2px 1px var(--oliv-day, 0.1); //andere Farbe
+  //h4, p:
+  //margin-top: 0.5rem
+  //margin-bottom: 0.5rem
+  /* opacity: 0.5;
+    &:hover {
+    opacity: 1;
+  } */
 `
 const Input = styled.input`
   font-family: "Righteous", cursive;

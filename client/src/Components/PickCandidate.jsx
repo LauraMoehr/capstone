@@ -1,9 +1,12 @@
 import styled from "styled-components"
 
-export default function Enter({ onPickCandidate, animalsToChooseFrom, disciplines, weather }) {
+export default function Enter({ onPickCandidate, animalsToChooseFrom, game, id }) {
+  const { roomName, disciplines, weather, players } = game
+
   return (
     <>
       <h3>Welcome to the next round!</h3>
+      {id && players?.length == 1 && <SMALL>This game's id: {id}</SMALL>}
       {weather && (
         <p key={weather._id}>
           Today's weather: 🎲 ...
@@ -53,8 +56,16 @@ export default function Enter({ onPickCandidate, animalsToChooseFrom, discipline
 const CardStyle = styled.div`
   margin: 0.5rem 3rem;
   background-color: var(--beige-day);
-  border: 2px solid var(--oliv-day);
-  padding: 0.5rem; //shadow aswell?
+  border: 1px solid var(--oliv-day);
+  padding: 0.2rem;
+  box-shadow: 4px 4px 2px 1px var(--oliv-day, 0.1); //andere Farbe
+  //h4, p:
+  //margin-top: 0.5rem
+  //margin-bottom: 0.5rem
+  /* opacity: 0.5;
+    &:hover {
+    opacity: 1;
+  } */
 `
 const Button = styled.button`
   font-family: "Righteous", cursive;
@@ -72,7 +83,7 @@ const Button = styled.button`
   }
 `
 const Select = styled.select`
-  font-family: "Righteous"; //font-style in dropdown?
+  font-family: "Righteous", sans-serif; //font-style in dropdown?
   cursor: pointer;
   padding: 0.5rem;
   border: 2px solid var(--oliv-day);
@@ -80,4 +91,7 @@ const Select = styled.select`
   background-color: var(--beige-day);
   color: var(--oliv-day);
   margin: 0.3rem;
+`
+const SMALL = styled.p`
+  font-size: 0.9rem;
 `
