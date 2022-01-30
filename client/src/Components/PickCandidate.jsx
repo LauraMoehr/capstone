@@ -32,7 +32,7 @@ export default function Enter({ onPickCandidate, animalsToChooseFrom, discipline
           </>
         ))}
       <form onSubmit={onPickCandidate}>
-        <select name="candidate" required>
+        <Select name="candidate" required>
           {" "}
           <option hidden value="">
             Pick your Candidate
@@ -43,7 +43,7 @@ export default function Enter({ onPickCandidate, animalsToChooseFrom, discipline
                 {option.name}
               </option>
             ))}
-        </select>
+        </Select>
         <Button type="reset">Cancel</Button>
         <Button type="submit">Join</Button>
       </form>
@@ -61,7 +61,7 @@ const Button = styled.button`
   color: var(--olive-day);
   background-color: var(--beige-day);
   border: 2px solid var(--oliv-day);
-  margin: 0.5rem;
+  margin: 0.3rem;
   cursor: pointer;
   border-radius: 5px;
   padding: 0.5rem;
@@ -70,4 +70,14 @@ const Button = styled.button`
     background-color: var(--lightbrown-day);
     transform: translateY(4px);
   }
+`
+const Select = styled.select`
+  font-family: "Righteous"; //font-style in dropdown?
+  cursor: pointer;
+  padding: 0.5rem;
+  border: 2px solid var(--oliv-day);
+  border-radius: 5px;
+  background-color: var(--beige-day);
+  color: var(--oliv-day);
+  margin: 0.3rem;
 `
