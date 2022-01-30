@@ -258,7 +258,7 @@ function App() {
           <IconRotate src={iconAnimals} alt="Animals" />
         </NavLink>
         <NavLink to="/disciplines">
-          <IconRotate src={iconDisciplines} alt="Disciplines" />
+          <IconHop src={iconDisciplines} alt="Disciplines" />
         </NavLink>
         <NavLink to={"/enter"}>
           <Icon src={iconJoin} alt="Join" />
@@ -303,4 +303,17 @@ const IconRotate = styled.img`
     transform: rotateZ(360deg);
     transition: all 1s;
   }
+`
+const IconHop = styled.img`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
+  width: 100%;
+  margin: 0.5rem 0;
+  cursor: pointer;
+  /* &:hover {
+    transform: translateY(-30px);
+    transition: all 0.5s;
+  } */
 `
