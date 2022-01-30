@@ -47,6 +47,7 @@ img {
     object-fit: contain;
     transition: all 1s;
     &:hover {
-    transform: rotateZ(360deg);}
+    transform: rotateZ(360deg);
+}
 }
 `
