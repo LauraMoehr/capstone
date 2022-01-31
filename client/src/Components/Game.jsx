@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react"
-// import Confetti from "react-confetti"
-
 import styled from "styled-components"
 
-export default function Game({ game, onSubmitVotes, sortedResults, self }) {
+export default function Game({ game, onSubmitVotes, self }) {
   const { roomName, disciplines, weather, players } = game
   //const [disable, setDisable] = useState(false)
   //disabled={disable} onClick={() => setDisable(true)}
@@ -15,22 +13,19 @@ export default function Game({ game, onSubmitVotes, sortedResults, self }) {
       youObject.animal !== undefined && setYou(youObject)
     }
   }, [game, players])
-  // if (game?.players?.length > 0) {
-  //   const youObject = game.players.find(player => player.name == self)
-  // }
 
   return (
     <>
       {you && (
-        <LARGE>
+        <Large>
           Hi {you.name}! <br /> Welcome {you.animal.name}!
-        </LARGE>
+        </Large>
       )}
       {players && players.length < 3 && (
-        <SMALL>Number of players: {players.length}. ...waiting for more to join.</SMALL>
+        <Small>Number of players: {players.length}. ...waiting for more to join.</Small>
       )}
       {weather && (
-        <SMALL key={weather._id}>It's gonna be {weather} today- let's get started!</SMALL>
+        <Small key={weather._id}>It's gonna be {weather} today- let's get started!</Small>
       )}
       {disciplines &&
         disciplines.map(discipline => (
@@ -41,7 +36,7 @@ export default function Game({ game, onSubmitVotes, sortedResults, self }) {
             </CardStyle>
           </>
         ))}
-      {players && players.length > 2 && <SMALL>Rank each animal for each discipline.</SMALL>}
+      {players && players.length > 2 && <Small>Rank each animal for each discipline.</Small>}
       {players &&
         you &&
         players.length > 2 &&
@@ -87,18 +82,6 @@ export default function Game({ game, onSubmitVotes, sortedResults, self }) {
               </>
             )
         )}
-      {players &&
-        sortedResults &&
-        sortedResults.length === players.length &&
-        sortedResults.map((player, index) => {
-          if (index == 0) {
-            return <LARGE key={index}>The {player.animal} won!🏆</LARGE>
-          } else if (index == 1) {
-            return <p key={index}>The {player.animal} was rated Second.</p>
-          } else {
-            return <p key={index}>The {player.animal} wasn't so lucky this time.</p>
-          }
-        })}
     </>
   )
 }
@@ -136,9 +119,9 @@ const Button = styled.button`
     background-color: var(--lightbrown-day);
   }
 `
-const SMALL = styled.p`
+const Small = styled.p`
   font-size: 0.9rem;
 `
-const LARGE = styled.p`
+const Large = styled.p`
   font-size: 1.2rem;
 `

@@ -4,7 +4,7 @@ export default function Info() {
   return (
     <>
       <h3>About the Game</h3>
-      <SMALL>
+      <Small>
         Animal Olympics is a game for between 3 and 8 players - the animals' coaches. The three
         disciplines are being picked randomly from the different categories aswell as the weather
         condition and you choose one animal from your selection of animals. That one animal athlete
@@ -16,10 +16,10 @@ export default function Info() {
         lanes provided of course. The walrus is competing against the squirrel in the paintballing
         event? No worries, the guns will be appropriately-sized for each animal. <br />(
         <em>More infos to follow soon.</em>)
-      </SMALL>
+      </Small>
     </>
   )
 }
-const SMALL = styled.p`
+const Small = styled.p`
   font-size: 0.9rem;
 `

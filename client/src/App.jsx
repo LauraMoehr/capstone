@@ -7,6 +7,7 @@ import Game from "./Components/Game"
 import Info from "./Components/Info"
 import HomeImage from "./Components/HomeImage" //rhinos
 import PickCandidate from "./Components/PickCandidate"
+import Results from "./Components/Results"
 import { useState, useEffect } from "react"
 import iconAnimals from "./Components/iconAnimals.svg"
 import iconHome from "./Components/iconHome.svg"
@@ -178,6 +179,7 @@ function App() {
       const copiedResults = allResults.slice()
       const sortedResults = copiedResults.sort((a, b) => a.num - b.num)
       setSortedResults(sortedResults)
+      navigate("results")
     } catch (error) {
       console.log(error.message)
     }
@@ -234,15 +236,10 @@ function App() {
           />
           <Route
             path="game"
-            element={
-              <Game
-                game={game}
-                onSubmitVotes={submitVotes}
-                sortedResults={sortedResults}
-                self={self}
-              />
-            }
+            element={<Game game={game} onSubmitVotes={submitVotes} self={self} />}
           />
+          <Route path="results" element={<Results game={game} sortedResults={sortedResults} />} />
+
           <Route path="" element={<HomeImage />} />
           <Route path="info" element={<Info />} />
         </Routes>

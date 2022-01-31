@@ -1,17 +1,17 @@
 import styled from "styled-components"
 
-export default function Enter({ onPickCandidate, animalsToChooseFrom, game, id }) {
+export default function PickCandidate({ onPickCandidate, animalsToChooseFrom, game, id }) {
   const { roomName, disciplines, weather, players } = game
 
   return (
     <>
       <h3>Welcome to the next round!</h3>
       {id && players?.length == 1 && (
-        <SMALL>
+        <Small>
           Before picking an animal send this game's ID to your friends:
           <br />
           {id}
-        </SMALL>
+        </Small>
       )}
       {weather && (
         <p key={weather._id}>
@@ -91,6 +91,6 @@ const Select = styled.select`
   color: var(--oliv-day);
   margin: 0.3rem;
 `
-const SMALL = styled.p`
+const Small = styled.p`
   font-size: 0.9rem;
 `

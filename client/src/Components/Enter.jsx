@@ -5,13 +5,13 @@ export default function Enter({ onStartGame }) {
     <>
       <h3>Welcome to the next round!</h3>
       <form onSubmit={onStartGame}>
-        <SMALL>Enter your name please:</SMALL>
+        <Small>Enter your name please:</Small>
         <Input type="text" name="name" required />
         <br />
-        <SMALL>
+        <Small>
           To create a new game leave the field below empty - to join a game please enter that
           round's ID.
-        </SMALL>
+        </Small>
         <Input type="text" name="gameId" />
         <br />
         <Button type="reset">Cancel</Button>
@@ -43,6 +43,6 @@ const Button = styled.button`
     transform: translateY(4px);
   }
 `
-const SMALL = styled.p`
+const Small = styled.p`
   font-size: 0.9rem;
 `
