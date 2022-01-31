@@ -10,7 +10,12 @@ function onSubscribe(req, res) {
   req.on("close", () => delete players[id])
 }
 
-export function publish(game) {
+export function publish(game, logTitle = "") {
+  //NEW
+  if (logTitle) {
+    //NEW
+    console.log(game, logTitle) //NEW
+  }
   for (let id in players) {
     let res = players[id]
     res.json(game)

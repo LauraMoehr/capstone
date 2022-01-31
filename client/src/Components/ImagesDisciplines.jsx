@@ -2,36 +2,29 @@ import cheeseRolling from "../cheeseRolling.jpg"
 import eggSpoonRace from "../eggSpoonRace.jpg"
 import hurdles from "../hurdles.jpg"
 import sheepHerding from "../sheepHerding.jpg"
-//import rhinos from "../rhinos.jpg"
 import styled from "styled-components"
 
 export default function imagesDisciplines({ imagesDisciplines }) {
-  const card = imagesDisciplines.forEach(disc => {
-    if (disc.name == "eggSpoonRace") {
+  const card = name => {
+    if (name == "eggSpoonRace") {
       return eggSpoonRace
-    } else if (disc.name == "cheeseRolling") {
+    } else if (name == "cheeseRolling") {
       return cheeseRolling
-    } else if (disc.name == "hurdles") {
+    } else if (name == "hurdles") {
       return hurdles
-    } else if (disc.name == "sheepHerding") {
+    } else if (name == "sheepHerding") {
       return sheepHerding
     }
-  })
+  }
   return (
     <>
       <h3>Disciplines</h3>
       {imagesDisciplines.map(discipline => (
         <CardStyle key={discipline._id}>
-          <Card src={card} alt={discipline.name}></Card>
+          <h4>{discipline.name}</h4>
+          <Card src={card(discipline.name)} alt={discipline.name}></Card>
         </CardStyle>
       ))}
-      {/* {imagesDisciplines.map(discipline => {
-        const imageImport = require(`../${discipline.name}.jpg`) && (
-          <CardStyle key={discipline._id}>
-            <Card src={imageImport} alt={discipline.name}></Card>
-          </CardStyle>
-        )
-      })} */}
       <p>
         <em>More disciplines to follow soon...</em>
       </p>

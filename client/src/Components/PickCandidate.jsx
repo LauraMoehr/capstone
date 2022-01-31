@@ -2,7 +2,6 @@ import styled from "styled-components"
 
 export default function Enter({ onPickCandidate, animalsToChooseFrom, game, id }) {
   const { roomName, disciplines, weather, players } = game
-
   return (
     <>
       <h3>Welcome to the next round!</h3>
