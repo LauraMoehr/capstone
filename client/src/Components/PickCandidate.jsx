@@ -6,7 +6,13 @@ export default function Enter({ onPickCandidate, animalsToChooseFrom, game, id }
   return (
     <>
       <h3>Welcome to the next round!</h3>
-      {id && players?.length == 1 && <SMALL>This game's id: {id}</SMALL>}
+      {id && players?.length == 1 && (
+        <SMALL>
+          Before picking an animal send this game's ID to your friends:
+          <br />
+          {id}
+        </SMALL>
+      )}
       {weather && (
         <p key={weather._id}>
           Today's weather: 🎲 ...

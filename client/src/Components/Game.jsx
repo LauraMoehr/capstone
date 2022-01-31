@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react"
+// import Confetti from "react-confetti"
+
 import styled from "styled-components"
 
 export default function Game({ game, onSubmitVotes, sortedResults, self }) {
@@ -24,7 +26,9 @@ export default function Game({ game, onSubmitVotes, sortedResults, self }) {
           Hi {you.name}! <br /> Welcome {you.animal.name}!
         </LARGE>
       )}
-      {players && players.length < 3 && <SMALL>Number of players: {players.length}</SMALL>}
+      {players && players.length < 3 && (
+        <SMALL>Number of players: {players.length}. ...waiting for more to join.</SMALL>
+      )}
       {weather && (
         <SMALL key={weather._id}>It's gonna be {weather} today- let's get started!</SMALL>
       )}
@@ -88,7 +92,7 @@ export default function Game({ game, onSubmitVotes, sortedResults, self }) {
         sortedResults.length === players.length &&
         sortedResults.map((player, index) => {
           if (index == 0) {
-            return <LARGE key={index}>🏆The {player.animal} won!✨✨🏆</LARGE>
+            return <LARGE key={index}>The {player.animal} won!🏆</LARGE>
           } else if (index == 1) {
             return <p key={index}>The {player.animal} was rated Second.</p>
           } else {

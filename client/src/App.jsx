@@ -286,9 +286,9 @@ const Icon = styled.img`
   width: 100%;
   margin: 0.5rem 0;
   cursor: pointer;
+  transition: all 0.2s;
   &:active {
     transform: translateY(4px);
-    transition: all 0.2s;
   }
 `
 const IconRotate = styled.img`
@@ -299,9 +299,9 @@ const IconRotate = styled.img`
   width: 100%;
   margin: 0.5rem 0;
   cursor: pointer;
+  transition: all 1s;
   &:hover {
     transform: rotateZ(360deg);
-    transition: all 1s;
   }
 `
 const IconHop = styled.img`
@@ -312,8 +312,8 @@ const IconHop = styled.img`
   width: 100%;
   margin: 0.5rem 0;
   cursor: pointer;
-  /* &:hover {
-    transform: translateY(-30px);
-    transition: all 0.5s;
-  } */
+  transition: all 1s;
+  &:hover {
+    transform: translateY(-30px) rotateZ(360deg);
+  }
 `
