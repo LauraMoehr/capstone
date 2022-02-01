@@ -4,7 +4,6 @@ import styled from "styled-components"
 export default function Game({ game, onSubmitVotes, self }) {
   const { roomName, disciplines, weather, players } = game
   const [you, setYou] = useState()
-  //disabled={disable}
 
   useEffect(() => {
     if (game?.players?.length > 0) {
@@ -80,12 +79,20 @@ export default function Game({ game, onSubmitVotes, self }) {
                   />
                   <Input type="hidden" name="playerId" value={player.id} />
                   <br />
-                  <Button>Submit Votes</Button>
+                  <SubmitButton />
                 </form>
               </>
             )
         )}
     </>
+  )
+}
+function SubmitButton() {
+  const [clicked, setClicked] = useState(false)
+  return (
+    <Button disabled={clicked} onClick={() => setClicked(true)}>
+      Submit Votes {clicked && "✔️"}{" "}
+    </Button>
   )
 }
 
@@ -122,7 +129,7 @@ const Button = styled.button`
     transform: translateY(4px);
   }
   &:disabled {
-    background-color: var(--lightbrown-day); //?
+    background-color: var(--lightbrown-day);
   }
 `
 const Small = styled.p`

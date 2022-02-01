@@ -26,7 +26,6 @@ function App() {
   const [game, setGame] = useState({})
   const [sortedResults, setSortedResults] = useState([])
   const [self, setSelf] = useState()
-  //const [disable, setDisable] = useState({ playerId: false })
 
   const navigate = useNavigate()
 
@@ -224,7 +223,6 @@ function App() {
     const playerId = event.target.playerId.value
     const votes = [event.target.vote1.value, event.target.vote2.value, event.target.vote3.value]
     addVotes(playerId, votes) // fire and forget
-    //setDisable({ playerId: true })
   }
 
   const subscribeError = async error => {
@@ -270,7 +268,7 @@ function App() {
           />
           <Route
             path="game"
-            element={<Game game={game} onSubmitVotes={submitVotes} self={self} />} //disable={disable}
+            element={<Game game={game} onSubmitVotes={submitVotes} self={self} />}
           />
           <Route path="results" element={<Results game={game} sortedResults={sortedResults} />} />
 
