@@ -1,18 +1,21 @@
-import cheeseRolling from "../cheeseRolling.jpg"
-import eggSpoonRace from "../eggSpoonRace.jpg"
+import cakeDecorating from "../cakeDecorating.jpg"
+import longJumps from "../longJumps.jpg"
 import hurdles from "../hurdles.jpg"
+import rockClimbing from "../rockClimbing.jpg"
 import sheepHerding from "../sheepHerding.jpg"
 import styled from "styled-components"
 
 export default function imagesDisciplines({ imagesDisciplines }) {
   const card = name => {
-    if (name == "eggSpoonRace") {
-      return eggSpoonRace
-    } else if (name == "cheeseRolling") {
-      return cheeseRolling
+    if (name == "cakeDecorating") {
+      return cakeDecorating
+    } else if (name == "longJumps") {
+      return longJumps
     } else if (name == "hurdles") {
       return hurdles
-    } else if (name == "sheepHerding") {
+    } else if (name == "rockClimbing") {
+      return rockClimbing
+    } else {
       return sheepHerding
     }
   }
@@ -38,7 +41,7 @@ const CardStyle = styled.div`
   box-shadow: 4px 4px 2px 1px var(--oliv-day, 0.5); //andere Farbe
 `
 const Card = styled.img`
-  width: 100%;
-  height: auto;
+  max-width: 50vw;
+  max-height: auto;
   margin: 0;
 `
