@@ -4,7 +4,6 @@ import styled from "styled-components"
 export default function Game({ game, onSubmitVotes, self }) {
   const { roomName, disciplines, weather, players } = game
   const [you, setYou] = useState()
-  //disabled={disable}
 
   useEffect(() => {
     if (game?.players?.length > 0) {
@@ -16,15 +15,13 @@ export default function Game({ game, onSubmitVotes, self }) {
   return (
     <>
       {you && (
-        <Large>
-          Hi {you.name}! <br /> Welcome {you.animal.name}!
-        </Large>
-        // {animals.map(animal => (
-        //   <CardStyle key={animal._id}>
-        //     <h4>{animal.name}</h4>
-        //     <p>{animal.type}</p>
-        //   </CardStyle>
-        // ))}
+        <>
+          <Large>Hi {you.name}!</Large>
+          <CardStyle key={you.animal._id}>
+            <h4>{you.animal.name}</h4>
+            <p>{you.animal.type}</p>
+          </CardStyle>
+        </>
       )}
       {players && players.length < 3 && (
         <Small>Number of players: {players.length}. ...waiting for more to join.</Small>
@@ -82,12 +79,20 @@ export default function Game({ game, onSubmitVotes, self }) {
                   />
                   <Input type="hidden" name="playerId" value={player.id} />
                   <br />
-                  <Button>Submit Votes</Button>
+                  <SubmitButton />
                 </form>
               </>
             )
         )}
     </>
+  )
+}
+function SubmitButton() {
+  const [clicked, setClicked] = useState(false)
+  return (
+    <Button disabled={clicked} onClick={() => setClicked(true)}>
+      Submit Votes {clicked && "✔️"}{" "}
+    </Button>
   )
 }
 
@@ -124,7 +129,7 @@ const Button = styled.button`
     transform: translateY(4px);
   }
   &:disabled {
-    background-color: var(--lightbrown-day); //?
+    background-color: var(--lightbrown-day);
   }
 `
 const Small = styled.p`
