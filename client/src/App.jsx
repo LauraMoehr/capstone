@@ -1,8 +1,7 @@
 import { NavLink, Routes, Route, useNavigate } from "react-router-dom"
 import Header from "./Components/Header"
 import Animals from "./Components/Animals"
-//import Disciplines from "./Components/Disciplines"
-import ImagesDisciplines from "./Components/ImagesDisciplines"
+import Disciplines from "./Components/Disciplines"
 import Enter from "./Components/Enter"
 import Game from "./Components/Game"
 import Info from "./Components/Info"
@@ -21,7 +20,7 @@ function App() {
   const [animals, setAnimals] = useState([])
   const [animalsToChooseFrom, setAnimalsToChooseFrom] = useState([])
   const [disciplines, setDisciplines] = useState([])
-  const [imagesDisciplines, setImagesDisciplines] = useState([])
+  //const [imagesDisciplines, setImagesDisciplines] = useState([])
   const [chosenDisciplines, setChosenDisciplines] = useState([])
   const [weather, setWeather] = useState([])
   const [randomWeather, setRandomWeather] = useState({})
@@ -63,18 +62,18 @@ function App() {
     getAllFromApi()
   }, [])
 
-  useEffect(() => {
-    async function getImagesDisciplinesFromApi() {
-      try {
-        const imagesDisciplines = await fetch("/api/imagesDisciplines")
-        const imagesDisciplinesFromApi = await imagesDisciplines.json()
-        setImagesDisciplines(imagesDisciplinesFromApi)
-      } catch (error) {
-        console.log(error.message)
-      }
-    }
-    getImagesDisciplinesFromApi()
-  }, [])
+  // useEffect(() => {
+  //   async function getImagesDisciplinesFromApi() {
+  //     try {
+  //       const imagesDisciplines = await fetch("/api/imagesDisciplines")
+  //       const imagesDisciplinesFromApi = await imagesDisciplines.json()
+  //       setImagesDisciplines(imagesDisciplinesFromApi)
+  //     } catch (error) {
+  //       console.log(error.message)
+  //     }
+  //   }
+  //   getImagesDisciplinesFromApi()
+  // }, [])
 
   useEffect(() => {
     if (disciplines.length > 0 && weather.length > 0) {
@@ -237,7 +236,7 @@ function App() {
     event.preventDefault()
     const playerId = event.target.playerId.value
     const votes = [event.target.vote1.value, event.target.vote2.value, event.target.vote3.value]
-    addVotes(playerId, votes) // fire and forget
+    addVotes(playerId, votes)
   }
 
   const subscribeError = async error => {
@@ -268,11 +267,7 @@ function App() {
       <main>
         <Routes>
           <Route path="animals" element={<Animals animals={animals} />} />
-          {/* <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} /> */}
-          <Route
-            path="imagesDisciplines"
-            element={<ImagesDisciplines imagesDisciplines={imagesDisciplines} />}
-          />
+          <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
           <Route path="enter" element={<Enter onStartGame={startGame} />} />
           <Route
             path="candidates"
@@ -305,9 +300,7 @@ function App() {
         <NavLink to="/animals">
           <IconRotate src={iconAnimals} alt="Animals" />
         </NavLink>
-        <NavLink to="/imagesDisciplines">
-          {" "}
-          {/* ACHTUNG!!!!! */}
+        <NavLink to="/disciplines">
           <IconHop src={iconDisciplines} alt="Disciplines" />
         </NavLink>
         <NavLink to={"/enter"}>

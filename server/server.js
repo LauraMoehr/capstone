@@ -8,7 +8,6 @@ import AnimalsRoutes from "./animals.routes.js" //from Frontend
 import DisciplinesRoutes from "./disciplines.routes.js"
 import WeatherRoutes from "./weather.routes.js"
 import GamesRoutes from "./games.routes.js"
-import ImagesDisciplinesRoutes from "./imagesDisciplines.routes.js"
 import PlayersRoutes, { closePlayers } from "./players.routes.js"
 
 dotenv.config()
@@ -32,7 +31,6 @@ server.use(DisciplinesRoutes)
 server.use(WeatherRoutes)
 server.use(GamesRoutes)
 server.use(PlayersRoutes)
-server.use(ImagesDisciplinesRoutes)
 
 server.use(express.static(path.join(__dirname, "../client/dist")))
 server.get("/*", (req, res) => res.sendFile(path.join(__dirname, "../client/dist", "index.html")))
