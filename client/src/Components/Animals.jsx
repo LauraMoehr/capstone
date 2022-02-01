@@ -1,12 +1,12 @@
-import rhinos from "../rhinos.jpg"
 import redPanda from "../ImagesAnimals/redPanda.jpg" //oder anderen Red Panda?
 import ostrich from "../ImagesAnimals/ostrich.jpg"
-import beaver from "../ImagesAnimals/beaver.jpg"
+//import beaver from "../ImagesAnimals/beaver.jpg"
 import lizard from "../ImagesAnimals/lizard.jpg"
 import greyWolf from "../ImagesAnimals/greyWolf.jpg"
 import baldEagle from "../ImagesAnimals/baldEagle.jpg"
 import alpineIbex from "../ImagesAnimals/alpineIbex.jpg"
 import walrus from "../ImagesAnimals/walrus.jpg"
+import greatGreyOwl from "../ImagesAnimals/greatGreyOwl.jpg"
 import anaconda from "../ImagesAnimals/anaconda.jpg"
 import commonChameleon from "../ImagesAnimals/commonChameleon.jpg"
 import grasshopper from "../ImagesAnimals/grasshopper.jpg"
@@ -19,28 +19,22 @@ import styled from "styled-components"
 
 export default function Animals({ animals }) {
   const card = name => {
-    if (name == "Rhinos") {
-      return rhinos
-    } else if (name == "Red Panda") {
+    if (name == "Red Panda") {
       return redPanda
     } else if (name == "Ostrich") {
       return ostrich
-    } else if (name == "North American Beaver") {
-      return beaver
-    } else if (name == "Lizard") {
+    } else if (name == "Great Grey Owl") {
+      return greatGreyOwl
+    } else if (name == "Basilisk Lizard") {
       return lizard
     } else if (name == "Grey Wolf") {
       return greyWolf
-    } else if (name == "Eagle") {
-      return eagle
     } else if (name == "Alpine Ibex") {
       return alpineIbex
     } else if (name == "Bald Eagle") {
       return baldEagle
     } else if (name == "Walrus") {
       return walrus
-    } else if (name == "Anaconda") {
-      return anaconda
     } else if (name == "Common Chameleon") {
       return commonChameleon
     } else if (name == "Grasshopper") {
@@ -49,8 +43,6 @@ export default function Animals({ animals }) {
       return honeybee
     } else if (name == "Killer Whale") {
       return killerWhale
-    } else if (name == "Manta Ray") {
-      return mantaRay
     } else if (name == "Poison Dart Frog") {
       return poisonDartFrog
     } else if (name == "Sea Otter") {
@@ -77,12 +69,12 @@ export default function Animals({ animals }) {
 }
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  gap: 0.5rem;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 1fr 1fr;
   overflow: scroll;
 `
 const CardStyle = styled.div`
-  margin: 0.5rem 0.5rem;
+  margin: 0.5rem;
   background-color: var(--beige-day);
   border: 1px solid var(--oliv-day);
   padding: 0.2rem;
@@ -91,6 +83,6 @@ const CardStyle = styled.div`
 `
 const Card = styled.img`
   max-width: 50vw;
-  max-height: 40vh;
+  max-height: 30vh;
   margin: 0;
 `

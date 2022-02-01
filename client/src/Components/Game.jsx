@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react"
-import rhinos from "../rhinos.jpg"
 import redPanda from "../ImagesAnimals/redPanda.jpg" //oder anderen Red Panda?
 import ostrich from "../ImagesAnimals/ostrich.jpg"
-import beaver from "../ImagesAnimals/beaver.jpg"
+//import beaver from "../ImagesAnimals/beaver.jpg"
 import lizard from "../ImagesAnimals/lizard.jpg"
 import greyWolf from "../ImagesAnimals/greyWolf.jpg"
 import baldEagle from "../ImagesAnimals/baldEagle.jpg"
@@ -10,47 +9,42 @@ import alpineIbex from "../ImagesAnimals/alpineIbex.jpg"
 import walrus from "../ImagesAnimals/walrus.jpg"
 import anaconda from "../ImagesAnimals/anaconda.jpg"
 import commonChameleon from "../ImagesAnimals/commonChameleon.jpg"
+import greatGreyOwl from "../ImagesAnimals/greatGreyOwl.jpg"
 import grasshopper from "../ImagesAnimals/grasshopper.jpg"
 import honeybee from "../ImagesAnimals/honeybee.jpg"
 import killerWhale from "../ImagesAnimals/killerWhale.jpg"
 import mantaRay from "../ImagesAnimals/mantaRay.jpg"
 import poisonDartFrog from "../ImagesAnimals/poisonDartFrog.jpg"
 import seaOtter from "../ImagesAnimals/seaOtter.jpg"
-import cakeDecorating from "../ImagesDisciplines/cakeDecorating.jpg"
-import longJump from "../ImagesDisciplines/longJump.jpg"
+//import cakeDecorating from "../ImagesDisciplines/cakeDecorating.jpg"
+//import longJump from "../ImagesDisciplines/longJump.jpg"
 import obstacleCourse from "../ImagesDisciplines/obstacleCourse.jpg"
 import rockClimbing from "../ImagesDisciplines/rockClimbing.jpg"
 import sheepHerding from "../ImagesDisciplines/sheepHerding.jpg"
-import synchronisedSwimming from "../ImagesDisciplines/synchronisedSwimming.jpg"
-import hideSeek from "../ImagesDisciplines/hideSeek.jpg"
+//import synchronisedSwimming from "../ImagesDisciplines/synchronisedSwimming.jpg"
+//import hideSeek from "../ImagesDisciplines/hideSeek.jpg"
 import styled from "styled-components"
 
 export default function Game({ game, onSubmitVotes, self }) {
   const { roomName, disciplines, weather, players } = game
   const [you, setYou] = useState()
   const card = name => {
-    if (name == "Rhinos") {
-      return rhinos
-    } else if (name == "Red Panda") {
+    if (name == "Red Panda") {
       return redPanda
     } else if (name == "Ostrich") {
       return ostrich
-    } else if (name == "North American Beaver") {
-      return beaver
-    } else if (name == "Lizard") {
+    } else if (name == "Basilisk Lizard") {
       return lizard
     } else if (name == "Grey Wolf") {
       return greyWolf
-    } else if (name == "Eagle") {
-      return eagle
     } else if (name == "Alpine Ibex") {
       return alpineIbex
     } else if (name == "Bald Eagle") {
       return baldEagle
+    } else if (name == "Great Grey Owl") {
+      return greatGreyOwl
     } else if (name == "Walrus") {
       return walrus
-    } else if (name == "Anaconda") {
-      return anaconda
     } else if (name == "Common Chameleon") {
       return commonChameleon
     } else if (name == "Grasshopper") {
@@ -59,8 +53,6 @@ export default function Game({ game, onSubmitVotes, self }) {
       return honeybee
     } else if (name == "Killer Whale") {
       return killerWhale
-    } else if (name == "Manta Ray") {
-      return mantaRay
     } else if (name == "Poison Dart Frog") {
       return poisonDartFrog
     } else if (name == "Sea Otter") {
@@ -75,11 +67,11 @@ export default function Game({ game, onSubmitVotes, self }) {
       return rockClimbing
     } else if (name == "Sheep Herding") {
       return sheepHerding
-    } else if (name == "Synchronised Swimming") {
-      return synchronisedSwimming
-    } else if (name == "Hide Seek") {
-      return hideSeek
-    }
+    } // else if (name == "Synchronised Swimming") {
+    //   return synchronisedSwimming
+    // } else if (name == "Hide Seek") {
+    //   return hideSeek
+    // }
   }
   useEffect(() => {
     if (game?.players?.length > 0) {
@@ -108,64 +100,62 @@ export default function Game({ game, onSubmitVotes, self }) {
       {weather && (
         <Small key={weather._id}>It's gonna be {weather} today- let's get started!</Small>
       )}
-      <Grid>
-        {disciplines &&
-          disciplines.map(discipline => (
-            <CardStyle key={discipline._id}>
-              <h4>{discipline.name}</h4>
-              <p>{discipline.type}</p>
-              <Card src={card(discipline.name)} alt={discipline.name}></Card>
-            </CardStyle>
-          ))}
-      </Grid>
+      {disciplines &&
+        disciplines.map(discipline => (
+          <CardStyle key={discipline._id}>
+            <h4>{discipline.name}</h4>
+            <p>{discipline.type}</p>
+            <Card src={card(discipline.name)} alt={discipline.name}></Card>
+          </CardStyle>
+        ))}
+
       {players && players.length > 2 && <Small>Rank each animal for each discipline.</Small>}
-      <Grid>
-        {players &&
-          you &&
-          players.length > 2 &&
-          players.map(
-            player =>
-              player.animal !== undefined &&
-              player.name !== you.name && (
-                <>
-                  <p>
-                    {player.name} with the {player.animal.name}:
-                  </p>
-                  <form onSubmit={onSubmitVotes}>
-                    <Input
-                      type="number"
-                      name="vote1"
-                      min="1"
-                      max={players.length - 1}
-                      placeholder="Discipline 1"
-                      required
-                    />
-                    <br />
-                    <Input
-                      type="number"
-                      name="vote2"
-                      min="1"
-                      max={players.length - 1}
-                      placeholder="Discipline 2"
-                      required
-                    />
-                    <br />
-                    <Input
-                      type="number"
-                      name="vote3"
-                      min="1"
-                      max={players.length - 1}
-                      placeholder="Discipline 3"
-                      required
-                    />
-                    <Input type="hidden" name="playerId" value={player.id} />
-                    <br />
-                    <SubmitButton />
-                  </form>
-                </>
-              )
-          )}
-      </Grid>
+
+      {players &&
+        you &&
+        players.length > 2 &&
+        players.map(
+          player =>
+            player.animal !== undefined &&
+            player.name !== you.name && (
+              <>
+                <p>
+                  {player.name} with the {player.animal.name}:
+                </p>
+                <form onSubmit={onSubmitVotes}>
+                  <Input
+                    type="number"
+                    name="vote1"
+                    min="1"
+                    max={players.length - 1}
+                    placeholder="Discipline 1"
+                    required
+                  />
+                  <br />
+                  <Input
+                    type="number"
+                    name="vote2"
+                    min="1"
+                    max={players.length - 1}
+                    placeholder="Discipline 2"
+                    required
+                  />
+                  <br />
+                  <Input
+                    type="number"
+                    name="vote3"
+                    min="1"
+                    max={players.length - 1}
+                    placeholder="Discipline 3"
+                    required
+                  />
+                  <Input type="hidden" name="playerId" value={player.id} />
+                  <br />
+                  <SubmitButton />
+                </form>
+              </>
+            )
+        )}
     </>
   )
 }
@@ -177,14 +167,11 @@ function SubmitButton() {
     </Button>
   )
 }
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  gap: 0.5rem;
-  overflow: scroll;
-`
+
 const CardStyle = styled.div`
-  margin: 0.5rem 0.5rem;
+  margin: 0.5rem 5rem;
+  max-width: 55vw; //?
+  max-height: 40vh; //?
   background-color: var(--beige-day);
   border: 1px solid var(--oliv-day);
   padding: 0.2rem;
@@ -193,7 +180,7 @@ const CardStyle = styled.div`
 `
 const Card = styled.img`
   max-width: 50vw;
-  max-height: 40vh;
+  max-height: 30vh;
   margin: 0;
 `
 const Input = styled.input`
