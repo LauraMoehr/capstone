@@ -45,6 +45,5 @@ img {
     height: auto;
     margin: 6rem 0 0 0;
     object-fit: contain;
-    //transition: all 1s;
 }
 `

@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 
-export default function Game({ game, onSubmitVotes, sortedResults, self }) {
+export default function Game({ game, onSubmitVotes, self }) {
   const { roomName, disciplines, weather, players } = game
-  //const [disable, setDisable] = useState(false)
-  //disabled={disable} onClick={() => setDisable(true)}
   const [you, setYou] = useState()
+  //disabled={disable}
 
   useEffect(() => {
     if (game?.players?.length > 0) {
@@ -13,20 +12,25 @@ export default function Game({ game, onSubmitVotes, sortedResults, self }) {
       youObject.animal !== undefined && setYou(youObject)
     }
   }, [game, players])
-  // if (game?.players?.length > 0) {
-  //   const youObject = game.players.find(player => player.name == self)
-  // }
 
   return (
     <>
       {you && (
-        <LARGE>
+        <Large>
           Hi {you.name}! <br /> Welcome {you.animal.name}!
-        </LARGE>
+        </Large>
+        // {animals.map(animal => (
+        //   <CardStyle key={animal._id}>
+        //     <h4>{animal.name}</h4>
+        //     <p>{animal.type}</p>
+        //   </CardStyle>
+        // ))}
       )}
-      {players && players.length < 3 && <SMALL>Number of players: {players.length}</SMALL>}
+      {players && players.length < 3 && (
+        <Small>Number of players: {players.length}. ...waiting for more to join.</Small>
+      )}
       {weather && (
-        <SMALL key={weather._id}>It's gonna be {weather} today- let's get started!</SMALL>
+        <Small key={weather._id}>It's gonna be {weather} today- let's get started!</Small>
       )}
       {disciplines &&
         disciplines.map(discipline => (
@@ -37,7 +41,7 @@ export default function Game({ game, onSubmitVotes, sortedResults, self }) {
             </CardStyle>
           </>
         ))}
-      {players && players.length > 2 && <SMALL>Rank each animal for each discipline.</SMALL>}
+      {players && players.length > 2 && <Small>Rank each animal for each discipline.</Small>}
       {players &&
         you &&
         players.length > 2 &&
@@ -83,18 +87,6 @@ export default function Game({ game, onSubmitVotes, sortedResults, self }) {
               </>
             )
         )}
-      {players &&
-        sortedResults &&
-        sortedResults.length === players.length &&
-        sortedResults.map((player, index) => {
-          if (index == 0) {
-            return <LARGE key={index}>🏆The {player.animal} won!✨✨🏆</LARGE>
-          } else if (index == 1) {
-            return <p key={index}>The {player.animal} was rated Second.</p>
-          } else {
-            return <p key={index}>The {player.animal} wasn't so lucky this time.</p>
-          }
-        })}
     </>
   )
 }
@@ -104,21 +96,24 @@ const CardStyle = styled.div`
   background-color: var(--beige-day);
   border: 1px solid var(--oliv-day);
   padding: 0.2rem;
-  box-shadow: 4px 4px 2px 1px var(--oliv-day, 0.1); //andere Farbe
+  box-shadow: 4px 4px 5px var(--lightbrown-day);
 `
 const Input = styled.input`
   font-family: "Righteous", cursive;
   color: var(--oliv-day);
   background-color: var(--beige-day);
-  border: 2px solid var(--oliv-day);
+  border: 1px solid var(--oliv-day);
   padding: 0.3rem;
   margin: 0.2rem;
+  &:focus {
+    outline: none;
+  }
 `
 const Button = styled.button`
   font-family: "Righteous", cursive;
   color: var(--olive-day);
   background-color: var(--beige-day);
-  border: 2px solid var(--oliv-day);
+  border: 1px solid var(--oliv-day);
   margin: 1rem;
   cursor: pointer;
   border-radius: 5px;
@@ -129,12 +124,12 @@ const Button = styled.button`
     transform: translateY(4px);
   }
   &:disabled {
-    background-color: var(--lightbrown-day);
+    background-color: var(--lightbrown-day); //?
   }
 `
-const SMALL = styled.p`
+const Small = styled.p`
   font-size: 0.9rem;
 `
-const LARGE = styled.p`
+const Large = styled.p`
   font-size: 1.2rem;
 `
