@@ -16,15 +16,13 @@ export default function Game({ game, onSubmitVotes, self }) {
   return (
     <>
       {you && (
-        <Large>
-          Hi {you.name}! <br /> Welcome {you.animal.name}!
-        </Large>
-        // {animals.map(animal => (
-        //   <CardStyle key={animal._id}>
-        //     <h4>{animal.name}</h4>
-        //     <p>{animal.type}</p>
-        //   </CardStyle>
-        // ))}
+        <>
+          <Large>Hi {you.name}!</Large>
+          <CardStyle key={you.animal._id}>
+            <h4>{you.animal.name}</h4>
+            <p>{you.animal.type}</p>
+          </CardStyle>
+        </>
       )}
       {players && players.length < 3 && (
         <Small>Number of players: {players.length}. ...waiting for more to join.</Small>
