@@ -1,8 +1,10 @@
-import cakeDecorating from "../cakeDecorating.jpg"
-import longJump from "../longJump.jpg"
-import obstacleCourse from "../obstacleCourse.jpg"
-import rockClimbing from "../rockClimbing.jpg"
-import sheepHerding from "../sheepHerding.jpg"
+import cakeDecorating from "../ImagesDisciplines/cakeDecorating.jpg"
+import longJump from "../ImagesDisciplines/longJump.jpg"
+import obstacleCourse from "../ImagesDisciplines/obstacleCourse.jpg"
+import rockClimbing from "../ImagesDisciplines/rockClimbing.jpg"
+import sheepHerding from "../ImagesDisciplines/sheepHerding.jpg"
+import synchronisedSwimming from "../ImagesDisciplines/synchronisedSwimming.jpg"
+import hideSeek from "../ImagesDisciplines/hideSeek.jpg"
 import styled from "styled-components"
 
 export default function Disciplines({ disciplines }) {
@@ -17,6 +19,10 @@ export default function Disciplines({ disciplines }) {
       return rockClimbing
     } else if (name == "Sheep Herding") {
       return sheepHerding
+    } else if (name == "Synchronised Swimming") {
+      return synchronisedSwimming
+    } else if (name == "Hide Seek") {
+      return hideSeek
     }
   }
   return (
