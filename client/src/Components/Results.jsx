@@ -1,6 +1,6 @@
 import Confetti from "react-confetti"
 //npm install --save canvas-confetti
-//import 'canvas-confetti');
+//import 'canvas-confetti'...
 import styled from "styled-components"
 
 export default function Results({ game, sortedResults }) {
