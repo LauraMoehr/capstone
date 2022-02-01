@@ -7,6 +7,7 @@ import Game from "./Components/Game"
 import Info from "./Components/Info"
 import HomeImage from "./Components/HomeImage" //rhinos
 import PickCandidate from "./Components/PickCandidate"
+import Results from "./Components/Results"
 import { useState, useEffect } from "react"
 import iconAnimals from "./Components/iconAnimals.svg"
 import iconHome from "./Components/iconHome.svg"
@@ -25,6 +26,7 @@ function App() {
   const [game, setGame] = useState({})
   const [sortedResults, setSortedResults] = useState([])
   const [self, setSelf] = useState()
+  //const [disable, setDisable] = useState({ playerId: false })
 
   const navigate = useNavigate()
 
@@ -88,6 +90,39 @@ function App() {
       setAnimalsToChooseFrom(animalsToChooseFrom)
     }
   }, [animals])
+
+  // useEffect(() => {
+  //   if (animals.length > 0 && game?.players?.every(player => player.animal == undefined)) {
+  //     const copyOfAnimals = animals.slice()
+  //     const animalsToChooseFrom = []
+  //     for (let i = 0; i < 3; i++) {
+  //       const randomAnimal = copyOfAnimals[Math.floor(Math.random() * copyOfAnimals.length)]
+  //       animalsToChooseFrom.push(randomAnimal)
+  //       copyOfAnimals.splice(copyOfAnimals.indexOf(randomAnimal), 1)
+  //     }
+  //     setAnimalsToChooseFrom(animalsToChooseFrom)
+  //   } else if (animals.length > 0 && game?.players?.some(player => player.animal != undefined)) {
+  //     console.log(game)
+  //     const copyOfAnimals = animals.slice()
+  //     const playersWithAnimals = game?.players?.filter(player => player.animal != undefined)
+  //     const takenAnimals = playersWithAnimals.map(player => player.animal)
+  //     console.log(takenAnimals)
+  //     //const availableAnimals = copyOfAnimals.filter(animal => ! takenAnimals.includes(animal))
+  //     //const availableAnimals = takenAnimals.map(animal => copyOfAnimals.splice(copyOfAnimals.indexOf(animal), 1))
+  //     // let availableAnimals = []
+  //     // takenAnimals.map(
+  //     //   animal => (availableAnimals = [...copyOfAnimals.splice(copyOfAnimals.indexOf(animal), 1)])
+  //     // )
+  //     console.log(availableAnimals)
+  //     let animalsToChooseFrom = []
+  //     for (let i = 0; i < 3; i++) {
+  //       const randomAnimal = availableAnimals[Math.floor(Math.random() * availableAnimals.length)]
+  //       animalsToChooseFrom.push(randomAnimal)
+  //       availableAnimals.splice(availableAnimals.indexOf(randomAnimal), 1)
+  //     }
+  //     setAnimalsToChooseFrom(animalsToChooseFrom)
+  //   }
+  // }, [animals, game])
 
   async function postInitialGame(game) {
     const result = await fetch("/api/games", {
@@ -178,6 +213,7 @@ function App() {
       const copiedResults = allResults.slice()
       const sortedResults = copiedResults.sort((a, b) => a.num - b.num)
       setSortedResults(sortedResults)
+      navigate("results")
     } catch (error) {
       console.log(error.message)
     }
@@ -187,8 +223,8 @@ function App() {
     event.preventDefault()
     const playerId = event.target.playerId.value
     const votes = [event.target.vote1.value, event.target.vote2.value, event.target.vote3.value]
-    const noEmptyVotes = votes.filter(elem => !elem == "")
-    addVotes(playerId, noEmptyVotes) // fire and forget
+    addVotes(playerId, votes) // fire and forget
+    //setDisable({ playerId: true })
   }
 
   const subscribeError = async error => {
@@ -234,15 +270,10 @@ function App() {
           />
           <Route
             path="game"
-            element={
-              <Game
-                game={game}
-                onSubmitVotes={submitVotes}
-                sortedResults={sortedResults}
-                self={self}
-              />
-            }
+            element={<Game game={game} onSubmitVotes={submitVotes} self={self} />} //disable={disable}
           />
+          <Route path="results" element={<Results game={game} sortedResults={sortedResults} />} />
+
           <Route path="" element={<HomeImage />} />
           <Route path="info" element={<Info />} />
         </Routes>
@@ -286,9 +317,9 @@ const Icon = styled.img`
   width: 100%;
   margin: 0.5rem 0;
   cursor: pointer;
+  transition: all 0.2s;
   &:active {
     transform: translateY(4px);
-    transition: all 0.2s;
   }
 `
 const IconRotate = styled.img`
@@ -299,9 +330,9 @@ const IconRotate = styled.img`
   width: 100%;
   margin: 0.5rem 0;
   cursor: pointer;
+  transition: all 1s;
   &:hover {
     transform: rotateZ(360deg);
-    transition: all 1s;
   }
 `
 const IconHop = styled.img`
@@ -312,8 +343,8 @@ const IconHop = styled.img`
   width: 100%;
   margin: 0.5rem 0;
   cursor: pointer;
-  /* &:hover {
-    transform: translateY(-30px);
-    transition: all 0.5s;
-  } */
+  transition: all 1s;
+  &:hover {
+    transform: translateY(-30px) rotateZ(360deg);
+  }
 `
