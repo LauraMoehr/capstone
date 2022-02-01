@@ -69,7 +69,6 @@ function App() {
         const imagesDisciplines = await fetch("/api/imagesDisciplines")
         const imagesDisciplinesFromApi = await imagesDisciplines.json()
         setImagesDisciplines(imagesDisciplinesFromApi)
-        console.log(imagesDisciplinesFromApi)
       } catch (error) {
         console.log(error.message)
       }

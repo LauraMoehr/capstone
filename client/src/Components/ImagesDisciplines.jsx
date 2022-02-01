@@ -15,7 +15,7 @@ export default function imagesDisciplines({ imagesDisciplines }) {
       return hurdles
     } else if (name == "rockClimbing") {
       return rockClimbing
-    } else {
+    } else if (name == "sheepHerding") {
       return sheepHerding
     }
   }
@@ -37,8 +37,15 @@ export default function imagesDisciplines({ imagesDisciplines }) {
 
 const CardStyle = styled.div`
   margin: 0.5rem 3rem;
-  border-radius: 10px;
-  box-shadow: 4px 4px 2px 1px var(--oliv-day, 0.5); //andere Farbe
+  background-color: var(--beige-day);
+  border: 1px solid var(--oliv-day);
+  padding: 0.2rem;
+  box-shadow: 4px 4px 5px var(--lightbrown-day);
+  //border-radius?
+  /* opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  } */
 `
 const Card = styled.img`
   max-width: 50vw;
