@@ -3,9 +3,8 @@ import styled from "styled-components"
 
 export default function Game({ game, onSubmitVotes, self }) {
   const { roomName, disciplines, weather, players } = game
-  //const [disable, setDisable] = useState(false)
-  //disabled={disable} onClick={() => setDisable(true)}
   const [you, setYou] = useState()
+  //disabled={disable}
 
   useEffect(() => {
     if (game?.players?.length > 0) {
@@ -20,6 +19,12 @@ export default function Game({ game, onSubmitVotes, self }) {
         <Large>
           Hi {you.name}! <br /> Welcome {you.animal.name}!
         </Large>
+        // {animals.map(animal => (
+        //   <CardStyle key={animal._id}>
+        //     <h4>{animal.name}</h4>
+        //     <p>{animal.type}</p>
+        //   </CardStyle>
+        // ))}
       )}
       {players && players.length < 3 && (
         <Small>Number of players: {players.length}. ...waiting for more to join.</Small>
@@ -91,21 +96,24 @@ const CardStyle = styled.div`
   background-color: var(--beige-day);
   border: 1px solid var(--oliv-day);
   padding: 0.2rem;
-  box-shadow: 4px 4px 2px 1px var(--oliv-day, 0.1); //andere Farbe
+  box-shadow: 4px 4px 5px var(--lightbrown-day);
 `
 const Input = styled.input`
   font-family: "Righteous", cursive;
   color: var(--oliv-day);
   background-color: var(--beige-day);
-  border: 2px solid var(--oliv-day);
+  border: 1px solid var(--oliv-day);
   padding: 0.3rem;
   margin: 0.2rem;
+  &:focus {
+    outline: none;
+  }
 `
 const Button = styled.button`
   font-family: "Righteous", cursive;
   color: var(--olive-day);
   background-color: var(--beige-day);
-  border: 2px solid var(--oliv-day);
+  border: 1px solid var(--oliv-day);
   margin: 1rem;
   cursor: pointer;
   border-radius: 5px;
@@ -116,7 +124,7 @@ const Button = styled.button`
     transform: translateY(4px);
   }
   &:disabled {
-    background-color: var(--lightbrown-day);
+    background-color: var(--lightbrown-day); //?
   }
 `
 const Small = styled.p`

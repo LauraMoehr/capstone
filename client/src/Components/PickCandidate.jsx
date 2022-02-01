@@ -64,13 +64,13 @@ const CardStyle = styled.div`
   background-color: var(--beige-day);
   border: 1px solid var(--oliv-day);
   padding: 0.2rem;
-  box-shadow: 4px 4px 2px 1px var(--oliv-day, 0.1); //andere Farbe
+  box-shadow: 4px 4px 5px var(--lightbrown-day);
 `
 const Button = styled.button`
   font-family: "Righteous", cursive;
   color: var(--olive-day);
   background-color: var(--beige-day);
-  border: 2px solid var(--oliv-day);
+  border: 1px solid var(--oliv-day);
   margin: 0.3rem;
   cursor: pointer;
   border-radius: 5px;
@@ -85,7 +85,7 @@ const Select = styled.select`
   font-family: "Righteous", sans-serif; //font-style in dropdown?
   cursor: pointer;
   padding: 0.2rem;
-  border: 2px solid var(--oliv-day);
+  border: 1px solid var(--oliv-day);
   border-radius: 5px;
   background-color: var(--beige-day);
   color: var(--oliv-day);

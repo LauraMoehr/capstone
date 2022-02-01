@@ -26,6 +26,7 @@ function App() {
   const [game, setGame] = useState({})
   const [sortedResults, setSortedResults] = useState([])
   const [self, setSelf] = useState()
+  //const [disable, setDisable] = useState({ playerId: false })
 
   const navigate = useNavigate()
 
@@ -89,6 +90,39 @@ function App() {
       setAnimalsToChooseFrom(animalsToChooseFrom)
     }
   }, [animals])
+
+  // useEffect(() => {
+  //   if (animals.length > 0 && game?.players?.every(player => player.animal == undefined)) {
+  //     const copyOfAnimals = animals.slice()
+  //     const animalsToChooseFrom = []
+  //     for (let i = 0; i < 3; i++) {
+  //       const randomAnimal = copyOfAnimals[Math.floor(Math.random() * copyOfAnimals.length)]
+  //       animalsToChooseFrom.push(randomAnimal)
+  //       copyOfAnimals.splice(copyOfAnimals.indexOf(randomAnimal), 1)
+  //     }
+  //     setAnimalsToChooseFrom(animalsToChooseFrom)
+  //   } else if (animals.length > 0 && game?.players?.some(player => player.animal != undefined)) {
+  //     console.log(game)
+  //     const copyOfAnimals = animals.slice()
+  //     const playersWithAnimals = game?.players?.filter(player => player.animal != undefined)
+  //     const takenAnimals = playersWithAnimals.map(player => player.animal)
+  //     console.log(takenAnimals)
+  //     //const availableAnimals = copyOfAnimals.filter(animal => ! takenAnimals.includes(animal))
+  //     //const availableAnimals = takenAnimals.map(animal => copyOfAnimals.splice(copyOfAnimals.indexOf(animal), 1))
+  //     // let availableAnimals = []
+  //     // takenAnimals.map(
+  //     //   animal => (availableAnimals = [...copyOfAnimals.splice(copyOfAnimals.indexOf(animal), 1)])
+  //     // )
+  //     console.log(availableAnimals)
+  //     let animalsToChooseFrom = []
+  //     for (let i = 0; i < 3; i++) {
+  //       const randomAnimal = availableAnimals[Math.floor(Math.random() * availableAnimals.length)]
+  //       animalsToChooseFrom.push(randomAnimal)
+  //       availableAnimals.splice(availableAnimals.indexOf(randomAnimal), 1)
+  //     }
+  //     setAnimalsToChooseFrom(animalsToChooseFrom)
+  //   }
+  // }, [animals, game])
 
   async function postInitialGame(game) {
     const result = await fetch("/api/games", {
@@ -189,8 +223,8 @@ function App() {
     event.preventDefault()
     const playerId = event.target.playerId.value
     const votes = [event.target.vote1.value, event.target.vote2.value, event.target.vote3.value]
-    const noEmptyVotes = votes.filter(elem => !elem == "")
-    addVotes(playerId, noEmptyVotes) // fire and forget
+    addVotes(playerId, votes) // fire and forget
+    //setDisable({ playerId: true })
   }
 
   const subscribeError = async error => {
@@ -236,7 +270,7 @@ function App() {
           />
           <Route
             path="game"
-            element={<Game game={game} onSubmitVotes={submitVotes} self={self} />}
+            element={<Game game={game} onSubmitVotes={submitVotes} self={self} />} //disable={disable}
           />
           <Route path="results" element={<Results game={game} sortedResults={sortedResults} />} />
 

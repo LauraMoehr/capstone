@@ -25,14 +25,17 @@ const Input = styled.input`
   font-family: "Righteous", cursive;
   color: var(--oliv-day);
   background-color: var(--beige-day);
-  border: 2px solid var(--oliv-day);
+  border: 1px solid var(--oliv-day);
   padding: 0.3rem;
+  &:focus {
+    outline: none;
+  }
 `
 const Button = styled.button`
   font-family: "Righteous", cursive;
   color: var(--olive-day);
   background-color: var(--beige-day);
-  border: 2px solid var(--oliv-day);
+  border: 1px solid var(--oliv-day);
   margin: 0.5rem;
   cursor: pointer;
   border-radius: 5px;
