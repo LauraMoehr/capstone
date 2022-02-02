@@ -131,7 +131,7 @@ function App() {
       },
       body: JSON.stringify(game),
     })
-    setGame(await result.json())
+    return await result.json()
   }
 
   async function addPlayer(gameId, newPlayer) {
@@ -146,7 +146,7 @@ function App() {
     return await result.json()
   }
 
-  function startGame(event) {
+  async function startGame(event) {
     event.preventDefault()
     const self = event.target.name.value
     setSelf(self)
@@ -158,10 +158,10 @@ function App() {
         weather: randomWeather.condition,
         players: [newPlayer],
       }
-      postInitialGame(initialGame)
+      setGame(await postInitialGame(initialGame))
     } else if (!event.target.gameId.value == "") {
       const gameId = event.target.gameId.value
-      addPlayer(gameId, newPlayer)
+      setGame(await addPlayer(gameId, newPlayer))
     }
     navigate("candidates")
   }
@@ -177,14 +177,17 @@ function App() {
     return await result.json()
   }
 
-  function pickCandidate(event) {
+  async function pickCandidate(event) {
     event.preventDefault()
     const player = game?.players?.find(player => player.name == self)
     const playerId = player._id
     const chosenCandidateName = event.target.candidate.value
     const chosenCandidate = animalsToChooseFrom.find(animal => animal.name == chosenCandidateName)
-    chosenCandidate !== undefined && addAnimal(playerId, chosenCandidate)
-    navigate("game")
+    if (chosenCandidate !== undefined) {
+      const updatedGame = await addAnimal(playerId, chosenCandidate)
+      setGame(updatedGame)
+      navigate("game")
+    }
   }
 
   async function addVotes(playerId, votes) {
@@ -222,7 +225,7 @@ function App() {
     event.preventDefault()
     const playerId = event.target.playerId.value
     const votes = [event.target.vote1.value, event.target.vote2.value, event.target.vote3.value]
-    addVotes(playerId, votes) // fire and forget
+    addVotes(playerId, votes)
   }
 
   const subscribeError = async error => {
@@ -232,7 +235,7 @@ function App() {
   }
 
   async function subscribe() {
-    let response = await fetch("/api/subscribe")
+    let response = await fetch("/api/subscribe?id=" + Math.random())
     if (response.status == 502) {
       //Heroku reagiert auf 502, als wäre es 503
       subscribeError("Error happened – Timeout")

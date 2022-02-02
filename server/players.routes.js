@@ -3,14 +3,20 @@ import express from "express"
 let players = []
 
 function onSubscribe(req, res) {
-  let id = Math.random()
+  let { id } = req.query
+  //let id = Math.random()
   res.setHeader("Content-Type", "application/json")
   res.setHeader("Cache-Control", "no-cache, must-revalidate")
   players[id] = res
   req.on("close", () => delete players[id])
 }
 
-export function publish(game) {
+export function publish(game, logTitle = "") {
+  //NEW
+  if (logTitle) {
+    //NEW
+    console.log(game, logTitle) //NEW
+  }
   for (let id in players) {
     let res = players[id]
     res.json(game)
@@ -22,7 +28,6 @@ export function closePlayers() {
   for (let id in players) {
     let res = players[id]
     res.status(503).end("Server went down for yearly checkup")
-    //muss hier wie in Zeile 16 "end" zu "json" geändert werden?
   }
 }
 

@@ -1,3 +1,4 @@
+import ImageFile from "./ImageFile.jsx"
 import styled from "styled-components"
 
 export default function PickCandidate({ onPickCandidate, animalsToChooseFrom, game, id }) {
@@ -10,7 +11,7 @@ export default function PickCandidate({ onPickCandidate, animalsToChooseFrom, ga
         <Small>
           Before picking an animal send this game's ID to your friends:
           <br />
-          {id}
+          <span data-testid="game-id">{id}</span>
         </Small>
       )}
       {weather && (
@@ -23,22 +24,20 @@ export default function PickCandidate({ onPickCandidate, animalsToChooseFrom, ga
       <p>The disciplines:</p>
       {disciplines &&
         disciplines.map(discipline => (
-          <>
-            <CardStyle key={discipline._id}>
-              <h4>{discipline.name}</h4>
-              <p>{discipline.type}</p>
-            </CardStyle>
-          </>
+          <CardStyle key={discipline._id}>
+            <h4>{discipline.name}</h4>
+            <p>{discipline.type}</p>
+            <Card src={ImageFile(discipline.name)} alt={discipline.name}></Card>
+          </CardStyle>
         ))}
       <p>A few animals for you to choose from:</p>
       {animalsToChooseFrom &&
         animalsToChooseFrom.map(animal => (
-          <>
-            <CardStyle key={animal._id}>
-              <h4>{animal.name}</h4>
-              <p>{animal.type}</p>
-            </CardStyle>
-          </>
+          <CardStyle key={animal._id}>
+            <h4>{animal.name}</h4>
+            <p>{animal.type}</p>
+            <Card src={ImageFile(animal.name)} alt={animal.name}></Card>
+          </CardStyle>
         ))}
       <form onSubmit={onPickCandidate}>
         <Select name="candidate" required>
@@ -60,12 +59,21 @@ export default function PickCandidate({ onPickCandidate, animalsToChooseFrom, ga
   )
 }
 const CardStyle = styled.div`
-  margin: 0.5rem 3rem;
+  margin: 0.5rem 5rem;
+  max-width: 55vw; //?
+  max-height: 40vh; //?
   background-color: var(--beige-day);
   border: 1px solid var(--oliv-day);
   padding: 0.2rem;
   box-shadow: 4px 4px 5px var(--lightbrown-day);
+  border-radius: 10px;
 `
+const Card = styled.img`
+  max-width: 50vw;
+  max-height: 30vh;
+  margin: 0;
+`
+
 const Button = styled.button`
   font-family: "Righteous", cursive;
   color: var(--olive-day);
@@ -82,7 +90,7 @@ const Button = styled.button`
   }
 `
 const Select = styled.select`
-  font-family: "Righteous", sans-serif; //font-style in dropdown?
+  font-family: "Righteous", sans-serif;
   cursor: pointer;
   padding: 0.2rem;
   border: 1px solid var(--oliv-day);

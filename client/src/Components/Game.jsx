@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
+import ImageFile from "./ImageFile.jsx"
 import styled from "styled-components"
 
 export default function Game({ game, onSubmitVotes, self }) {
   const { roomName, disciplines, weather, players } = game
   const [you, setYou] = useState()
-
   useEffect(() => {
     if (game?.players?.length > 0) {
       const youObject = game.players.find(player => player.name == self)
@@ -16,11 +16,14 @@ export default function Game({ game, onSubmitVotes, self }) {
     <>
       {you && (
         <>
-          <Large>Hi {you.name}!</Large>
-          <CardStyle key={you.animal._id}>
+          <Large>
+            Hi {you.name}, hi {you.animal.name}!
+          </Large>
+          {/* <CardStyle key={you.animal._id}>
             <h4>{you.animal.name}</h4>
             <p>{you.animal.type}</p>
-          </CardStyle>
+            <Card src={card(you.animal.name)} alt={you.animal.name}></Card>
+          </CardStyle> */}
         </>
       )}
       {players && players.length < 3 && (
@@ -31,14 +34,15 @@ export default function Game({ game, onSubmitVotes, self }) {
       )}
       {disciplines &&
         disciplines.map(discipline => (
-          <>
-            <CardStyle key={discipline._id}>
-              <h4>{discipline.name}</h4>
-              <p>{discipline.type}</p>
-            </CardStyle>
-          </>
+          <CardStyle key={discipline._id}>
+            <h4>{discipline.name}</h4>
+            <p>{discipline.type}</p>
+            <Card src={ImageFile(discipline.name)} alt={discipline.name}></Card>
+          </CardStyle>
         ))}
+
       {players && players.length > 2 && <Small>Rank each animal for each discipline.</Small>}
+
       {players &&
         you &&
         players.length > 2 &&
@@ -97,11 +101,19 @@ function SubmitButton() {
 }
 
 const CardStyle = styled.div`
-  margin: 0.5rem 3rem;
+  margin: 0.5rem 5rem;
+  max-width: 55vw; //?
+  max-height: 40vh; //?
   background-color: var(--beige-day);
   border: 1px solid var(--oliv-day);
   padding: 0.2rem;
   box-shadow: 4px 4px 5px var(--lightbrown-day);
+  border-radius: 10px;
+`
+const Card = styled.img`
+  max-width: 50vw;
+  max-height: 30vh;
+  margin: 0;
 `
 const Input = styled.input`
   font-family: "Righteous", cursive;

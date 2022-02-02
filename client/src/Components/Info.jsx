@@ -8,7 +8,7 @@ export default function Info() {
         Animal Olympics is a game for between 3 and 8 players - the animals' coaches. The three
         disciplines are being picked randomly from the different categories aswell as the weather
         condition and you choose one animal from your selection of animals. That one animal athlete
-        will compete in all three events of the Triathlon! Each beast has its strengths and
+        will compete in all three events of the competition! Each beast has its strengths and
         weaknesses, making it ideal for certain events but comically awful at others. Convice the
         contrahents of why your animal will be the best in a certain discipline. At the end of each
         discussion you vote - you rate the strategy of the others and a winner is being established
