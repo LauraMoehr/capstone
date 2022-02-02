@@ -1,78 +1,10 @@
 import { useState, useEffect } from "react"
-import redPanda from "../ImagesAnimals/redPanda.jpg" //oder anderen Red Panda?
-import ostrich from "../ImagesAnimals/ostrich.jpg"
-//import beaver from "../ImagesAnimals/beaver.jpg"
-import lizard from "../ImagesAnimals/lizard.jpg"
-import greyWolf from "../ImagesAnimals/greyWolf.jpg"
-import baldEagle from "../ImagesAnimals/baldEagle.jpg"
-import alpineIbex from "../ImagesAnimals/alpineIbex.jpg"
-import walrus from "../ImagesAnimals/walrus.jpg"
-import anaconda from "../ImagesAnimals/anaconda.jpg"
-import commonChameleon from "../ImagesAnimals/commonChameleon.jpg"
-import greatGreyOwl from "../ImagesAnimals/greatGreyOwl.jpg"
-import grasshopper from "../ImagesAnimals/grasshopper.jpg"
-import honeybee from "../ImagesAnimals/honeyBee.jpg"
-import killerWhale from "../ImagesAnimals/killerWhale.jpg"
-import mantaRay from "../ImagesAnimals/mantaRay.jpg"
-import poisonDartFrog from "../ImagesAnimals/poisonDartFrog.jpg"
-import seaOtter from "../ImagesAnimals/seaOtter.jpg"
-//import cakeDecorating from "../ImagesDisciplines/cakeDecorating.jpg"
-//import longJump from "../ImagesDisciplines/longJump.jpg"
-import obstacleCourse from "../ImagesDisciplines/obstacleCourse.jpg"
-import rockClimbing from "../ImagesDisciplines/rockClimbing.jpg"
-import sheepHerding from "../ImagesDisciplines/sheepHerding.jpg"
-//import synchronisedSwimming from "../ImagesDisciplines/synchronisedSwimming.jpg"
-//import hideSeek from "../ImagesDisciplines/hideSeek.jpg"
+import ImageFile from "./ImageFile.jsx"
 import styled from "styled-components"
 
 export default function Game({ game, onSubmitVotes, self }) {
   const { roomName, disciplines, weather, players } = game
   const [you, setYou] = useState()
-  const card = name => {
-    if (name == "Red Panda") {
-      return redPanda
-    } else if (name == "Ostrich") {
-      return ostrich
-    } else if (name == "Basilisk Lizard") {
-      return lizard
-    } else if (name == "Grey Wolf") {
-      return greyWolf
-    } else if (name == "Alpine Ibex") {
-      return alpineIbex
-    } else if (name == "Bald Eagle") {
-      return baldEagle
-    } else if (name == "Great Grey Owl") {
-      return greatGreyOwl
-    } else if (name == "Walrus") {
-      return walrus
-    } else if (name == "Common Chameleon") {
-      return commonChameleon
-    } else if (name == "Grasshopper") {
-      return grasshopper
-    } else if (name == "Honey Bee") {
-      return honeybee
-    } else if (name == "Killer Whale") {
-      return killerWhale
-    } else if (name == "Poison Dart Frog") {
-      return poisonDartFrog
-    } else if (name == "Sea Otter") {
-      return seaOtter
-    } else if (name == "Cake Decorating") {
-      return cakeDecorating
-    } else if (name == "Long Jump") {
-      return longJump
-    } else if (name == "Obstacle Course") {
-      return obstacleCourse
-    } else if (name == "Rock Climbing") {
-      return rockClimbing
-    } else if (name == "Sheep Herding") {
-      return sheepHerding
-    } // else if (name == "Synchronised Swimming") {
-    //   return synchronisedSwimming
-    // } else if (name == "Hide Seek") {
-    //   return hideSeek
-    // }
-  }
   useEffect(() => {
     if (game?.players?.length > 0) {
       const youObject = game.players.find(player => player.name == self)
@@ -105,7 +37,7 @@ export default function Game({ game, onSubmitVotes, self }) {
           <CardStyle key={discipline._id}>
             <h4>{discipline.name}</h4>
             <p>{discipline.type}</p>
-            <Card src={card(discipline.name)} alt={discipline.name}></Card>
+            <Card src={ImageFile(discipline.name)} alt={discipline.name}></Card>
           </CardStyle>
         ))}
 

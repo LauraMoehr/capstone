@@ -1,32 +1,7 @@
-//import cakeDecorating from "../ImagesDisciplines/cakeDecorating.jpg"
-//import longJump from "../ImagesDisciplines/longJump.jpg"
-import obstacleCourse from "../ImagesDisciplines/obstacleCourse.jpg"
-import rockClimbing from "../ImagesDisciplines/rockClimbing.jpg"
-import sheepHerding from "../ImagesDisciplines/sheepHerding.jpg"
-//import synchronisedSwimming from "../ImagesDisciplines/synchronisedSwimming.jpg"
-//import hideSeek from "../ImagesDisciplines/hideSeek.jpg"
+import ImageFile from "./ImageFile.jsx"
 import styled from "styled-components"
 
-// if (name == "Cake Decorating") {
-//   return cakeDecorating
-// } else if (name == "Long Jump") {
-//   return longJump
-// }
-
 export default function Disciplines({ disciplines }) {
-  const card = name => {
-    if (name == "Obstacle Course") {
-      return obstacleCourse
-    } else if (name == "Rock Climbing") {
-      return rockClimbing
-    } else if (name == "Sheep Herding") {
-      return sheepHerding
-    } // else if (name == "Synchronised Swimming") {
-    //   return synchronisedSwimming
-    // } else if (name == "Hide Seek") {
-    //   return hideSeek
-    // }
-  }
   return (
     <>
       <h3>Disciplines</h3>
@@ -35,7 +10,7 @@ export default function Disciplines({ disciplines }) {
           <CardStyle key={discipline._id}>
             <h4>{discipline.name}</h4>
             <p>{discipline.type}</p>
-            <Card src={card(discipline.name)} alt={discipline.name}></Card>
+            <Card src={ImageFile(discipline.name)} alt={discipline.name}></Card>
           </CardStyle>
         ))}
       </Grid>
