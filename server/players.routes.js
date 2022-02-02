@@ -3,7 +3,8 @@ import express from "express"
 let players = []
 
 function onSubscribe(req, res) {
-  let id = Math.random()
+  let { id } = req.query
+  //let id = Math.random()
   res.setHeader("Content-Type", "application/json")
   res.setHeader("Cache-Control", "no-cache, must-revalidate")
   players[id] = res

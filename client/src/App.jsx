@@ -177,14 +177,17 @@ function App() {
     return await result.json()
   }
 
-  function pickCandidate(event) {
+  async function pickCandidate(event) {
     event.preventDefault()
     const player = game?.players?.find(player => player.name == self)
     const playerId = player._id
     const chosenCandidateName = event.target.candidate.value
     const chosenCandidate = animalsToChooseFrom.find(animal => animal.name == chosenCandidateName)
-    chosenCandidate !== undefined && addAnimal(playerId, chosenCandidate)
-    navigate("game")
+    if (chosenCandidate !== undefined) {
+      const updatedGame = await addAnimal(playerId, chosenCandidate)
+      setGame(updatedGame)
+      navigate("game")
+    }
   }
 
   async function addVotes(playerId, votes) {
@@ -232,7 +235,7 @@ function App() {
   }
 
   async function subscribe() {
-    let response = await fetch("/api/subscribe")
+    let response = await fetch("/api/subscribe?id=" + Math.random())
     if (response.status == 502) {
       //Heroku reagiert auf 502, als wäre es 503
       subscribeError("Error happened – Timeout")
