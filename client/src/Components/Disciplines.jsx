@@ -48,8 +48,7 @@ export default function Disciplines({ disciplines }) {
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(20, 1fr);
   overflow: scroll;
 `
 const CardStyle = styled.div`
@@ -62,6 +61,6 @@ const CardStyle = styled.div`
 `
 const Card = styled.img`
   max-width: 50vw;
-  max-height: 30vh;
+  height: 40vh;
   margin: 0;
 `
