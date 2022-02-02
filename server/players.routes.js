@@ -27,7 +27,6 @@ export function closePlayers() {
   for (let id in players) {
     let res = players[id]
     res.status(503).end("Server went down for yearly checkup")
-    //muss hier wie in Zeile 16 "end" zu "json" geändert werden?
   }
 }
 

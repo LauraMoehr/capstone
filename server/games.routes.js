@@ -57,12 +57,8 @@ const addCandidate = async (req, res) => {
   const playerId = req.params.playerId
   const animal = req.body
   try {
-    // const game = await Game.findByIdAndUpdate(gameId)
     const game = await Game.findById(gameId)
-    //console.log(game.players[0]._id)
-    //console.log(playerId)
     const index = game.players.findIndex(player => player._id == playerId) //?
-    //console.log(index)
     game.players[index].animal = animal
     await game.save()
     publish(game, "Adding candidate") //NEW

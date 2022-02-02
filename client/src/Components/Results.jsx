@@ -10,22 +10,24 @@ export default function Results({ game, sortedResults }) {
   //   spread: 70,
   //   origin: { y: 0.6 }
   // });
+  const displayResults = sortedResults.map((player, index) => {
+    if (index == 0) {
+      return <Large key={index}>The {player.animal} won!🏆</Large>
+    } else if (index == 1) {
+      return <p key={index}>The {player.animal} was rated Second.</p>
+    } else {
+      return <p key={index}>The {player.animal} wasn't so lucky this time.</p>
+    }
+  })
 
   return (
     <>
-      <Confetti />
-      {players &&
-        sortedResults &&
-        sortedResults.length === players.length &&
-        sortedResults.map((player, index) => {
-          if (index == 0) {
-            return <Large key={index}>The {player.animal} won!🏆</Large>
-          } else if (index == 1) {
-            return <p key={index}>The {player.animal} was rated Second.</p>
-          } else {
-            return <p key={index}>The {player.animal} wasn't so lucky this time.</p>
-          }
-        })}
+      {players && sortedResults && sortedResults.length === players.length && (
+        <>
+          <Confetti width="375" height="667" />
+          {displayResults}
+        </>
+      )}
     </>
   )
 }

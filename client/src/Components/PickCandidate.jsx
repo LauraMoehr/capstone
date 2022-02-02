@@ -75,7 +75,7 @@ export default function PickCandidate({ onPickCandidate, animalsToChooseFrom, ga
         <Small>
           Before picking an animal send this game's ID to your friends:
           <br />
-          {id}
+          <span data-testid="game-id">{id}</span>
         </Small>
       )}
       {weather && (

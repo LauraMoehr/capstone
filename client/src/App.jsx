@@ -20,7 +20,6 @@ function App() {
   const [animals, setAnimals] = useState([])
   const [animalsToChooseFrom, setAnimalsToChooseFrom] = useState([])
   const [disciplines, setDisciplines] = useState([])
-  //const [imagesDisciplines, setImagesDisciplines] = useState([])
   const [chosenDisciplines, setChosenDisciplines] = useState([])
   const [weather, setWeather] = useState([])
   const [randomWeather, setRandomWeather] = useState({})
@@ -61,19 +60,6 @@ function App() {
     }
     getAllFromApi()
   }, [])
-
-  // useEffect(() => {
-  //   async function getImagesDisciplinesFromApi() {
-  //     try {
-  //       const imagesDisciplines = await fetch("/api/imagesDisciplines")
-  //       const imagesDisciplinesFromApi = await imagesDisciplines.json()
-  //       setImagesDisciplines(imagesDisciplinesFromApi)
-  //     } catch (error) {
-  //       console.log(error.message)
-  //     }
-  //   }
-  //   getImagesDisciplinesFromApi()
-  // }, [])
 
   useEffect(() => {
     if (disciplines.length > 0 && weather.length > 0) {
@@ -145,7 +131,7 @@ function App() {
       },
       body: JSON.stringify(game),
     })
-    setGame(await result.json())
+    return await result.json()
   }
 
   async function addPlayer(gameId, newPlayer) {
@@ -160,7 +146,7 @@ function App() {
     return await result.json()
   }
 
-  function startGame(event) {
+  async function startGame(event) {
     event.preventDefault()
     const self = event.target.name.value
     setSelf(self)
@@ -172,10 +158,10 @@ function App() {
         weather: randomWeather.condition,
         players: [newPlayer],
       }
-      postInitialGame(initialGame)
+      setGame(await postInitialGame(initialGame))
     } else if (!event.target.gameId.value == "") {
       const gameId = event.target.gameId.value
-      addPlayer(gameId, newPlayer)
+      setGame(await addPlayer(gameId, newPlayer))
     }
     navigate("candidates")
   }
