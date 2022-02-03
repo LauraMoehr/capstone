@@ -3,14 +3,14 @@ import styled from "styled-components"
 export default function Header() {
   return (
     <>
-      <H1Style>Animal Olympics</H1Style>
+      <H1Style>The Champion Of The Wild</H1Style>
     </>
   )
 }
 
 const H1Style = styled.h1`
   font-family: "Graduate", cursive;
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: 700;
   background: linear-gradient(0deg, rgba(251, 209, 160, 1) 0%, rgba(254, 219, 178, 1) 100%);
   color: var(--mediumbrown-day);

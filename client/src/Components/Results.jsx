@@ -1,15 +1,8 @@
 import Confetti from "react-confetti"
-//npm install --save canvas-confetti
-//import 'canvas-confetti'...
 import styled from "styled-components"
 
 export default function Results({ game, sortedResults }) {
   const { roomName, disciplines, weather, players } = game
-  // confetti({
-  //   particleCount: 100,
-  //   spread: 70,
-  //   origin: { y: 0.6 }
-  // });
   const displayResults = sortedResults.map((player, index) => {
     if (index == 0) {
       return <Large key={index}>The {player.animal} won!🏆</Large>

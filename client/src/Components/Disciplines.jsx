@@ -14,9 +14,6 @@ export default function Disciplines({ disciplines }) {
           </CardStyle>
         ))}
       </Grid>
-      <p>
-        <em>More disciplines to follow soon...</em>
-      </p>
     </>
   )
 }

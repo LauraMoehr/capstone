@@ -14,9 +14,6 @@ export default function Animals({ animals }) {
           </CardStyle>
         ))}
       </Grid>
-      <p>
-        <em>More animals to follow soon...</em>
-      </p>
     </>
   )
 }

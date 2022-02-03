@@ -14,8 +14,7 @@ export default function Info() {
         discussion you vote - you rate the strategy of the others and a winner is being established
         at the end of the triathlon. The dolphin is competing in the Long Jumps? There will be water
         lanes provided of course. The walrus is competing against the squirrel in the paintballing
-        event? No worries, the guns will be appropriately-sized for each animal. <br />(
-        <em>More infos to follow soon.</em>)
+        event? No worries, the guns will be appropriately-sized for each animal.
       </Small>
     </>
   )
