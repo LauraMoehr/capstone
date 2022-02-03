@@ -1,4 +1,5 @@
 import Confetti from "react-confetti"
+import Header from "./Header"
 import styled from "styled-components"
 
 export default function Results({ game, sortedResults }) {
@@ -15,12 +16,15 @@ export default function Results({ game, sortedResults }) {
 
   return (
     <>
-      {players && sortedResults && sortedResults.length === players.length && (
-        <>
-          <Confetti width="375" height="667" />
-          {displayResults}
-        </>
-      )}
+      <Header />
+      <main>
+        {players && sortedResults && sortedResults.length === players.length && (
+          <>
+            <Confetti width="375" height="667" />
+            {displayResults}
+          </>
+        )}
+      </main>
     </>
   )
 }

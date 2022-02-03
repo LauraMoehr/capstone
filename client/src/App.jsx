@@ -1,5 +1,4 @@
 import { NavLink, Routes, Route, useNavigate } from "react-router-dom"
-import Header from "./Components/Header"
 import Animals from "./Components/Animals"
 import Disciplines from "./Components/Disciplines"
 import Enter from "./Components/Enter"
@@ -242,7 +241,7 @@ function App() {
     } else if (response.status == 503) {
       subscribeError("Error 503")
     } else if (response.status != 200) {
-      subscribeError("Error 503") //"Other Error"?
+      subscribeError("Other Error")
     } else {
       let game = await response.json()
       setGame(game)
@@ -252,33 +251,27 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
-      <main>
-        <Routes>
-          <Route path="animals" element={<Animals animals={animals} />} />
-          <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
-          <Route path="enter" element={<Enter onStartGame={startGame} />} />
-          <Route
-            path="candidates"
-            element={
-              <PickCandidate
-                game={game}
-                id={game._id}
-                onPickCandidate={pickCandidate}
-                animalsToChooseFrom={animalsToChooseFrom}
-              />
-            }
-          />
-          <Route
-            path="game"
-            element={<Game game={game} onSubmitVotes={submitVotes} self={self} />}
-          />
-          <Route path="results" element={<Results game={game} sortedResults={sortedResults} />} />
+      <Routes>
+        <Route path="animals" element={<Animals animals={animals} />} />
+        <Route path="disciplines" element={<Disciplines disciplines={disciplines} />} />
+        <Route path="enter" element={<Enter onStartGame={startGame} />} />
+        <Route
+          path="candidates"
+          element={
+            <PickCandidate
+              game={game}
+              id={game._id}
+              onPickCandidate={pickCandidate}
+              animalsToChooseFrom={animalsToChooseFrom}
+            />
+          }
+        />
+        <Route path="game" element={<Game game={game} onSubmitVotes={submitVotes} self={self} />} />
+        <Route path="results" element={<Results game={game} sortedResults={sortedResults} />} />
 
-          <Route path="" element={<HomeImage />} />
-          <Route path="info" element={<Info />} />
-        </Routes>
-      </main>
+        <Route path="" element={<HomeImage />} />
+        <Route path="info" element={<Info />} />
+      </Routes>
       <NavFooter>
         <NavLink to="/">
           <Icon src={iconHome} alt="Home" />

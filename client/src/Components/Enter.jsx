@@ -1,22 +1,26 @@
+import Header from "./Header"
 import styled from "styled-components"
 
 export default function Enter({ onStartGame }) {
   return (
     <>
-      <h3>Welcome to the next round!</h3>
-      <form onSubmit={onStartGame}>
-        <Small>Enter your name please:</Small>
-        <Input type="text" name="name" required />
-        <br />
-        <Small>
-          To create a new game leave the field below empty - to join a game please enter that
-          round's ID.
-        </Small>
-        <Input type="text" name="gameId" />
-        <br />
-        <Button type="reset">Cancel</Button>
-        <Button type="submit">Join</Button>
-      </form>
+      <Header />
+      <main>
+        <h3>Welcome to the next round!</h3>
+        <form onSubmit={onStartGame}>
+          <Small>Enter your name please:</Small>
+          <Input type="text" name="name" required />
+          <br />
+          <Small>
+            To create a new game leave the field below empty - to join a game please enter that
+            round's ID.
+          </Small>
+          <Input type="text" name="gameId" />
+          <br />
+          <Button type="reset">Cancel</Button>
+          <Button type="submit">Join</Button>
+        </form>
+      </main>
     </>
   )
 }

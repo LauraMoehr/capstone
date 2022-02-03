@@ -1,19 +1,23 @@
 import ImageFile from "./ImageFile.jsx"
+import Header from "./Header"
 import styled from "styled-components"
 
 export default function Disciplines({ disciplines }) {
   return (
     <>
-      <h3>Disciplines</h3>
-      <Grid>
-        {disciplines.map(discipline => (
-          <CardStyle key={discipline._id}>
-            <h4>{discipline.name}</h4>
-            <p>{discipline.type}</p>
-            <Card src={ImageFile(discipline.name)} alt={discipline.name}></Card>
-          </CardStyle>
-        ))}
-      </Grid>
+      <Header />
+      <main>
+        <h3>Disciplines</h3>
+        <Grid>
+          {disciplines.map(discipline => (
+            <CardStyle key={discipline._id}>
+              <h4>{discipline.name}</h4>
+              <p>{discipline.type}</p>
+              <Card src={ImageFile(discipline.name)} alt={discipline.name}></Card>
+            </CardStyle>
+          ))}
+        </Grid>
+      </main>
     </>
   )
 }
