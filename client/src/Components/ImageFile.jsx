@@ -1,3 +1,9 @@
+import anaconda from "../ImagesAnimals/anaconda.jpg"
+import mantaRay from "../ImagesAnimals/mantaRay.jpg"
+import cakeDecorating from "../ImagesDisciplines/cakeDecorating.jpg"
+import highJump from "../ImagesDisciplines/highJump.jpg"
+import longJump from "../ImagesDisciplines/longJump.jpg"
+import synchronisedSwimming from "../ImagesDisciplines/synchronisedSwimming.jpg"
 import redPanda from "../ImagesAnimals/redPanda.jpg"
 import ostrich from "../ImagesAnimals/ostrich.jpg"
 import lizard from "../ImagesAnimals/lizard.jpg"
@@ -21,6 +27,18 @@ export default function ImageFile(name) {
     return redPanda
   } else if (name == "Ostrich") {
     return ostrich
+  } else if (name == "Anaconda") {
+    return anaconda
+  } else if (name == "Manta Ray") {
+    return mantaRay
+  } else if (name == "Cake Decorating") {
+    return cakeDecorating
+  } else if (name == "High Jump") {
+    return highJump
+  } else if (name == "Long Jump") {
+    return longJump
+  } else if (name == "Synchronised Swimming") {
+    return synchronisedSwimming
   } else if (name == "Great Grey Owl") {
     return greatGreyOwl
   } else if (name == "Basilisk Lizard") {
