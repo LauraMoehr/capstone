@@ -45,7 +45,7 @@ const updateGame = async (req, res) => {
     const game = await Game.findById(gameId)
     game.players.push(newPlayer)
     await game.save()
-    publish(game, "Updating Game") //NEW
+    publish(game, "Updating Game")
     res.json(game)
   } catch (error) {
     res.json(error)
@@ -61,7 +61,7 @@ const addCandidate = async (req, res) => {
     const index = game.players.findIndex(player => player._id == playerId) //?
     game.players[index].animal = animal
     await game.save()
-    publish(game, "Adding candidate") //NEW
+    publish(game, "Adding candidate")
     res.json(game)
   } catch (error) {
     console.error(error)

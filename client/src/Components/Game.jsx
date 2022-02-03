@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import ImageFile from "./ImageFile.jsx"
+import Header from "./Header"
 import styled from "styled-components"
 
 export default function Game({ game, onSubmitVotes, self }) {
@@ -14,80 +15,83 @@ export default function Game({ game, onSubmitVotes, self }) {
 
   return (
     <>
-      {you && (
-        <>
-          <Large>
-            Hi {you.name}, hi {you.animal.name}!
-          </Large>
-          {/* <CardStyle key={you.animal._id}>
+      <Header />
+      <main>
+        {you && (
+          <>
+            <Large>
+              Hi {you.name}, hi {you.animal.name}!
+            </Large>
+            {/* <CardStyle key={you.animal._id}>
             <h4>{you.animal.name}</h4>
             <p>{you.animal.type}</p>
             <Card src={card(you.animal.name)} alt={you.animal.name}></Card>
           </CardStyle> */}
-        </>
-      )}
-      {players && players.length < 3 && (
-        <Small>Number of players: {players.length}. ...waiting for more to join.</Small>
-      )}
-      {weather && (
-        <Small key={weather._id}>It's gonna be {weather} today- let's get started!</Small>
-      )}
-      {disciplines &&
-        disciplines.map(discipline => (
-          <CardStyle key={discipline._id}>
-            <h4>{discipline.name}</h4>
-            <p>{discipline.type}</p>
-            <Card src={ImageFile(discipline.name)} alt={discipline.name}></Card>
-          </CardStyle>
-        ))}
-
-      {players && players.length > 2 && <Small>Rank each animal for each discipline.</Small>}
-
-      {players &&
-        you &&
-        players.length > 2 &&
-        players.map(
-          player =>
-            player.animal !== undefined &&
-            player.name !== you.name && (
-              <>
-                <p>
-                  {player.name} with the {player.animal.name}:
-                </p>
-                <form onSubmit={onSubmitVotes}>
-                  <Input
-                    type="number"
-                    name="vote1"
-                    min="1"
-                    max={players.length - 1}
-                    placeholder="Discipline 1"
-                    required
-                  />
-                  <br />
-                  <Input
-                    type="number"
-                    name="vote2"
-                    min="1"
-                    max={players.length - 1}
-                    placeholder="Discipline 2"
-                    required
-                  />
-                  <br />
-                  <Input
-                    type="number"
-                    name="vote3"
-                    min="1"
-                    max={players.length - 1}
-                    placeholder="Discipline 3"
-                    required
-                  />
-                  <Input type="hidden" name="playerId" value={player.id} />
-                  <br />
-                  <SubmitButton />
-                </form>
-              </>
-            )
+          </>
         )}
+        {players && players.length < 3 && (
+          <Small>Number of players: {players.length}. ...waiting for more to join.</Small>
+        )}
+        {weather && (
+          <Small key={weather._id}>It's gonna be {weather} today- let's get started!</Small>
+        )}
+        {disciplines &&
+          disciplines.map(discipline => (
+            <CardStyle key={discipline._id}>
+              <h4>{discipline.name}</h4>
+              <p>{discipline.type}</p>
+              <Card src={ImageFile(discipline.name)} alt={discipline.name}></Card>
+            </CardStyle>
+          ))}
+
+        {players && players.length > 2 && <Small>Rank each animal for each discipline.</Small>}
+
+        {players &&
+          you &&
+          players.length > 2 &&
+          players.map(
+            player =>
+              player.animal !== undefined &&
+              player.name !== you.name && (
+                <>
+                  <p>
+                    {player.name} with the {player.animal.name}:
+                  </p>
+                  <form onSubmit={onSubmitVotes}>
+                    <Input
+                      type="number"
+                      name="vote1"
+                      min="1"
+                      max={players.length - 1}
+                      placeholder="Discipline 1"
+                      required
+                    />
+                    <br />
+                    <Input
+                      type="number"
+                      name="vote2"
+                      min="1"
+                      max={players.length - 1}
+                      placeholder="Discipline 2"
+                      required
+                    />
+                    <br />
+                    <Input
+                      type="number"
+                      name="vote3"
+                      min="1"
+                      max={players.length - 1}
+                      placeholder="Discipline 3"
+                      required
+                    />
+                    <Input type="hidden" name="playerId" value={player.id} />
+                    <br />
+                    <SubmitButton />
+                  </form>
+                </>
+              )
+          )}
+      </main>
     </>
   )
 }

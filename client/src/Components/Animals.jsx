@@ -1,19 +1,23 @@
 import ImageFile from "./ImageFile.jsx"
+import Header from "./Header"
 import styled from "styled-components"
 
 export default function Animals({ animals }) {
   return (
     <>
-      <h3>Animals</h3>
-      <Grid>
-        {animals.map(animal => (
-          <CardStyle key={animal._id}>
-            <h4>{animal.name}</h4>
-            <p>{animal.type}</p>
-            <Card src={ImageFile(animal.name)} alt={animal.name}></Card>
-          </CardStyle>
-        ))}
-      </Grid>
+      <Header />
+      <main>
+        <h3>Animals</h3>
+        <Grid>
+          {animals.map(animal => (
+            <CardStyle key={animal._id}>
+              <h4>{animal.name}</h4>
+              <p>{animal.type}</p>
+              <Card src={ImageFile(animal.name)} alt={animal.name}></Card>
+            </CardStyle>
+          ))}
+        </Grid>
+      </main>
     </>
   )
 }

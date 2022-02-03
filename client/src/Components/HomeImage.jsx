@@ -4,14 +4,22 @@ import styled from "styled-components"
 export default function HomeImage() {
   return (
     <>
-      <ImageTitle src={rhinos}></ImageTitle>
+      <H1Style>The Champion Of The Wild</H1Style>
     </>
   )
 }
-
-const ImageTitle = styled.img`
-  width: 80vw;
-  height: auto;
-  margin: 6rem 0 0 0;
-  object-fit: contain;
+const H1Style = styled.h1`
+  width: 100vw;
+  height: 92vh;
+  font-family: "Graduate", cursive;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--mediumbrown-day);
+  position: fixed;
+  margin-top: 0;
+  padding: 4rem 2rem 0 2rem;
+  z-index: 999;
+  background-image: url(${rhinos});
+  background-size: cover;
+  background-repeat: no-repeat;
 `

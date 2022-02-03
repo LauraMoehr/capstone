@@ -4,7 +4,7 @@ import path from "path"
 import { fileURLToPath } from "url"
 import { dirname as dirnameFromPath } from "path"
 import dotenv from "dotenv"
-import AnimalsRoutes from "./animals.routes.js" //from Frontend
+import AnimalsRoutes from "./animals.routes.js"
 import DisciplinesRoutes from "./disciplines.routes.js"
 import WeatherRoutes from "./weather.routes.js"
 import GamesRoutes from "./games.routes.js"
@@ -21,7 +21,7 @@ mongoose.connect(
 )
 
 const directory = importMetaUrl => fileURLToPath(dirnameFromPath(importMetaUrl))
-const __dirname = directory(import.meta.url) //refers to server.js
+const __dirname = directory(import.meta.url)
 
 const server = express()
 server.use(express.json())

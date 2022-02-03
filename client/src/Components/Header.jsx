@@ -3,12 +3,12 @@ import styled from "styled-components"
 export default function Header() {
   return (
     <>
-      <H1Style>The Champion Of The Wild</H1Style>
+      <H2Style>The Champion Of The Wild</H2Style>
     </>
   )
 }
 
-const H1Style = styled.h1`
+const H2Style = styled.h2`
   font-family: "Graduate", cursive;
   font-size: 1.4rem;
   font-weight: 700;
