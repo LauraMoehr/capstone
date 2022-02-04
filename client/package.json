@@ -7,7 +7,8 @@
     "preview": "vite preview",
     "lint": "eslint ./src",
     "prettier": "prettier -c ./src",
-    "prettier-fix": "prettier -c -w ./src"
+    "prettier-fix": "prettier -c -w ./src",
+    "test": "jest --watchAll --verbose"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^1.0.7",
@@ -17,11 +18,19 @@
   },
   "type": "module",
   "devDependencies": {
+    "@babel/core": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@types/jest": "^27.4.0",
+    "babel-jest": "^27.4.6",
+    "babel-preset-react-app": "^10.0.1",
     "eslint": "^8.8.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^26.0.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
+    "jest": "^27.4.7",
+    "jest-watch-typeahead": "^1.0.0",
     "prettier": "^2.5.1"
   }
 }
