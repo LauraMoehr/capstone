@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
-import ImageFile from "./ImageFile.jsx"
 import Header from "./Header"
+import ImageFile from "./ImageFile.jsx"
 import styled from "styled-components"
 
 export default function Game({ game, onSubmitVotes, self }) {
@@ -105,39 +105,39 @@ function SubmitButton() {
 }
 
 const CardStyle = styled.div`
-  margin: 0.5rem 5rem;
-  max-width: 55vw;
-  max-height: 40vh;
   background-color: var(--beige-day);
-  border: 1px solid var(--oliv-day);
-  padding: 0.2rem;
-  box-shadow: 4px 4px 5px var(--lightbrown-day);
   border-radius: 10px;
+  border: 1px solid var(--oliv-day);
+  box-shadow: 4px 4px 5px var(--lightbrown-day);
+  margin: 0.5rem 5rem;
+  max-height: 40vh;
+  max-width: 55vw;
+  padding: 0.2rem;
 `
 const Card = styled.img`
-  max-width: 50vw;
-  max-height: 30vh;
   margin: 0;
+  max-height: 30vh;
+  max-width: 50vw;
 `
 const Input = styled.input`
-  font-family: "Righteous", cursive;
-  color: var(--oliv-day);
   background-color: var(--beige-day);
   border: 1px solid var(--oliv-day);
-  padding: 0.3rem;
+  color: var(--oliv-day);
+  font-family: "Righteous", cursive;
   margin: 0.2rem;
+  padding: 0.3rem;
   &:focus {
     outline: none;
   }
 `
 const Button = styled.button`
-  font-family: "Righteous", cursive;
-  color: var(--olive-day);
   background-color: var(--beige-day);
-  border: 1px solid var(--oliv-day);
-  margin: 1rem;
-  cursor: pointer;
   border-radius: 5px;
+  border: 1px solid var(--oliv-day);
+  color: var(--olive-day);
+  cursor: pointer;
+  font-family: "Righteous", cursive;
+  margin: 1rem;
   padding: 0.5rem;
   transition: all 0.1s ease-in;
   &:active {

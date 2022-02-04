@@ -1,14 +1,14 @@
-import express from "express"
-import mongoose from "mongoose"
-import path from "path"
-import { fileURLToPath } from "url"
 import { dirname as dirnameFromPath } from "path"
-import dotenv from "dotenv"
+import { fileURLToPath } from "url"
 import AnimalsRoutes from "./animals.routes.js"
 import DisciplinesRoutes from "./disciplines.routes.js"
-import WeatherRoutes from "./weather.routes.js"
+import dotenv from "dotenv"
+import express from "express"
 import GamesRoutes from "./games.routes.js"
+import mongoose from "mongoose"
+import path from "path"
 import PlayersRoutes, { closePlayers } from "./players.routes.js"
+import WeatherRoutes from "./weather.routes.js"
 
 dotenv.config()
 const dbUser = process.env.DB_USER

@@ -63,29 +63,29 @@ export default function PickCandidate({ onPickCandidate, animalsToChooseFrom, ga
   )
 }
 const CardStyle = styled.div`
-  margin: 0.5rem 5rem;
-  max-width: 55vw;
-  max-height: 40vh;
   background-color: var(--beige-day);
-  border: 1px solid var(--oliv-day);
-  padding: 0.2rem;
-  box-shadow: 4px 4px 5px var(--lightbrown-day);
   border-radius: 10px;
+  border: 1px solid var(--oliv-day);
+  box-shadow: 4px 4px 5px var(--lightbrown-day);
+  margin: 0.5rem 5rem;
+  max-height: 40vh;
+  max-width: 55vw;
+  padding: 0.2rem;
 `
 const Card = styled.img`
-  max-width: 50vw;
-  max-height: 30vh;
   margin: 0;
+  max-height: 30vh;
+  max-width: 50vw;
 `
 
 const Button = styled.button`
-  font-family: "Righteous", cursive;
-  color: var(--olive-day);
   background-color: var(--beige-day);
-  border: 1px solid var(--oliv-day);
-  margin: 0.3rem;
-  cursor: pointer;
   border-radius: 5px;
+  border: 1px solid var(--oliv-day);
+  color: var(--olive-day);
+  cursor: pointer;
+  font-family: "Righteous", cursive;
+  margin: 0.3rem;
   padding: 0.2rem;
   transition: all 0.1s ease-in;
   &:active {
@@ -94,14 +94,14 @@ const Button = styled.button`
   }
 `
 const Select = styled.select`
-  font-family: "Righteous", sans-serif;
-  cursor: pointer;
-  padding: 0.2rem;
-  border: 1px solid var(--oliv-day);
-  border-radius: 5px;
   background-color: var(--beige-day);
+  border-radius: 5px;
+  border: 1px solid var(--oliv-day);
   color: var(--oliv-day);
+  cursor: pointer;
+  font-family: "Righteous", sans-serif;
   margin: 0.3rem;
+  padding: 0.2rem;
 `
 const Small = styled.p`
   font-size: 0.9rem;
