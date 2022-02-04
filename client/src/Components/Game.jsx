@@ -106,8 +106,8 @@ function SubmitButton() {
 
 const CardStyle = styled.div`
   margin: 0.5rem 5rem;
-  max-width: 55vw; //?
-  max-height: 40vh; //?
+  max-width: 55vw;
+  max-height: 40vh;
   background-color: var(--beige-day);
   border: 1px solid var(--oliv-day);
   padding: 0.2rem;
