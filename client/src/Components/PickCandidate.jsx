@@ -8,7 +8,7 @@ export default function PickCandidate({
   game,
   id,
 }) {
-  const { roomName, disciplines, weather, players } = game;
+  const { disciplines, weather, players } = game;
 
   return (
     <>

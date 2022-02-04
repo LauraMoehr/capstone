@@ -3,7 +3,7 @@ import Header from './Header';
 import styled from 'styled-components';
 
 export default function Results({ game, sortedResults }) {
-  const { roomName, disciplines, weather, players } = game;
+  const { players } = game;
   const displayResults = sortedResults.map((player, index) => {
     if (index == 0) {
       return <Large key={index}>The {player.animal} won!🏆</Large>;

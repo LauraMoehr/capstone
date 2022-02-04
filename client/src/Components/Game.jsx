@@ -4,7 +4,7 @@ import ImageFile from './ImageFile.jsx';
 import styled from 'styled-components';
 
 export default function Game({ game, onSubmitVotes, self }) {
-  const { roomName, disciplines, weather, players } = game;
+  const { disciplines, weather, players } = game;
   const [you, setYou] = useState();
   useEffect(() => {
     if (game?.players?.length > 0) {
