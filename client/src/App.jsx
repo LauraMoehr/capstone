@@ -89,39 +89,6 @@ function App() {
     }
   }, [animals])
 
-  // useEffect(() => {
-  //   if (animals.length > 0 && game?.players?.every(player => player.animal == undefined)) {
-  //     const copyOfAnimals = animals.slice()
-  //     const animalsToChooseFrom = []
-  //     for (let i = 0; i < 3; i++) {
-  //       const randomAnimal = copyOfAnimals[Math.floor(Math.random() * copyOfAnimals.length)]
-  //       animalsToChooseFrom.push(randomAnimal)
-  //       copyOfAnimals.splice(copyOfAnimals.indexOf(randomAnimal), 1)
-  //     }
-  //     setAnimalsToChooseFrom(animalsToChooseFrom)
-  //   } else if (animals.length > 0 && game?.players?.some(player => player.animal != undefined)) {
-  //     console.log(game)
-  //     const copyOfAnimals = animals.slice()
-  //     const playersWithAnimals = game?.players?.filter(player => player.animal != undefined)
-  //     const takenAnimals = playersWithAnimals.map(player => player.animal)
-  //     console.log(takenAnimals)
-  //     //const availableAnimals = copyOfAnimals.filter(animal => ! takenAnimals.includes(animal))
-  //     //const availableAnimals = takenAnimals.map(animal => copyOfAnimals.splice(copyOfAnimals.indexOf(animal), 1))
-  //     // let availableAnimals = []
-  //     // takenAnimals.map(
-  //     //   animal => (availableAnimals = [...copyOfAnimals.splice(copyOfAnimals.indexOf(animal), 1)])
-  //     // )
-  //     console.log(availableAnimals)
-  //     let animalsToChooseFrom = []
-  //     for (let i = 0; i < 3; i++) {
-  //       const randomAnimal = availableAnimals[Math.floor(Math.random() * availableAnimals.length)]
-  //       animalsToChooseFrom.push(randomAnimal)
-  //       availableAnimals.splice(availableAnimals.indexOf(randomAnimal), 1)
-  //     }
-  //     setAnimalsToChooseFrom(animalsToChooseFrom)
-  //   }
-  // }, [animals, game])
-
   async function postInitialGame(game) {
     const result = await fetch("/api/games", {
       method: "POST",
@@ -236,7 +203,6 @@ function App() {
   async function subscribe() {
     let response = await fetch("/api/subscribe?id=" + Math.random())
     if (response.status == 502) {
-      //Heroku reagiert auf 502, als wäre es 503
       subscribeError("Error happened – Timeout")
     } else if (response.status == 503) {
       subscribeError("Error 503")

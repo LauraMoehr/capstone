@@ -18,7 +18,7 @@ const gameSchema = new mongoose.Schema({
 })
 const Game = mongoose.model("Game", gameSchema)
 
-const postGame = async (req, res) => {
+const postInitialGame = async (req, res) => {
   const players = req.body.players
   players[0].id = uuidV4()
   players[0].votes = []
@@ -36,7 +36,7 @@ const postGame = async (req, res) => {
   }
 }
 
-const updateGame = async (req, res) => {
+const addPlayer = async (req, res) => {
   const gameId = req.params.gameId
   const newPlayer = req.body
   newPlayer.id = uuidV4()
@@ -52,13 +52,13 @@ const updateGame = async (req, res) => {
   }
 }
 
-const addCandidate = async (req, res) => {
+const addAnimal = async (req, res) => {
   const gameId = req.params.gameId
   const playerId = req.params.playerId
   const animal = req.body
   try {
     const game = await Game.findById(gameId)
-    const index = game.players.findIndex(player => player._id == playerId) //?
+    const index = game.players.findIndex(player => player._id == playerId)
     game.players[index].animal = animal
     await game.save()
     publish(game, "Adding candidate")
@@ -69,7 +69,7 @@ const addCandidate = async (req, res) => {
   }
 }
 
-const updateVotes = async (req, res) => {
+const addVotes = async (req, res) => {
   const gameId = req.params.gameId
   const playerId = req.params.playerId
   const votes = req.body
@@ -95,10 +95,10 @@ const getPlayers = async (req, res) => {
 
 const router = express.Router()
 
-router.post("/api/games", postGame)
-router.post("/api/games/:gameId/players", updateGame)
-router.post("/api/games/:gameId/players/:playerId/animal", addCandidate)
-router.post("/api/games/:gameId/players/:playerId/votes", updateVotes)
+router.post("/api/games", postInitialGame)
+router.post("/api/games/:gameId/players", addPlayer)
+router.post("/api/games/:gameId/players/:playerId/animal", addAnimal)
+router.post("/api/games/:gameId/players/:playerId/votes", addVotes)
 router.get("/api/games/:gameId/players", getPlayers)
 
 export default router // as GamesRoutes to server.js
