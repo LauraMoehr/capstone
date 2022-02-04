@@ -1,7 +1,7 @@
+import { publish } from "./players.routes.js"
+import { v4 as uuidV4 } from "uuid"
 import express from "express"
 import mongoose from "mongoose"
-import { v4 as uuidV4 } from "uuid"
-import { publish } from "./players.routes.js"
 
 const playerSchema = new mongoose.Schema({
   id: String,

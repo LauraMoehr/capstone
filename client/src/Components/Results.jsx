@@ -31,6 +31,6 @@ export default function Results({ game, sortedResults }) {
 
 const Large = styled.p`
   font-size: 1.2rem;
-  z-index: 999;
   padding-top: 15vh;
+  z-index: 999;
 `

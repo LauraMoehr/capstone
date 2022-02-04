@@ -26,23 +26,23 @@ export default function Enter({ onStartGame }) {
 }
 
 const Input = styled.input`
-  font-family: "Righteous", cursive;
-  color: var(--oliv-day);
   background-color: var(--beige-day);
   border: 1px solid var(--oliv-day);
+  color: var(--oliv-day);
+  font-family: "Righteous", cursive;
   padding: 0.3rem;
   &:focus {
     outline: none;
   }
 `
 const Button = styled.button`
-  font-family: "Righteous", cursive;
-  color: var(--olive-day);
   background-color: var(--beige-day);
-  border: 1px solid var(--oliv-day);
-  margin: 0.5rem;
-  cursor: pointer;
   border-radius: 5px;
+  border: 1px solid var(--oliv-day);
+  color: var(--olive-day);
+  cursor: pointer;
+  font-family: "Righteous", cursive;
+  margin: 0.5rem;
   padding: 0.2rem;
   transition: all 0.1s ease-in;
   &:active {

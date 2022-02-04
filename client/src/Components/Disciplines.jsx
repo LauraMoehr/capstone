@@ -1,5 +1,5 @@
-import ImageFile from "./ImageFile.jsx"
 import Header from "./Header"
+import ImageFile from "./ImageFile.jsx"
 import styled from "styled-components"
 
 export default function Disciplines({ disciplines }) {
@@ -28,15 +28,15 @@ const Grid = styled.div`
   overflow: scroll;
 `
 const CardStyle = styled.div`
-  margin: 0.5rem;
   background-color: var(--beige-day);
-  border: 1px solid var(--oliv-day);
-  padding: 0.2rem;
-  box-shadow: 4px 4px 5px var(--lightbrown-day);
   border-radius: 10px;
+  border: 1px solid var(--oliv-day);
+  box-shadow: 4px 4px 5px var(--lightbrown-day);
+  margin: 0.5rem;
+  padding: 0.2rem;
 `
 const Card = styled.img`
-  max-width: 50vw;
   height: 40vh;
   margin: 0;
+  max-width: 50vw;
 `

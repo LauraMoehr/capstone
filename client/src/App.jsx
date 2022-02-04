@@ -1,18 +1,18 @@
 import { NavLink, Routes, Route, useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
 import Animals from "./Components/Animals"
 import Disciplines from "./Components/Disciplines"
 import Enter from "./Components/Enter"
 import Game from "./Components/Game"
-import Info from "./Components/Info"
 import HomeImage from "./Components/HomeImage" //rhinos
+import iconAbout from "./Components/iconAbout.svg"
+import iconAnimals from "./Components/iconAnimals.svg"
+import iconDisciplines from "./Components/iconDisciplines.svg"
+import iconHome from "./Components/iconHome.svg"
+import iconJoin from "./Components/iconJoin.svg"
+import Info from "./Components/Info"
 import PickCandidate from "./Components/PickCandidate"
 import Results from "./Components/Results"
-import { useState, useEffect } from "react"
-import iconAnimals from "./Components/iconAnimals.svg"
-import iconHome from "./Components/iconHome.svg"
-import iconAbout from "./Components/iconAbout.svg"
-import iconDisciplines from "./Components/iconDisciplines.svg"
-import iconJoin from "./Components/iconJoin.svg"
 import styled from "styled-components"
 
 function App() {
@@ -262,48 +262,48 @@ export default App
 
 const NavFooter = styled.footer`
   background: var(--beige-day);
-  width: 100vw;
+  border-top: 5px solid var(--oliv-day);
+  bottom: 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   position: fixed;
-  bottom: 0;
-  border-top: 5px solid var(--oliv-day);
+  width: 100vw;
 `
 const Icon = styled.img`
-  display: flex;
-  justify-content: center;
   align-items: center;
-  height: 5vh;
-  width: 100%;
-  margin: 0.5rem 0;
   cursor: pointer;
+  display: flex;
+  height: 5vh;
+  justify-content: center;
+  margin: 0.5rem 0;
   transition: all 0.2s;
+  width: 100%;
   &:active {
     transform: translateY(4px);
   }
 `
 const IconRotate = styled.img`
-  display: flex;
-  justify-content: center;
   align-items: center;
-  height: 5vh;
-  width: 100%;
-  margin: 0.5rem 0;
   cursor: pointer;
+  display: flex;
+  height: 5vh;
+  justify-content: center;
+  margin: 0.5rem 0;
   transition: all 1s;
+  width: 100%;
   &:hover {
     transform: rotateZ(360deg);
   }
 `
 const IconHop = styled.img`
-  display: flex;
-  justify-content: center;
   align-items: center;
-  height: 5vh;
-  width: 100%;
-  margin: 0.5rem 0;
   cursor: pointer;
+  display: flex;
+  height: 5vh;
+  justify-content: center;
+  margin: 0.5rem 0;
   transition: all 1s;
+  width: 100%;
   &:hover {
     transform: translateY(-30px) rotateZ(360deg);
   }
