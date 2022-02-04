@@ -1,17 +1,21 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 export default function Header() {
   return (
     <>
       <H2Style>The Champion Of The Wild</H2Style>
     </>
-  )
+  );
 }
 
 const H2Style = styled.h2`
-  background: linear-gradient(0deg, rgba(251, 209, 160, 1) 0%, rgba(254, 219, 178, 1) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(251, 209, 160, 1) 0%,
+    rgba(254, 219, 178, 1) 100%
+  );
   color: var(--mediumbrown-day);
-  font-family: "Graduate", cursive;
+  font-family: 'Graduate', cursive;
   font-size: 1.4rem;
   font-weight: 700;
   margin-top: 0;
@@ -19,4 +23,4 @@ const H2Style = styled.h2`
   position: fixed;
   width: 100vw;
   z-index: 999;
-`
+`;

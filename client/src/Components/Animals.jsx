@@ -1,6 +1,6 @@
-import Header from "./Header"
-import ImageFile from "./ImageFile.jsx"
-import styled from "styled-components"
+import Header from './Header';
+import ImageFile from './ImageFile.jsx';
+import styled from 'styled-components';
 
 export default function Animals({ animals }) {
   return (
@@ -9,7 +9,7 @@ export default function Animals({ animals }) {
       <main>
         <h3>Animals</h3>
         <Grid>
-          {animals.map(animal => (
+          {animals.map((animal) => (
             <CardStyle key={animal._id}>
               <h4>{animal.name}</h4>
               <p>{animal.type}</p>
@@ -19,13 +19,13 @@ export default function Animals({ animals }) {
         </Grid>
       </main>
     </>
-  )
+  );
 }
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(20, 1fr);
   overflow: scroll;
-`
+`;
 const CardStyle = styled.div`
   background-color: var(--beige-day);
   border-radius: 10px;
@@ -33,9 +33,9 @@ const CardStyle = styled.div`
   box-shadow: 4px 4px 5px var(--lightbrown-day);
   margin: 0.5rem;
   padding: 0.2rem;
-`
+`;
 const Card = styled.img`
   height: 40vh;
   margin: 0;
   max-width: 50vw;
-`
+`;
