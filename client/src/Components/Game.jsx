@@ -40,7 +40,7 @@ export default function Game({ game, onSubmitVotes, self }) {
           </Small>
         )}
         {disciplines &&
-          disciplines.map((discipline) => (
+          disciplines.map((discipline, index) => (
             <VotingStyle>
               <summary>Discipline {index + 1}</summary>
               <CardVoting key={discipline._id}>
