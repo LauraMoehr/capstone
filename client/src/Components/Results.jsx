@@ -8,9 +8,11 @@ export default function Results({ game, sortedResults }) {
     if (index == 0) {
       return <Large key={index}>The {player.animal} won!🏆</Large>;
     } else if (index == 1) {
-      return <p key={index}>The {player.animal} was rated Second.</p>;
+      return <p key={index}>The {player.animal} was ranked second.</p>;
     } else {
-      return <p key={index}>The {player.animal} wasn't so lucky this time.</p>;
+      return (
+        <p key={index}>The {player.animal} wasn't really lucky this time.</p>
+      );
     }
   });
 

@@ -17,7 +17,7 @@ export default function PickCandidate({
         <h3>Welcome to the next round!</h3>
         {id && players?.length == 1 && (
           <Small>
-            Before picking an animal send this game's ID to your friends:
+            Before picking an animal send its ID to your friends:
             <br />
             <span data-testid="game-id">{id}</span>
           </Small>
@@ -33,21 +33,18 @@ export default function PickCandidate({
         {disciplines &&
           disciplines.map((discipline) => (
             <CardStyle key={discipline._id}>
-              <h4>{discipline.name}</h4>
-              <p>{discipline.type}</p>
-              <Card
-                src={ImageFile(discipline.name)}
-                alt={discipline.name}
-              ></Card>
+              <CardHeader>{discipline.name}</CardHeader>
+              <Image src={ImageFile(discipline.name)} alt={discipline.name} />
+              <CardText>{discipline.type}</CardText>
             </CardStyle>
           ))}
         <p>A few animals for you to choose from:</p>
         {animalsToChooseFrom &&
           animalsToChooseFrom.map((animal) => (
             <CardStyle key={animal._id}>
-              <h4>{animal.name}</h4>
-              <p>{animal.type}</p>
-              <Card src={ImageFile(animal.name)} alt={animal.name}></Card>
+              <CardHeader>{animal.name}</CardHeader>
+              <Image src={ImageFile(animal.name)} alt={animal.name} />
+              <CardText>{animal.type}</CardText>
             </CardStyle>
           ))}
         <form onSubmit={onPickCandidate}>
@@ -71,41 +68,56 @@ export default function PickCandidate({
   );
 }
 const CardStyle = styled.div`
-  background-color: var(--beige-day);
-  border-radius: 10px;
-  border: 1px solid var(--oliv-day);
-  box-shadow: 4px 4px 5px var(--lightbrown-day);
-  margin: 0.5rem 5rem;
-  max-height: 40vh;
-  max-width: 55vw;
+  margin: 0.5rem 20vw;
+  position: relative;
+  width: 60vw;
+`;
+const CardHeader = styled.h4`
+  font-size: 1.2rem;
+  margin-left: 1rem;
   padding: 0.2rem;
+  position: absolute;
+  text-shadow: -1px 0 var(--beige), 0 1px var(--beige), 1px 0 var(--beige),
+    0 -1px var(--beige);
+  z-index: 500;
 `;
-const Card = styled.img`
-  margin: 0;
-  max-height: 30vh;
-  max-width: 50vw;
-`;
-
-const Button = styled.button`
-  background-color: var(--beige-day);
+const CardText = styled.p`
+  background-color: rgba(254, 219, 178, 0.6);
   border-radius: 5px;
-  border: 1px solid var(--oliv-day);
-  color: var(--olive-day);
+  color: var(--darkbrown);
+  font-size: 0.8rem;
+  margin: -3rem 1rem 0 0.5rem;
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 500;
+`;
+const Image = styled.img`
+  border-radius: 10px;
+  box-shadow: 4px 4px 5px var(--mediumbrown);
+  height: auto;
+  margin: 0;
+  max-width: 60vw;
+`;
+const Button = styled.button`
+  background-color: var(--beige);
+  border-radius: 5px;
+  border: 1px solid var(--darkbrown);
+  color: var(--darkbrown);
   cursor: pointer;
   font-family: 'Righteous', cursive;
   margin: 0.3rem;
   padding: 0.2rem;
   transition: all 0.1s ease-in;
   &:active {
-    background-color: var(--lightbrown-day);
+    background-color: var(--lightbrown);
     transform: translateY(4px);
   }
 `;
 const Select = styled.select`
-  background-color: var(--beige-day);
+  background-color: var(--beige);
   border-radius: 5px;
-  border: 1px solid var(--oliv-day);
-  color: var(--oliv-day);
+  border: 1px solid var(--darkbrown);
+  color: var(--darkbrown);
   cursor: pointer;
   font-family: 'Righteous', sans-serif;
   margin: 0.3rem;

@@ -289,13 +289,14 @@ function App() {
 export default App;
 
 const NavFooter = styled.footer`
-  background: var(--beige-day);
-  border-top: 5px solid var(--oliv-day);
+  background: var(--beige);
+  border-top: 5px solid var(--darkbrown);
   bottom: 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   position: fixed;
   width: 100vw;
+  z-index: 700;
 `;
 const Icon = styled.img`
   align-items: center;
@@ -306,6 +307,7 @@ const Icon = styled.img`
   margin: 0.5rem 0;
   transition: all 0.2s;
   width: 100%;
+  z-index: 900;
   &:active {
     transform: translateY(4px);
   }
@@ -319,6 +321,7 @@ const IconRotate = styled.img`
   margin: 0.5rem 0;
   transition: all 1s;
   width: 100%;
+  z-index: 900;
   &:hover {
     transform: rotateZ(360deg);
   }
@@ -332,6 +335,7 @@ const IconHop = styled.img`
   margin: 0.5rem 0;
   transition: all 1s;
   width: 100%;
+  z-index: 999;
   &:hover {
     transform: translateY(-30px) rotateZ(360deg);
   }

@@ -14,7 +14,7 @@ const H2Style = styled.h2`
     rgba(251, 209, 160, 1) 0%,
     rgba(254, 219, 178, 1) 100%
   );
-  color: var(--mediumbrown-day);
+  color: var(--mediumbrown);
   font-family: 'Graduate', cursive;
   font-size: 1.4rem;
   font-weight: 700;

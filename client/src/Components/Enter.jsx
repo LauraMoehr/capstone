@@ -13,7 +13,7 @@ export default function Enter({ onStartGame }) {
           <br />
           <Small>
             To create a new game leave the field below empty - to join a game
-            please enter that round's ID.
+            please enter its ID.
           </Small>
           <Input type="text" name="gameId" />
           <br />
@@ -26,9 +26,9 @@ export default function Enter({ onStartGame }) {
 }
 
 const Input = styled.input`
-  background-color: var(--beige-day);
-  border: 1px solid var(--oliv-day);
-  color: var(--oliv-day);
+  background-color: var(--beige);
+  border: 1px solid var(--darkbrown);
+  color: var(--darkbrown);
   font-family: 'Righteous', cursive;
   padding: 0.3rem;
   &:focus {
@@ -36,17 +36,17 @@ const Input = styled.input`
   }
 `;
 const Button = styled.button`
-  background-color: var(--beige-day);
+  background-color: var(--beige);
   border-radius: 5px;
-  border: 1px solid var(--oliv-day);
-  color: var(--olive-day);
+  border: 1px solid var(--darkbrown);
+  color: var(--darkbrown);
   cursor: pointer;
   font-family: 'Righteous', cursive;
   margin: 0.5rem;
   padding: 0.2rem;
   transition: all 0.1s ease-in;
   &:active {
-    background-color: var(--lightbrown-day);
+    background-color: var(--lightbrown);
     transform: translateY(4px);
   }
 `;

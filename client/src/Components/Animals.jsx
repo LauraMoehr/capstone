@@ -11,9 +11,9 @@ export default function Animals({ animals }) {
         <Grid>
           {animals.map((animal) => (
             <CardStyle key={animal._id}>
-              <h4>{animal.name}</h4>
-              <p>{animal.type}</p>
-              <Card src={ImageFile(animal.name)} alt={animal.name}></Card>
+              <CardHeader>{animal.name}</CardHeader>
+              <Image src={ImageFile(animal.name)} alt={animal.name} />
+              <CardText>{animal.type}</CardText>
             </CardStyle>
           ))}
         </Grid>
@@ -27,15 +27,32 @@ const Grid = styled.div`
   overflow: scroll;
 `;
 const CardStyle = styled.div`
-  background-color: var(--beige-day);
-  border-radius: 10px;
-  border: 1px solid var(--oliv-day);
-  box-shadow: 4px 4px 5px var(--lightbrown-day);
   margin: 0.5rem;
-  padding: 0.2rem;
+  position: relative;
 `;
-const Card = styled.img`
-  height: 40vh;
+const CardHeader = styled.h4`
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  padding: 0.2rem;
+  position: absolute;
+  text-shadow: -1px 0 var(--beige), 0 1px var(--beige), 1px 0 var(--beige),
+    0 -1px var(--beige);
+  z-index: 500;
+`;
+const CardText = styled.p`
+  background-color: rgba(254, 219, 178, 0.6);
+  border-radius: 5px;
+  color: var(--darkbrown);
+  font-size: 0.8rem;
+  margin: -3rem 1rem 0 0.5rem;
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 500;
+`;
+const Image = styled.img`
+  border-radius: 10px;
+  box-shadow: 4px 4px 5px var(--mediumbrown);
+  height: auto;
   margin: 0;
-  max-width: 50vw;
+  max-width: 60vw;
 `;
