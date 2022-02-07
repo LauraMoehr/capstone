@@ -5,10 +5,10 @@ export default createGlobalStyle`
     box-sizing: border-box;
 }
 :root {
-    --beige-day: #FEDBB2;
-    --lightbrown-day: #EC9836;
-    --mediumbrown-day: #C36B1C;
-    --oliv-day: #745E0F;
+    --beige: #FEDBB2;
+    --lightbrown: #EC9836;
+    --mediumbrown: #C36B1C;
+    --darkbrown: #8d4718;
 }
 body {
     margin: 0;
@@ -16,7 +16,7 @@ body {
 .App {
     background: linear-gradient(0deg, rgba(236,152,54,1) 25%, rgba(251,209,160,1) 90%, rgba(254,219,178,1) 100%);
     background-attachment: fixed;
-    color: var(--oliv-day);
+    color: var(--darkbrown);
     font-family: 'Righteous', cursive;
     font-weight: 100;
     min-height: 100vh;
@@ -33,6 +33,9 @@ h3, h4 {
     font-weight: 500;
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
+}
+h3 {
+    padding-bottom: 2rem;
 }
 p {
     margin-bottom: 0.5rem;
