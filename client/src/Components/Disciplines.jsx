@@ -8,7 +8,7 @@ export default function Disciplines({ disciplines }) {
       <Header />
       <main>
         <h3>Disciplines</h3>
-        <Grid>
+        <>
           {disciplines.map((discipline) => (
             <CardStyle key={discipline._id}>
               <CardHeader>{discipline.name}</CardHeader>
@@ -16,18 +16,14 @@ export default function Disciplines({ disciplines }) {
               <CardText>{discipline.type}</CardText>
             </CardStyle>
           ))}
-        </Grid>
+        </>
       </main>
     </>
   );
 }
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  overflow: scroll;
-`;
 const CardStyle = styled.div`
-  margin: 0.5rem;
+  margin: 0.5rem auto;
+  max-width: 70vw;
   position: relative;
 `;
 const CardHeader = styled.h4`
@@ -54,5 +50,5 @@ const Image = styled.img`
   box-shadow: 4px 4px 5px var(--mediumbrown);
   height: auto;
   margin: 0;
-  max-width: 60vw;
+  max-width: 70vw;
 `;

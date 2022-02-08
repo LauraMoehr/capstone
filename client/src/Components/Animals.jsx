@@ -8,7 +8,7 @@ export default function Animals({ animals }) {
       <Header />
       <main>
         <h3>Animals</h3>
-        <Grid>
+        <>
           {animals.map((animal) => (
             <CardStyle key={animal._id}>
               <CardHeader>{animal.name}</CardHeader>
@@ -16,18 +16,14 @@ export default function Animals({ animals }) {
               <CardText>{animal.type}</CardText>
             </CardStyle>
           ))}
-        </Grid>
+        </>
       </main>
     </>
   );
 }
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  overflow: scroll;
-`;
 const CardStyle = styled.div`
-  margin: 0.5rem;
+  margin: 0.5rem auto;
+  max-width: 70vw;
   position: relative;
 `;
 const CardHeader = styled.h4`
@@ -54,5 +50,5 @@ const Image = styled.img`
   box-shadow: 4px 4px 5px var(--mediumbrown);
   height: auto;
   margin: 0;
-  max-width: 60vw;
+  max-width: 70vw;
 `;

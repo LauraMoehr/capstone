@@ -10,6 +10,7 @@ export default function HomeImage() {
 }
 const H1Style = styled.h1`
   background-image: url(${rhinos});
+  background-position: 80%;
   background-repeat: no-repeat;
   background-size: cover;
   color: var(--mediumbrown);
