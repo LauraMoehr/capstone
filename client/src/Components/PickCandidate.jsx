@@ -17,7 +17,7 @@ export default function PickCandidate({
         <h3>Welcome to the next round!</h3>
         {id && players?.length == 1 && (
           <Small>
-            Before picking an animal send its ID to your friends:
+            Before picking an animal send this round's ID to your friends:
             <br />
             <span data-testid="game-id">{id}</span>
           </Small>
