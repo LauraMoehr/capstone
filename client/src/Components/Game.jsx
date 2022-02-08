@@ -160,6 +160,7 @@ const Input = styled.input`
   font-family: 'Righteous', cursive;
   margin: 0.2rem;
   padding: 0.3rem;
+  width: 30vw;
   &:focus {
     outline: none;
   }
