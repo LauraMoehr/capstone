@@ -48,12 +48,6 @@ export default function PickCandidate({
             </CardStyle>
           ))}
         <form onSubmit={onPickCandidate}>
-          {/* {animalsToChooseFrom &&
-            animalsToChooseFrom.map((option) => (
-              <Button type="submit" key={option._id} value={option.name}>
-                {option.name}
-              </Button>
-            ))} */}
           <Select name="candidate" required>
             {' '}
             <option hidden value="">
